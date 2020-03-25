@@ -3,7 +3,11 @@ import './styles/index.scss';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import {
+    App
+} from './components'
+
 ReactDOM.render(
-    <h5>hello world</h5>, 
+    <App />, 
     document.getElementById('root')
 );
