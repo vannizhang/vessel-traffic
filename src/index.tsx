@@ -5,9 +5,17 @@ import * as ReactDOM from 'react-dom';
 
 import {
     App
-} from './components'
+} from './components';
+
+import {
+    AppContextProvider
+} from './contexts/AppContextProvider';
 
 ReactDOM.render(
-    <App />, 
+    (
+        <AppContextProvider>
+            <App />
+        </AppContextProvider>
+    ), 
     document.getElementById('root')
 );
