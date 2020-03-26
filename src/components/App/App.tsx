@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import {
-    MapView
+    MapView,
+    ShipTrafficLayer
 } from '../';
 
 import AppConfig from '../../AppConfig';
@@ -12,7 +13,9 @@ const App:React.FC = ()=>{
         <>
             <MapView 
                 webmapId={AppConfig.WebMapID}
-            />
+            >
+                <ShipTrafficLayer />
+            </MapView>
         </>
     );
 };
