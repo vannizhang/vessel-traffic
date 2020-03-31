@@ -36,7 +36,7 @@ const LayerList:React.FC = ()=>{
                         'padding': '.25rem .45rem',
                         // 'margin': '.25rem',
                         // 'background': "#fff",
-                        'color': '#fff', //sublayer === visibleSubLayer ? '#fff' : '#333',
+                        'color': sublayer === visibleSubLayer ? '#fff' : 'rgba(255,255,255,.65)',
                         'borderBottom': `3px solid ${sublayer === visibleSubLayer ? fillColor : 'rgba(255,255,255,.5)'}`,
                         'cursor': 'pointer',
                         'boxSizing': 'border-box',
