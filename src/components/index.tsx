@@ -5,3 +5,5 @@ export { default as MapView } from './MapView/MapView';
 export { default as ShipTrafficLayer } from './ShipTrafficLayer/ShipTrafficLayer';
 
 export { default as LayerList } from './LayerList/LayerList';
+
+export { default as TimeSlider } from './TimeSlider/TimeSlider';

@@ -8,6 +8,9 @@ import {
 interface ContextProps {
     visibleSubLayer: ShipTrafficSubLayerName;
     setVisibleSubLayer: (subLayerName:ShipTrafficSubLayerName)=>void;
+
+    activeDate: Date;
+    setActiveDate: (activeDate:Date)=>void;
 };
 
 interface AppContextProviderProps {};
@@ -20,9 +23,13 @@ export const AppContextProvider:React.FC<AppContextProviderProps> = ({
 
     const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>('Passenger');
 
+    const [ activeDate, setActiveDate ] = React.useState<Date>();
+
     const value = {
         visibleSubLayer,
-        setVisibleSubLayer
+        setVisibleSubLayer,
+        activeDate,
+        setActiveDate
     };
 
     return (

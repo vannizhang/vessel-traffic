@@ -3,10 +3,15 @@ import * as React from 'react';
 import {
     MapView,
     ShipTrafficLayer,
-    LayerList
+    LayerList,
+    TimeSlider
 } from '../';
 
 import AppConfig from '../../AppConfig';
+
+// import {
+//     ShipTrafficLayersData
+// } from '../ShipTrafficLayer/data';
 
 const App:React.FC = ()=>{
 
@@ -16,6 +21,9 @@ const App:React.FC = ()=>{
                 webmapId={AppConfig.WebMapID}
             >
                 <ShipTrafficLayer />
+
+                <TimeSlider
+                />
             </MapView>
 
             <div style={{
@@ -24,8 +32,18 @@ const App:React.FC = ()=>{
                 'right': '1rem',
                 // 'background': '#fff'
             }}>
+                
                 <LayerList />
             </div>
+
+            <div id='timeSliderDiv'
+                style={{
+                    'position': 'absolute',
+                    'bottom': '40px',
+                    'left': '20px',
+                    'width': '1000px'
+                }}
+            ></div>
         </>
     );
 };

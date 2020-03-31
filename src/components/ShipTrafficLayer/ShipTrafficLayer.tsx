@@ -52,7 +52,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
     mapView
 })=>{
 
-    const { visibleSubLayer } = React.useContext(AppContext);
+    const { visibleSubLayer, activeDate } = React.useContext(AppContext);
 
     const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
 
@@ -132,7 +132,12 @@ const ShipTrafficLayer:React.FC<Props> = ({
                 'esri/layers/VectorTileLayer'
             ]) as Promise<Modules>);
 
-            const layerInfo = ShipTrafficLayersData[0];
+            const activeYear = activeDate.getFullYear();
+            const activeMonth = activeDate.getMonth() + 1;
+
+            const layerInfo = ShipTrafficLayersData.filter(d=>{
+                return d.Year === activeYear && d.Month === activeMonth;
+            })[0];
 
             const style = getStyle(layerInfo);
 
@@ -150,20 +155,12 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
     React.useEffect(()=>{
 
-        if(mapView){
-            addLayer();
-        }
-
-    }, [ mapView ]);
-
-    React.useEffect(()=>{
-
-        if(mapView){
+        if(mapView && visibleSubLayer && activeDate){
             // console.log('visible sub layer on change', visibleSubLayer);
             addLayer();
         }
 
-    }, [ visibleSubLayer ]);
+    }, [ visibleSubLayer, activeDate ]);
 
     return null;
 };
