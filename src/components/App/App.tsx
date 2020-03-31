@@ -15,47 +15,64 @@ import AppConfig from '../../AppConfig';
 
 const App:React.FC = ()=>{
 
+    const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
+
     return (
         <>
-            <MapView 
-                webmapId={AppConfig.WebMapID}
-            >
-                <ShipTrafficLayer />
+            <div style={{
+                'position': 'absolute',
+                'top': '0',
+                'bottom': '0',
+                'left': '0',
+                'right': '0'
+            }}>
+                
+                <MapView 
+                    webmapId={AppConfig.WebMapID}
+                    paddingRight={sideBarVisible ? AppConfig.SideBarWidth : 0}
+                >
+                    <ShipTrafficLayer />
 
-                <TimeSlider
-                />
-            </MapView>
+                    <TimeSlider
+                    />
+                </MapView>
+
+                <div style={{
+                    'position': 'absolute',
+                    'bottom': '30px',
+                    'left': '0',
+                    'right': sideBarVisible ? AppConfig.SideBarWidth : 0,
+                    'display': 'flex',
+                    'justifyContent': 'center'
+                }}>
+                    <div id='timeSliderDiv'
+                        style={{
+                            'width': '1000px'
+                        }}
+                    ></div>
+                </div>
+
+            </div>
+
 
             <div style={{
                 'position': 'absolute',
-                'top': '1rem',
-                'right': '1rem',
-                'padding': '1rem 1.5rem',
-                'background': 'rgba(0,0,0,.8)',
+                'display': sideBarVisible ? 'block' : 'none',
+                'top': '0',
+                'right': '0',
+                'padding': '1.5rem',
+                'width': AppConfig.SideBarWidth,
+                'height': '100%',
+                'background': 'rgba(0,0,0,.85)',
                 'color': '#efefef',
                 'boxShadow': '0 1px 2px rgba(0, 0, 0, 0.3)',
                 'boxSizing': 'border-box'
             }}>
                 <div>
-                    <h4>U.S. Marine Vessel Traffic</h4>
+                    <h4>U.S. Marine Ship Traffic</h4>
                 </div>
-                <LayerList />
-            </div>
 
-            <div style={{
-                'position': 'absolute',
-                'bottom': '30px',
-                'left': '0',
-                'right': '0',
-                'display': 'flex',
-                'justifyContent': 'center',
-                // 'pointerEvents': 'none'
-            }}>
-                <div id='timeSliderDiv'
-                    style={{
-                        'width': '1000px'
-                    }}
-                ></div>
+                <LayerList />
             </div>
 
         </>

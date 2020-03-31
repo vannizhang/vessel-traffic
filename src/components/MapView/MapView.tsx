@@ -6,10 +6,12 @@ import IWebMap from "esri/WebMap";
 
 interface Props {
     webmapId: string;
+    paddingRight: number;
 };
 
 const MapView:React.FC<Props> = ({
     webmapId,
+    paddingRight = 0,
     children
 })=>{
 
@@ -37,6 +39,9 @@ const MapView:React.FC<Props> = ({
                         id: webmapId
                     }  
                 }),
+                padding: {
+                    right: paddingRight
+                }
             });
 
             view.when(()=>{
@@ -58,8 +63,8 @@ const MapView:React.FC<Props> = ({
             <div 
                 style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    top: '0',
+                    left: '0',
                     width: '100%',
                     height: '100%',
                 }}
