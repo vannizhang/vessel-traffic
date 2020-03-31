@@ -32,17 +32,19 @@ const LayerList:React.FC = ()=>{
                 <div 
                     key={`layer-list-${index}`}
                     style={{
-                        'width': '250px',
-                        'padding': '.5rem',
-                        'background': sublayer === visibleSubLayer ? '#000' : '#efefef',
-                        'color': sublayer === visibleSubLayer ? '#fff' : '#333',
-                        'borderLeft': `5px solid ${fillColor}`,
+                        // 'width': '150px',
+                        'padding': '.25rem .45rem',
+                        // 'margin': '.25rem',
+                        // 'background': "#fff",
+                        'color': '#fff', //sublayer === visibleSubLayer ? '#fff' : '#333',
+                        'borderBottom': `3px solid ${sublayer === visibleSubLayer ? fillColor : 'rgba(255,255,255,.5)'}`,
                         'cursor': 'pointer',
-                        'boxSizing': 'border-box'
+                        'boxSizing': 'border-box',
+                        // 'opacity': sublayer === visibleSubLayer ? 1 : .75
                     }}
                     onClick={setVisibleSubLayer.bind(this, sublayer)}
                 >
-                    <span className='font-size--2'>{sublayer}</span>
+                    <span className='font-size--3'>{sublayer}</span>
                 </div>
             );
 
@@ -54,9 +56,11 @@ const LayerList:React.FC = ()=>{
 
     return (
         <div
-            // style={{
-            //     'display': 'flex'
-            // }}
+            style={{
+                'display': 'flex',
+                // 'flexWrap': 'wrap',
+                // 'width': '300px'
+            }}
         >
             { getList() }
         </div>
