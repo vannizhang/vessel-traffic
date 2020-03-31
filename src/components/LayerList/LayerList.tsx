@@ -32,14 +32,18 @@ const LayerList:React.FC = ()=>{
                 <div 
                     key={`layer-list-${index}`}
                     style={{
+                        'width': '250px',
                         'padding': '.5rem',
-                        'background': sublayer === visibleSubLayer ? '#000' : 'none',
+                        'background': sublayer === visibleSubLayer ? '#000' : '#efefef',
                         'color': sublayer === visibleSubLayer ? '#fff' : '#333',
                         'borderLeft': `5px solid ${fillColor}`,
-                        'cursor': 'pointer'
+                        'cursor': 'pointer',
+                        'boxSizing': 'border-box'
                     }}
                     onClick={setVisibleSubLayer.bind(this, sublayer)}
-                >{sublayer}</div>
+                >
+                    <span className='font-size--2'>{sublayer}</span>
+                </div>
             );
 
         });
@@ -49,7 +53,13 @@ const LayerList:React.FC = ()=>{
     };
 
     return (
-        <div>{getList()}</div>
+        <div
+            // style={{
+            //     'display': 'flex'
+            // }}
+        >
+            { getList() }
+        </div>
     );
 };
 

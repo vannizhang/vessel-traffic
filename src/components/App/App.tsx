@@ -22,7 +22,7 @@ const App:React.FC = ()=>{
                 'position': 'absolute',
                 'top': '1rem',
                 'right': '1rem',
-                'background': '#fff'
+                // 'background': '#fff'
             }}>
                 <LayerList />
             </div>
