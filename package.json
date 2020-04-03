@@ -47,6 +47,7 @@
     "axios": "^0.19.2",
     "calcite-web": "github:Esri/calcite-web#v1.2.5",
     "esri-loader": "^2.13.0",
+    "helper-toolkit-ts": "^1.1.10",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }
