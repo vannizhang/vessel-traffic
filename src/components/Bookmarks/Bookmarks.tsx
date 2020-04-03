@@ -1,7 +1,12 @@
+import './style.scss';
 import * as React from 'react';
 import axios from 'axios';
 
 import AppConfig from '../../AppConfig';
+
+interface Props {
+    onSelect: (d:BookmarkData)=>void;
+}
 
 interface BookmarkFeature {
     attributes: {
@@ -12,14 +17,16 @@ interface BookmarkFeature {
     }
 }
 
-interface BookmarkData {
+export interface BookmarkData {
     name: string;
     lat: number;
     lon: number;
     zoom: number;
 }
 
-const Bookmarks:React.FC = ()=>{
+const Bookmarks:React.FC<Props> = ({
+    onSelect
+})=>{
 
     const [ bookmarkData, setBookmarkData ] = React.useState<BookmarkData[]>([])
 
@@ -60,11 +67,13 @@ const Bookmarks:React.FC = ()=>{
             return (
                 <div
                     key={`bookmark-${index}`}
+                    className='bookmark'
                     style={{
-
+                        'cursor': 'pointer'
                     }}
+                    onClick={onSelect.bind(this, d)}
                 >
-                    <span className='text-white'>{name}</span>
+                    <span className='text-white font-size--2'>{name}</span>
                 </div>
             );
         })
@@ -76,7 +85,7 @@ const Bookmarks:React.FC = ()=>{
 
     return (
         <div>
-            <h5 className='text-white'>Bookmarks</h5>
+            <h5 className='text-light-gray font-size--1 avenir-demi trailer-quarter'>Points of Interest</h5>
             { getBookmarks() }
         </div>
     )

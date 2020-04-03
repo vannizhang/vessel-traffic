@@ -8,11 +8,15 @@ import {
     Bookmarks
 } from '../';
 
+import { BookmarkData } from '../Bookmarks/Bookmarks';
+
 import AppConfig from '../../AppConfig';
 
 const App:React.FC = ()=>{
 
     const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
+
+    const [ selectedBookmark, setSelectedBookmark ] = React.useState<BookmarkData>();
 
     return (
         <>
@@ -27,11 +31,11 @@ const App:React.FC = ()=>{
                 <MapView 
                     webmapId={AppConfig.WebMapID}
                     paddingRight={sideBarVisible ? AppConfig.SideBarWidth : 0}
+                    bookmark={selectedBookmark}
                 >
                     <ShipTrafficLayer />
 
-                    <TimeSlider
-                    />
+                    <TimeSlider/>
                 </MapView>
 
                 <div style={{
@@ -60,7 +64,7 @@ const App:React.FC = ()=>{
                 'padding': '1.5rem',
                 'width': AppConfig.SideBarWidth,
                 'height': '100%',
-                'background': 'rgba(0,0,0,.85)',
+                'background': 'rgba(0,0,0,.8)',
                 'color': '#efefef',
                 'boxShadow': '0 1px 2px rgba(0, 0, 0, 0.3)',
                 'boxSizing': 'border-box'
@@ -71,7 +75,14 @@ const App:React.FC = ()=>{
 
                 <LayerList />
 
-                <Bookmarks />
+                <div className='leader-1'>
+                    <Bookmarks 
+                        onSelect={(bookmark:BookmarkData)=>{
+                            setSelectedBookmark(bookmark);
+                        }}
+                    />
+                </div>
+                
             </div>
 
         </>

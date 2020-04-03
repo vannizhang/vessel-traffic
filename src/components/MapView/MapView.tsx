@@ -4,14 +4,18 @@ import { loadModules, loadCss } from 'esri-loader';
 import IMapView from 'esri/views/MapView';
 import IWebMap from "esri/WebMap";
 
+import { BookmarkData } from '../Bookmarks/Bookmarks';
+
 interface Props {
     webmapId: string;
-    paddingRight: number;
+    paddingRight?: number;
+    bookmark?: BookmarkData;
 };
 
 const MapView:React.FC<Props> = ({
     webmapId,
     paddingRight = 0,
+    bookmark,
     children
 })=>{
 
@@ -53,10 +57,27 @@ const MapView:React.FC<Props> = ({
         }
     };
 
+    const go2bookmark = async()=>{
+
+        const { lat, lon, zoom } = bookmark;
+
+        mapView.goTo({
+            target: [lon, lat],
+            zoom
+        });
+
+    };
+
     React.useEffect(()=>{
         loadCss();
         initMapView();
     }, []);
+
+    React.useEffect(()=>{
+        if(mapView && bookmark){
+            go2bookmark();
+        }
+    }, [ bookmark ])
 
     return (
         <>

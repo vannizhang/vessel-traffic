@@ -46,13 +46,13 @@ const LayerList:React.FC = ()=>{
                         <span className='font-size--1 avenir-demi'>{sublayer}</span>
                     </div>
                     
-                    {
+                    {/* {
                         sublayer === visibleSubLayer ? (
                             <div className='leader-quarter trailer-quarter'>
                                 <span className='font-size--3'>Maybe a short description like Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
                             </div>
                         ) : null
-                    }
+                    } */}
                 </div>
             );
 
