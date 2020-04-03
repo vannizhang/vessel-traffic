@@ -4,14 +4,11 @@ import {
     MapView,
     ShipTrafficLayer,
     LayerList,
-    TimeSlider
+    TimeSlider,
+    Bookmarks
 } from '../';
 
 import AppConfig from '../../AppConfig';
-
-// import {
-//     ShipTrafficLayersData
-// } from '../ShipTrafficLayer/data';
 
 const App:React.FC = ()=>{
 
@@ -73,6 +70,8 @@ const App:React.FC = ()=>{
                 </div>
 
                 <LayerList />
+
+                <Bookmarks />
             </div>
 
         </>
