@@ -3,8 +3,13 @@ import * as React from 'react';
 import { loadModules, loadCss } from 'esri-loader';
 import IMapView from 'esri/views/MapView';
 import IWebMap from "esri/WebMap";
+import IwatchUtils from 'esri/core/watchUtils';
 
 import { BookmarkData } from '../Bookmarks/Bookmarks';
+
+import {
+    AppContext
+} from '../../contexts/AppContextProvider';
 
 interface Props {
     webmapId: string;
@@ -20,6 +25,8 @@ const MapView:React.FC<Props> = ({
 })=>{
 
     const mapDivRef = React.useRef<HTMLDivElement>();
+
+    const { mapCenterLocation, setMapCenterLocation } = React.useContext(AppContext);
 
     const [ mapView, setMapView] = React.useState<IMapView>(null);
 
@@ -45,7 +52,9 @@ const MapView:React.FC<Props> = ({
                 }),
                 padding: {
                     right: paddingRight
-                }
+                },
+                center: mapCenterLocation ? [ mapCenterLocation.lon, mapCenterLocation.lat ] : undefined,
+                zoom: mapCenterLocation ? mapCenterLocation.zoom : undefined
             });
 
             view.when(()=>{
@@ -68,10 +77,41 @@ const MapView:React.FC<Props> = ({
 
     };
 
+    const addWatchEvent = async()=>{
+        type Modules = [typeof IwatchUtils];
+
+        try {
+            const [ 
+                watchUtils 
+            ] = await (loadModules([
+                'esri/core/watchUtils'
+            ]) as Promise<Modules>);
+
+            watchUtils.whenTrue(mapView, 'stationary', ()=>{
+                // console.log('mapview is stationary', mapView.center, mapView.zoom);
+
+                setMapCenterLocation({
+                    lat: +mapView.center.latitude.toFixed(3),
+                    lon: +mapView.center.longitude.toFixed(3),
+                    zoom: mapView.zoom
+                });
+            });
+
+        } catch(err){   
+            console.error(err);
+        }
+    };
+
     React.useEffect(()=>{
         loadCss();
         initMapView();
     }, []);
+
+    React.useEffect(()=>{
+        if(mapView){
+            addWatchEvent();
+        }
+    }, [ mapView ])
 
     React.useEffect(()=>{
         if(mapView && bookmark){
