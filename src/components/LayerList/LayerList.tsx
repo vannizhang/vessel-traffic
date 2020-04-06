@@ -9,9 +9,34 @@ import {
     AppContext
 } from '../../contexts/AppContextProvider';
 
+import AppConfig from '../../AppConfig';
+
+import MilitaryIcon from '../../static/Military.png';
+import CargoIcon from '../../static/Cargo.png';
+import FishingIcon from '../../static/Fishing.png';
+import PassengerIcon from '../../static/Passenger.png';
+import PleasureIcon from '../../static/Pleasure.png';
+import TankerIcon from '../../static/Tanker.png';
+import TowIcon from '../../static/Tow.png';
+
 const LayerList:React.FC = ()=>{
 
     const { visibleSubLayer, setVisibleSubLayer } = React.useContext(AppContext);
+
+    const getIcon = (layerName:ShipTrafficSubLayerName)=>{
+        const lookup = {
+            'Cargo': CargoIcon, 
+            'Fishing': FishingIcon, 
+            'Military': MilitaryIcon, 
+            'Passenger': PassengerIcon, 
+            'Pleasure': PleasureIcon, 
+            'Tanker': TankerIcon, 
+            'Tow': TowIcon, 
+            'Other': ''
+        };
+
+        return lookup[layerName];
+    }
 
     const getList = ()=>{
 
@@ -23,7 +48,7 @@ const LayerList:React.FC = ()=>{
             'Pleasure', 
             'Tanker', 
             'Tow', 
-            'Other'
+            // 'Other'
         ].map((sublayer:ShipTrafficSubLayerName, index) =>{
 
             const fillColor = ShipTrafficSubLayerStyles[sublayer]["line-color"];
@@ -42,17 +67,34 @@ const LayerList:React.FC = ()=>{
                     }}
                     onClick={setVisibleSubLayer.bind(this, sublayer)}
                 >
-                    <div>
+                    <div
+                        style={{
+                            'display': 'flex',
+                            'justifyItems': 'center'
+                        }}
+                    >
+                        <div
+                            style={{
+                                'width': '25px',
+                                'height': '25px',
+                                'background': `url(${getIcon(sublayer)}) center center no-repeat`,
+                                'backgroundSize': 'cover',
+                                'filter': 'invert(1)',
+                                'marginRight': '.4rem'
+                            }}
+                        ></div>
+
                         <span className='font-size--1 avenir-demi'>{sublayer}</span>
                     </div>
-                    
-                    {/* {
-                        sublayer === visibleSubLayer ? (
+
+                    {
+                        sublayer === visibleSubLayer && 
+                        AppConfig['Vessel_Descriptions'][sublayer] ? (
                             <div className='leader-quarter trailer-quarter'>
-                                <span className='font-size--3'>Maybe a short description like Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                <span className='font-size--3'>{ AppConfig['Vessel_Descriptions'][sublayer] } </span>
                             </div>
                         ) : null
-                    } */}
+                    }
                 </div>
             );
 
