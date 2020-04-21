@@ -1,5 +1,5 @@
 export default {
-    'WebMapID': '420fcfe5072e454897430380019f17cb',
+    'WebMapID': '0b11c274bb9b4229a117fddbb0d7589b',
     'SideBarWidth': 400,
     'BookmarkLayerUrl': 'https://services.arcgis.com/bDAhvQYMG4WL8O5o/arcgis/rest/services/AIS_Bookmarks/FeatureServer/0',
 
