@@ -42,7 +42,7 @@ const TimeSlider:React.FC<Props> = ({
                 view: mapView,
                 fullTimeExtent: {
                     start: new Date(2017, 0, 1),
-                    end: new Date(2017, 11, 1)
+                    end: new Date(2018, 11, 1)
                 },
                 mode: 'instant',
                 stops: {

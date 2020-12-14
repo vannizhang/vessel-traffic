@@ -138,8 +138,10 @@ const ShipTrafficLayer:React.FC<Props> = ({
             const layerInfo = ShipTrafficLayersData.filter(d=>{
                 return d.Year === activeYear && d.Month === activeMonth;
             })[0];
+            // console.log(layerInfo)
 
             const style = getStyle(layerInfo);
+            // console.log(style)
 
             const layer = new VectorTileLayer({
                 url: layerInfo.Service_URL,
