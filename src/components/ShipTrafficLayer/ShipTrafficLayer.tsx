@@ -6,7 +6,7 @@ import {
     AppContext
 } from '../../contexts/AppContextProvider';
 
-import { ShipTrafficLayersData, ShipTrafficLayerInfo } from './data';
+import { getLayerDataByDate, ShipTrafficLayerInfo } from './data';
 
 import IMapView from 'esri/views/MapView';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
@@ -132,13 +132,15 @@ const ShipTrafficLayer:React.FC<Props> = ({
                 'esri/layers/VectorTileLayer'
             ]) as Promise<Modules>);
 
-            const activeYear = activeDate.getFullYear();
-            const activeMonth = activeDate.getMonth() + 1;
+            // const activeYear = activeDate.getFullYear();
+            // const activeMonth = activeDate.getMonth() + 1;
 
-            const layerInfo = ShipTrafficLayersData.filter(d=>{
-                return d.Year === activeYear && d.Month === activeMonth;
-            })[0];
+            // ShipTrafficLayersData.filter(d=>{
+            //     return d.Year === activeYear && d.Month === activeMonth;
+            // })[0];
             // console.log(layerInfo)
+
+            const layerInfo = getLayerDataByDate(activeDate);
 
             const style = getStyle(layerInfo);
             // console.log(style)

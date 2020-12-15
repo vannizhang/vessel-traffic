@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
     MapView,
     ShipTrafficLayer,
+    ShipTrafficLayerQueryTask,
     LayerList,
     TimeSlider,
     Bookmarks
@@ -11,12 +12,15 @@ import {
 import { BookmarkData } from '../Bookmarks/Bookmarks';
 
 import AppConfig from '../../AppConfig';
+import { ShipTrafficFeature } from '../../types';
 
 const App:React.FC = ()=>{
 
     const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
 
     const [ selectedBookmark, setSelectedBookmark ] = React.useState<BookmarkData>();
+
+    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>()
 
     return (
         <>
@@ -33,6 +37,10 @@ const App:React.FC = ()=>{
                     paddingRight={sideBarVisible ? AppConfig.SideBarWidth : 0}
                     bookmark={selectedBookmark}
                 >
+                    <ShipTrafficLayerQueryTask 
+                        onSelect={setShipLayerQueryResult}
+                    />
+                    
                     <ShipTrafficLayer />
 
                     <TimeSlider/>

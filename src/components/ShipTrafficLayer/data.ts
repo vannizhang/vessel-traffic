@@ -1,13 +1,13 @@
 export type ShipTrafficLayerInfo = {
-    Month: number;
-    Year: number;
-    Layer_Name: string;
-    ArcGIS_Online_Item_ID: string;
-    Service_URL: string;
-    Feature_Service: string;
+  Month: number;
+  Year: number;
+  Layer_Name: string;
+  ArcGIS_Online_Item_ID: string;
+  Service_URL: string;
+  Feature_Service: string;
 }
 
-export const ShipTrafficLayersData: ShipTrafficLayerInfo[] = [
+const ShipTrafficLayersData: ShipTrafficLayerInfo[] = [
     {
       "Month": 1,
       "Year": 2017,
@@ -201,3 +201,19 @@ export const ShipTrafficLayersData: ShipTrafficLayerInfo[] = [
 	    "Feature_Service":"https://oceans6dev.arcgis.com/arcgis/rest/services/AIS/2018VesselTraffic/FeatureServer/11"
     }
 ];
+
+export const getLayerDataByDate = (date:Date):ShipTrafficLayerInfo=>{
+
+    if(!date){
+      return null
+    }
+  
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    const layerInfo = ShipTrafficLayersData.filter(d=>{
+        return d.Year === year && d.Month === month;
+    })[0];
+
+    return layerInfo;
+}
