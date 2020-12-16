@@ -4,15 +4,17 @@ import {
     MapView,
     ShipTrafficLayer,
     ShipTrafficLayerQueryTask,
+    ShipTrafficLayerQueryResult,
     LayerList,
     TimeSlider,
-    Bookmarks
+    Bookmarks,
+    ShipInfoWindow
 } from '../';
 
 import { BookmarkData } from '../Bookmarks/Bookmarks';
 
 import AppConfig from '../../AppConfig';
-import { ShipTrafficFeature } from '../../types';
+import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
 const App:React.FC = ()=>{
 
@@ -39,6 +41,10 @@ const App:React.FC = ()=>{
                 >
                     <ShipTrafficLayerQueryTask 
                         onSelect={setShipLayerQueryResult}
+                    />
+                    
+                    <ShipTrafficLayerQueryResult 
+                        feature={shipLayerQueryResult}
                     />
                     
                     <ShipTrafficLayer />
@@ -82,6 +88,13 @@ const App:React.FC = ()=>{
                 </div>
 
                 <LayerList />
+
+                <div className='leader-1'>
+                    <ShipInfoWindow 
+                        feature={shipLayerQueryResult}
+                        onClose={setShipLayerQueryResult.bind(this, null)}
+                    />
+                </div>
 
                 <div className='leader-1'>
                     <Bookmarks 

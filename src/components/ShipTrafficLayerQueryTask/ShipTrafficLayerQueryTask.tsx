@@ -15,7 +15,33 @@ import IPoint from 'esri/geometry/Point';
 import IQueryTask from 'esri/tasks/QueryTask';
 import IFeatureSet from 'esri/tasks/support/FeatureSet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
-import { ShipTrafficFeature, ShipTrafficFeatureServiceFields } from '../../types';
+import { IFeature } from "@esri/arcgis-rest-types";
+
+enum ShipTrafficFeatureServiceFields {
+    mmsi = 'mmsi',
+    trackstarttime  = 'trackstarttime',
+    trackendtime  = 'trackendtime',
+    sog  = 'sog',
+    cog  = 'cog',
+    heading  = 'heading',
+    vesselname  = 'vesselname',
+    imo  = 'imo',
+    callsign  = 'callsign',
+    vesseltype  = 'vesseltype',
+    status  = 'status',
+    length  = 'length',
+    width  = 'width',
+    draft  = 'draft',
+    cargo  = 'cargo',
+    vesselgroup  = 'vesselgroup',
+    vesselclass  = 'vesselclass',
+}
+
+export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string | number>
+
+export type ShipTrafficFeature = IFeature & {
+    attributes: ShipTrafficFeatureAttributes
+}
 
 type Props = {
     onSelect: (feature:ShipTrafficFeature)=>void;
