@@ -43,6 +43,9 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@esri/arcgis-rest-auth": "^2.0.0",
+    "@esri/arcgis-rest-feature-layer": "^2.24.0",
+    "@esri/arcgis-rest-request": "^2.0.0",
     "@esri/arcgis-rest-types": "^2.23.0",
     "@types/arcgis-js-api": "^4.14.0",
     "axios": "^0.19.2",

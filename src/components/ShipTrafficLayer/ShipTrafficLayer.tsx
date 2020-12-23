@@ -140,7 +140,8 @@ const ShipTrafficLayer:React.FC<Props> = ({
             // })[0];
             // console.log(layerInfo)
 
-            const layerInfo = getLayerDataByDate(activeDate);
+            const layerInfo = await getLayerDataByDate(activeDate);
+            console.log(layerInfo)
 
             const style = getStyle(layerInfo);
             // console.log(style)
