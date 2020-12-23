@@ -26,13 +26,15 @@ const ShipInfoWindow:React.FC<Props> = ({
             vesselname,
             vesselgroup,
             vesselclass,
-            trackstarttime,
-            trackendtime
+            start_date,
+            end_date
         } = attributes;
 
+        // console.log(attributes)
+
         const formater = 'yyyy/MM/dd h:mm aaaa'
-        const startTime = format(new Date(trackstarttime), formater);
-        const endTime = format(new Date(trackendtime), formater)
+        const startTime = start_date ? format(new Date(start_date), formater) : '';
+        const endTime = end_date ? format(new Date(end_date), formater) : '';
 
         return (
             <div>
