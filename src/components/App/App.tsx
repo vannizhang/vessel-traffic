@@ -18,9 +18,9 @@ import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLaye
 
 const App:React.FC = ()=>{
 
-    const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
+    // const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
 
-    const [ selectedBookmark, setSelectedBookmark ] = React.useState<BookmarkData>();
+    // const [ selectedBookmark, setSelectedBookmark ] = React.useState<BookmarkData>();
 
     const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>()
 
@@ -36,8 +36,7 @@ const App:React.FC = ()=>{
                 
                 <MapView 
                     webmapId={AppConfig.WebMapID}
-                    paddingRight={sideBarVisible ? AppConfig.SideBarWidth : 0}
-                    bookmark={selectedBookmark}
+                    // bookmark={selectedBookmark}
                 >
                     <ShipTrafficLayerQueryTask 
                         onSelect={setShipLayerQueryResult}
@@ -49,9 +48,9 @@ const App:React.FC = ()=>{
                     
                     <ShipTrafficLayer />
 
-                    <TimeSlider/>
+                    {/* <TimeSlider/> */}
                 </MapView>
-
+{/* 
                 <div style={{
                     'position': 'absolute',
                     'bottom': '30px',
@@ -65,11 +64,11 @@ const App:React.FC = ()=>{
                             'width': '1000px'
                         }}
                     ></div>
-                </div>
+                </div> */}
 
             </div>
 
-
+{/* 
             <div style={{
                 'position': 'absolute',
                 'display': sideBarVisible ? 'block' : 'none',
@@ -104,7 +103,7 @@ const App:React.FC = ()=>{
                     />
                 </div>
                 
-            </div>
+            </div> */}
 
         </>
     );
