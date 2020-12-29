@@ -2,8 +2,10 @@ import * as React from 'react';
 
 import { loadModules, loadCss } from 'esri-loader';
 import IMapView from 'esri/views/MapView';
-import IWebMap from "esri/WebMap";
+import IMap from "esri/Map";
 import IwatchUtils from 'esri/core/watchUtils';
+import ITileLayer from 'esri/layers/TileLayer';
+import IVectorTileLayer from 'esri/layers/VectorTileLayer';
 
 import { BookmarkData } from '../Bookmarks/Bookmarks';
 
@@ -32,29 +34,64 @@ const MapView:React.FC<Props> = ({
 
     const initMapView = async()=>{
         
-        type Modules = [typeof IMapView, typeof IWebMap];
+        type Modules = [
+            typeof IMapView, 
+            typeof IMap,
+            typeof ITileLayer,
+            typeof IVectorTileLayer
+        ];
 
         try {
             const [ 
                 MapView, 
-                WebMap 
+                Map,
+                TileLayer,
+                VectorTileLayer
             ] = await (loadModules([
                 'esri/views/MapView',
-                'esri/WebMap',
+                'esri/Map',
+                'esri/layers/TileLayer',
+                'esri/layers/VectorTileLayer'
             ]) as Promise<Modules>);
+
+            const map = new Map({
+                basemap: {
+                    baseLayers: 
+                        [
+                            new TileLayer({
+                                portalItem: {
+                                    id: "a66bfb7dd3b14228bf7ba42b138fe2ea" // World Imagery Firefly (with Luminosity blend mode)
+                                },
+                                blendMode: "luminosity",
+                            }),
+                            new VectorTileLayer({
+                                portalItem: {
+                                    id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
+                                },
+                                blendMode: "overlay"
+                            }),
+                            new VectorTileLayer({
+                                portalItem: {
+                                    id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
+                                },
+                                blendMode: "hard-light",
+                                effect: "invert() saturate(0)"
+                            })
+                        ]
+                    }
+                });
 
             const view = new MapView({
                 container: mapDivRef.current,
-                map: new WebMap({
-                    portalItem: {
-                        id: webmapId
-                    }  
-                }),
+                map,
                 padding: {
                     right: paddingRight
                 },
                 center: mapCenterLocation ? [ mapCenterLocation.lon, mapCenterLocation.lat ] : undefined,
-                zoom: mapCenterLocation ? mapCenterLocation.zoom : undefined
+                zoom: mapCenterLocation ? mapCenterLocation.zoom : undefined,
+                background: { // autocasts new ColorBackground()
+                    color: "#1b528b" // autocasts as new Color()
+                }
             });
 
             view.when(()=>{
