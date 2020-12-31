@@ -150,7 +150,8 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
             const layer = new VectorTileLayer({
                 url: layerInfo.Service_URL,
-                style
+                style,
+                effect: "bloom(1.5, 0.5px, 0.1)"
             });
 
             return layer;

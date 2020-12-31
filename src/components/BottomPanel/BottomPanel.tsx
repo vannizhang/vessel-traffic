@@ -7,9 +7,10 @@ const StyledBottomPanel = styled.div`
     bottom: 0;
     box-sizing: border-box;
     width: 100%;
-    padding: 2rem 0;
-    /* height: 300px; */
-    background: radial-gradient(ellipse at bottom, rgba(27, 82, 139, 1), rgba(27, 82, 139, 0));
+    padding-bottom: 30px;
+    height: 300px;
+    /* background: radial-gradient(ellipse at bottom, rgba(27, 82, 139, 1), rgba(27, 82, 139, 0)); */
+    background: radial-gradient( ellipse at bottom, rgba(27, 82, 139, 1) 0%, rgba(27, 82, 139, 0) 75% );
     z-index: 5;
 `;
 
@@ -18,7 +19,7 @@ const GradientEffectAtBottom = styled.div`
     bottom: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(to top, rgba(27, 82, 139, 1) 0%, rgba(27, 82, 139, 0) 100%);
+    background: linear-gradient(to top, rgba(27, 82, 139, 1), rgba(27, 82, 139, 0) 100%);
 `;
 
 const ChildrenWrapper = styled.div`
@@ -27,7 +28,7 @@ const ChildrenWrapper = styled.div`
     margin: auto 3rem;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
     /* justify-content:  */
 `;

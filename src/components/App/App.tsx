@@ -30,7 +30,7 @@ const App:React.FC = ()=>{
     const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>({
         lat: 27,
         lon: -80,
-        zoom: 9
+        zoom: 7
     });
     
     const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
@@ -73,9 +73,9 @@ const App:React.FC = ()=>{
             </div>
 
             <BottomPanel>
-                <div>
+                {/* <div>
                     title of the app
-                </div>
+                </div> */}
 
                 <div
                     style={{
@@ -93,13 +93,14 @@ const App:React.FC = ()=>{
 
                     <LayerList 
                         visibleSubLayer={visibleSubLayer}
+                        isNauticalReferenceLayerVisible={false}
                         onChange={setVisibleSubLayer}
                     />
                 </div>
 
-                <div>
+                {/* <div>
                     download the data
-                </div>
+                </div> */}
 
             </BottomPanel>
 

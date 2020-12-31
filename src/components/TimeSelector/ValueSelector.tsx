@@ -29,6 +29,7 @@ const SelectBtnContainer = styled.div<{
 
 const SelectBtnLabel = styled.span`
     font-size: 14px;
+    letter-spacing: -1px;
     color:#000;
 `;
 
@@ -93,19 +94,19 @@ const ValueSelector:React.FC<Props> = ({
             }
         }
 
-        const pathD = direction==='next' 
-            ? 'M0 32L16 12 32 32z'
-            : 'M0 0L32 0 16 20z';
+        // const pathD = direction==='next' 
+        //     ? 'M0 32L16 12 32 32z'
+        //     : 'M0 0L32 0 16 20z';
 
         const icon = (
             <svg 
-                height="60"
-                width="60"
-                viewBox="0 0 32 32"
+                height="30"
+                width="40"
+                viewBox="0 0 40 30"
             >
                 <path d={ direction==='next' 
-                        ? 'M0 32L16 12 32 32z'
-                        : 'M0 0L32 0 16 20z'
+                        ? 'M0 30L20 0 40 30z'
+                        : 'M0 0L40 0 20 30z'
                     } 
                     // fill='rgba(255, 255, 255, 0.6)'
                 />
@@ -130,8 +131,8 @@ const ValueSelector:React.FC<Props> = ({
                         style={{
                             position: 'absolute',
                             left: 0,
-                            bottom: direction === 'next' ? 0 : 'unset',
-                            top: direction === 'previous' ? 2 : 'unset',
+                            bottom: direction === 'next' ? -1 : 'unset',
+                            top: direction === 'previous' ? -1 : 'unset',
                             width: '100%',
                             textAlign: 'center'
                         }}
@@ -164,12 +165,13 @@ const ValueSelector:React.FC<Props> = ({
             { getNavBtn('next') }
 
             <div
+                // use avenir thin font
                 className='avenir-light'
                 style={{
                     textAlign: "center",
                     fontSize: 80,
                     color: textColor || '#fff',
-                    textShadow: '0 0 10px #1B528B'
+                    textShadow: '0 0 10px #1B528B',
                 }}
             >
                 <span>{currentValueLabelformatter ? currentValueLabelformatter(currentVal) : currentVal}</span>

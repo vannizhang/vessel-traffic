@@ -1,4 +1,5 @@
 import React from 'react';
+import { DEFAULT_TEXT_COLOR } from '../../constants/UI';
 
 import {
     ShipTrafficSubLayerName,
@@ -7,6 +8,7 @@ import {
 
 type Props = {
     visibleSubLayer: ShipTrafficSubLayerName;
+    isNauticalReferenceLayerVisible: boolean;
     onChange: (val: ShipTrafficSubLayerName)=>void;
 }
 
@@ -23,12 +25,13 @@ const SublayerNames: ShipTrafficSubLayerName[] = [
 
 const LayerList:React.FC<Props> = ({
     visibleSubLayer,
+    isNauticalReferenceLayerVisible,
     onChange
 })=>{
 
     const getList = ()=>{
 
-        return SublayerNames.map((sublayer:ShipTrafficSubLayerName) =>{
+        const layerList = SublayerNames.map((sublayer:ShipTrafficSubLayerName) =>{
 
             const color = ShipTrafficSubLayerStyles[sublayer]["line-color"];
 
@@ -36,13 +39,26 @@ const LayerList:React.FC<Props> = ({
                 <div 
                     key={`layer-list-${sublayer}`}
                     style={{
-                        color: sublayer === visibleSubLayer ? color : 'rgba(255,255,255,.6)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        // justifyContent: 'flex-end',
+                        color: sublayer === visibleSubLayer ? color : DEFAULT_TEXT_COLOR,
                         cursor: 'pointer',
                         textTransform: 'uppercase',
                         fontSize: 14
                     }}
                     onClick={onChange.bind(this, sublayer)}
                 >
+                    <div
+                        style={{
+                            borderRadius: '50%',
+                            height: 6,
+                            width: 6,
+                            background: sublayer === visibleSubLayer ? color : 'transparent',
+                            marginRight: '.5rem'
+                        }}
+                    ></div>
+
                     <span className='font-size--1 avenir-demi'>{sublayer}</span>
 
                 </div>
@@ -50,16 +66,50 @@ const LayerList:React.FC<Props> = ({
 
         });
 
+        return (
+            <div>
+                { layerList }
+            </div>
+        )
+
     };
 
     return (
         <div
             style={{
-                textAlign: 'right',
-                marginLeft: '2rem'
+                marginLeft: '1rem',
+                paddingLeft: '2rem',
+                userSelect: 'none',
+                borderLeft: '1px solid rgba(255, 255, 255, 0.3)'
             }}
         >
             { getList() }
+
+            <div
+                style={{
+                    borderTop: `solid 1px rgba(255, 255, 255, 0.3)`,
+                    color: DEFAULT_TEXT_COLOR,
+                    paddingTop: '.5rem',
+                    marginTop: '.75rem',
+                    fontSize: 14,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+            >
+
+                <div
+                    style={{
+                        borderRadius: '50%',
+                        height: 6,
+                        width: 6,
+                        background: isNauticalReferenceLayerVisible? DEFAULT_TEXT_COLOR : 'transparent',
+                        marginRight: '.5rem'
+                    }}
+                ></div>
+
+                <span className='avenir-demi'>NAUTICAL BOUNDARIES REFERENCE</span>
+            </div>
         </div>
     );
 };
