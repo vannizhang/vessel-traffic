@@ -13,22 +13,32 @@ import {
     AppContext
 } from '../../contexts/AppContextProvider';
 
+export type MapCenterLocation = {
+    lat: number;
+    lon: number;
+    zoom: number;
+}
+
 interface Props {
     webmapId: string;
-    paddingRight?: number;
-    bookmark?: BookmarkData;
+    defaultMapCenterLocation?: MapCenterLocation;
+    onStationary: (centerLocation:MapCenterLocation)=>void;
+    // paddingRight?: number;
+    // bookmark?: BookmarkData;
 };
 
 const MapView:React.FC<Props> = ({
     webmapId,
-    paddingRight = 0,
-    bookmark,
+    defaultMapCenterLocation,
+    onStationary,
+    // paddingRight = 0,
+    // bookmark,
     children
 })=>{
 
     const mapDivRef = React.useRef<HTMLDivElement>();
 
-    const { mapCenterLocation, setMapCenterLocation } = React.useContext(AppContext);
+    // const { mapCenterLocation, setMapCenterLocation } = React.useContext(AppContext);
 
     const [ mapView, setMapView] = React.useState<IMapView>(null);
 
@@ -84,11 +94,8 @@ const MapView:React.FC<Props> = ({
             const view = new MapView({
                 container: mapDivRef.current,
                 map,
-                padding: {
-                    right: paddingRight
-                },
-                center: mapCenterLocation ? [ mapCenterLocation.lon, mapCenterLocation.lat ] : undefined,
-                zoom: mapCenterLocation ? mapCenterLocation.zoom : undefined,
+                center: defaultMapCenterLocation ? [ defaultMapCenterLocation.lon, defaultMapCenterLocation.lat ] : undefined,
+                zoom: defaultMapCenterLocation ? defaultMapCenterLocation.zoom : undefined,
                 background: { // autocasts new ColorBackground()
                     color: "#1b528b" // autocasts as new Color()
                 }
@@ -103,40 +110,43 @@ const MapView:React.FC<Props> = ({
         }
     };
 
-    const go2bookmark = async()=>{
+    // const go2bookmark = async()=>{
 
-        const { lat, lon, zoom } = bookmark;
+    //     const { lat, lon, zoom } = bookmark;
 
-        mapView.goTo({
-            target: [lon, lat],
-            zoom
-        });
+    //     mapView.goTo({
+    //         target: [lon, lat],
+    //         zoom
+    //     });
 
-    };
+    // };
 
     const addWatchEvent = async()=>{
         type Modules = [typeof IwatchUtils];
 
-        try {
-            const [ 
-                watchUtils 
-            ] = await (loadModules([
-                'esri/core/watchUtils'
-            ]) as Promise<Modules>);
-
-            watchUtils.whenTrue(mapView, 'stationary', ()=>{
-                // console.log('mapview is stationary', mapView.center, mapView.zoom);
-
-                setMapCenterLocation({
-                    lat: +mapView.center.latitude.toFixed(3),
-                    lon: +mapView.center.longitude.toFixed(3),
-                    zoom: mapView.zoom
+        if(onStationary){
+            try {
+                const [ 
+                    watchUtils 
+                ] = await (loadModules([
+                    'esri/core/watchUtils'
+                ]) as Promise<Modules>);
+    
+                watchUtils.whenTrue(mapView, 'stationary', ()=>{
+                    // console.log('mapview is stationary', mapView.center, mapView.zoom);
+    
+                    onStationary({
+                        lat: +mapView.center.latitude.toFixed(3),
+                        lon: +mapView.center.longitude.toFixed(3),
+                        zoom: mapView.zoom
+                    });
                 });
-            });
-
-        } catch(err){   
-            console.error(err);
+    
+            } catch(err){   
+                console.error(err);
+            }
         }
+
     };
 
     React.useEffect(()=>{
@@ -150,11 +160,11 @@ const MapView:React.FC<Props> = ({
         }
     }, [ mapView ])
 
-    React.useEffect(()=>{
-        if(mapView && bookmark){
-            go2bookmark();
-        }
-    }, [ bookmark ])
+    // React.useEffect(()=>{
+    //     if(mapView && bookmark){
+    //         go2bookmark();
+    //     }
+    // }, [ bookmark ])
 
     return (
         <>

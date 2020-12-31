@@ -3,26 +3,42 @@ import * as React from 'react';
 import {
     MapView,
     ShipTrafficLayer,
-    ShipTrafficLayerQueryTask,
-    ShipTrafficLayerQueryResult,
+    // ShipTrafficLayerQueryTask,
+    // ShipTrafficLayerQueryResult,
     LayerList,
-    TimeSlider,
-    Bookmarks,
-    ShipInfoWindow
+    BottomPanel,
+    TimeSelector
 } from '../';
 
-import { BookmarkData } from '../Bookmarks/Bookmarks';
+// import { BookmarkData } from '../Bookmarks/Bookmarks';
 
 import AppConfig from '../../AppConfig';
+import { AppContext } from '../../contexts/AppContextProvider';
+import { ActiveLayerTimeInfo } from '../../types';
+import { MapCenterLocation } from '../MapView/MapView';
+import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
 const App:React.FC = ()=>{
 
-    // const [ sideBarVisible, setSidebarVisible ] = React.useState<boolean>(true);
+    const { AISLayersData } = React.useContext(AppContext)
 
-    // const [ selectedBookmark, setSelectedBookmark ] = React.useState<BookmarkData>();
+    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>('Fishing');
 
-    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>()
+    // const [ activeDate, setActiveDate ] = React.useState<Date>(defaultActiveDate);
+
+    const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>({
+        lat: 27,
+        lon: -80,
+        zoom: 9
+    });
+    
+    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
+
+    const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>({
+        month: +AISLayersData[0].Month,
+        year: +AISLayersData[0].Year
+    })
 
     return (
         <>
@@ -36,74 +52,56 @@ const App:React.FC = ()=>{
                 
                 <MapView 
                     webmapId={AppConfig.WebMapID}
-                    // bookmark={selectedBookmark}
+                    defaultMapCenterLocation={mapCenterLocation}
+                    onStationary={setMapCenterLocation}
                 >
-                    <ShipTrafficLayerQueryTask 
+                    {/* <ShipTrafficLayerQueryTask 
                         onSelect={setShipLayerQueryResult}
                     />
                     
                     <ShipTrafficLayerQueryResult 
                         feature={shipLayerQueryResult}
-                    />
+                    /> */}
                     
-                    <ShipTrafficLayer />
+                    <ShipTrafficLayer 
+                        visibleSubLayer={visibleSubLayer}
+                        activeLayerTimeInfo={activeLayerTimeInfo}
+                    />
 
-                    {/* <TimeSlider/> */}
                 </MapView>
-{/* 
-                <div style={{
-                    'position': 'absolute',
-                    'bottom': '30px',
-                    'left': '0',
-                    'right': sideBarVisible ? AppConfig.SideBarWidth : 0,
-                    'display': 'flex',
-                    'justifyContent': 'center'
-                }}>
-                    <div id='timeSliderDiv'
-                        style={{
-                            'width': '1000px'
-                        }}
-                    ></div>
-                </div> */}
 
             </div>
 
-{/* 
-            <div style={{
-                'position': 'absolute',
-                'display': sideBarVisible ? 'block' : 'none',
-                'top': '0',
-                'right': '0',
-                'padding': '1.5rem',
-                'width': AppConfig.SideBarWidth,
-                'height': '100%',
-                'background': 'rgba(0,0,0,.8)',
-                'color': '#efefef',
-                'boxShadow': '0 1px 2px rgba(0, 0, 0, 0.3)',
-                'boxSizing': 'border-box'
-            }}>
+            <BottomPanel>
                 <div>
-                    <h4>U.S. Marine Ship Traffic</h4>
+                    title of the app
                 </div>
 
-                <LayerList />
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}
+                >
+                    <TimeSelector 
+                        visibleSubLayer={visibleSubLayer}
+                        activeLayerTimeInfo={activeLayerTimeInfo}
+                        onChange={setActiveLayerTimeInfo}
+                        minYear={+AISLayersData[0].Year}
+                        maxYear={+AISLayersData[AISLayersData.length - 1].Year}
+                    />
 
-                <div className='leader-1'>
-                    <ShipInfoWindow 
-                        feature={shipLayerQueryResult}
-                        onClose={setShipLayerQueryResult.bind(this, null)}
+                    <LayerList 
+                        visibleSubLayer={visibleSubLayer}
+                        onChange={setVisibleSubLayer}
                     />
                 </div>
 
-                <div className='leader-1'>
-                    <Bookmarks 
-                        onSelect={(bookmark:BookmarkData)=>{
-                            setSelectedBookmark(bookmark);
-                        }}
-                    />
+                <div>
+                    download the data
                 </div>
-                
-            </div> */}
+
+            </BottomPanel>
 
         </>
     );

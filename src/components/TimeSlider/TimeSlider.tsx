@@ -22,7 +22,7 @@ const TimeSlider:React.FC<Props> = ({
     mapView
 })=>{
 
-    const { activeDate, setActiveDate } = React.useContext(AppContext);
+    // const { activeDate, setActiveDate } = React.useContext(AppContext);
 
     const init = async()=>{
         type Modules = [typeof ITimeSlider];
@@ -48,12 +48,12 @@ const TimeSlider:React.FC<Props> = ({
                 stops: {
                     interval
                 },
-                values: activeDate ? [ activeDate ] : undefined
+                // values: activeDate ? [ activeDate ] : undefined
             });
 
             timeSlider.watch('timeExtent', (value:ITimeExtent)=>{
                 // console.log(value.start);
-                setActiveDate(value.start);
+                // setActiveDate(value.start);
             });
 
         } catch(err){   

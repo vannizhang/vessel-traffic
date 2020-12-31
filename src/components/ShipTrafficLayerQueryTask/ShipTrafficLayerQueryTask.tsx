@@ -8,7 +8,7 @@ import {
     AppContext
 } from '../../contexts/AppContextProvider';
 
-import { getLayerDataByDate, ShipTrafficLayerInfo } from '../ShipTrafficLayer/data';
+import { getLayerDataByDate, ShipTrafficLayerInfo } from '../../services/getAISLayersInfo';
 
 import IMapView from 'esri/views/MapView';
 import IPoint from 'esri/geometry/Point';
@@ -16,6 +16,7 @@ import IQueryTask from 'esri/tasks/QueryTask';
 import IFeatureSet from 'esri/tasks/support/FeatureSet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { IFeature } from "@esri/arcgis-rest-types";
+import { ActiveLayerTimeInfo } from '../../types';
 
 enum ShipTrafficFeatureServiceFields {
     mmsi = 'mmsi',
@@ -44,16 +45,20 @@ export type ShipTrafficFeature = IFeature & {
 }
 
 type Props = {
+    visibleSubLayer: ShipTrafficSubLayerName;
+    activeLayerTimeInfo: ActiveLayerTimeInfo;
     onSelect: (feature:ShipTrafficFeature)=>void;
     mapView?: IMapView;
 }
 
 const ShipTrafficLayerQueryTask:React.FC<Props> = ({
+    visibleSubLayer,
+    activeLayerTimeInfo,
     onSelect,
     mapView
 }) => {
 
-    const { visibleSubLayer, activeDate } = React.useContext(AppContext);
+    // const { visibleSubLayer, activeDate } = React.useContext(AppContext);
 
     const layerDataRef = useRef<ShipTrafficLayerInfo>();
     const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
@@ -120,10 +125,10 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
     useEffect(()=>{
         
         (async()=>{
-            layerDataRef.current = await getLayerDataByDate(activeDate);
+            layerDataRef.current = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
         })()
         
-    }, [activeDate]);
+    }, [activeLayerTimeInfo]);
 
     useEffect(()=>{
         visibleSubLayerRef.current = visibleSubLayer;

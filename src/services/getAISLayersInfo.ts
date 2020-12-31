@@ -23,7 +23,7 @@ export type ShipTrafficLayerInfo = {
 
 let shipTrafficLayersData: ShipTrafficLayerInfo[];
 
-const fetchShipTrafficLayersData = async():Promise<ShipTrafficLayerInfo[]>=>{
+export const fetchShipTrafficLayersData = async():Promise<ShipTrafficLayerInfo[]>=>{
 
   try {
     const res = await queryFeatures({
@@ -67,18 +67,11 @@ const fetchShipTrafficLayersData = async():Promise<ShipTrafficLayerInfo[]>=>{
   return []
 }
 
-export const getLayerDataByDate = async(date:Date):Promise<ShipTrafficLayerInfo>=>{
+export const getLayerDataByDate = async(year: number, month: number):Promise<ShipTrafficLayerInfo>=>{
 
   if(!shipTrafficLayersData){
     shipTrafficLayersData = await fetchShipTrafficLayersData()
   }
-
-  if(!date){
-    return null
-  }
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
 
   const layerInfo = shipTrafficLayersData.filter(d=>{
       return d.Year === year && d.Month === month;

@@ -1,38 +1,64 @@
   
-import * as React from 'react';
+import React from 'react';
 
 import {
-    ShipTrafficSubLayerName
-} from '../components/ShipTrafficLayer/ShipTrafficLayer';
+    fetchShipTrafficLayersData,
+    ShipTrafficLayerInfo
+} from '../services/getAISLayersInfo';
 
-import {
-    urlFns
-} from 'helper-toolkit-ts';
+// import { init } from 'esri/core/watchUtils';
 
-interface MapCenterLocation {
-    lat: number;
-    lon: number;
-    zoom: number;
-}
+// interface MapCenterLocation {
+//     lat: number;
+//     lon: number;
+//     zoom: number;
+// }
 
 interface ContextProps {
-    visibleSubLayer: ShipTrafficSubLayerName;
-    setVisibleSubLayer: (subLayerName:ShipTrafficSubLayerName)=>void;
 
-    activeDate: Date;
-    setActiveDate: (activeDate:Date)=>void;
+    AISLayersData: ShipTrafficLayerInfo[];
 
-    mapCenterLocation: MapCenterLocation,
-    setMapCenterLocation: (data:MapCenterLocation)=>void;
+    // visibleSubLayer: ShipTrafficSubLayerName;
+    // setVisibleSubLayer: (subLayerName:ShipTrafficSubLayerName)=>void;
+
+    // // activeDate: Date;
+    // // setActiveDate: (activeDate:Date)=>void;
+
+    // mapCenterLocation: MapCenterLocation,
+    // setMapCenterLocation: (data:MapCenterLocation)=>void;
 };
 
 interface AppContextProviderProps {};
 
-const KEYS = {
-    visibleSubLayer: 'lyr',
-    activeDate: 'dt',
-    mapCenterLocation: 'loc'
-}
+// const KEYS = {
+//     visibleSubLayer: 'lyr',
+//     activeDate: 'dt',
+//     mapCenterLocation: 'loc'
+// }
+
+// /////////////////////////////////////////////////////////////////////////////
+// // NEED TO CLEAN UP THIS SECTION LATER
+// const defaultValues = urlFns.parseQuery();
+
+// const getDefaultMapLocation = ():MapCenterLocation=>{
+
+//     if(!defaultValues[KEYS.mapCenterLocation]){
+//         return null;
+//     }
+
+//     const [ lon, lat, zoom] = defaultValues[KEYS.mapCenterLocation].split(',').map((d:string)=>+d);
+
+//     return { lon, lat, zoom };
+// };
+
+// const defaultVisibleSubLayer = defaultValues[KEYS.visibleSubLayer] || 'Passenger';
+
+// // const defaultActiveDate = defaultValues[KEYS.activeDate] ? new Date(+defaultValues[KEYS.activeDate]) : null;
+
+// const defaultMapLocation = getDefaultMapLocation();
+
+// /////////////////////////////////////////////////////////////////////////////////
+
 
 export const AppContext = React.createContext<ContextProps>(null);
 
@@ -40,70 +66,64 @@ export const AppContextProvider:React.FC<AppContextProviderProps> = ({
     children 
 })=>{
 
-    const defaultValues = urlFns.parseQuery();
+    const [ value, setValue ] = React.useState<ContextProps>()
 
-    const getDefaultMapLocation = ():MapCenterLocation=>{
+    const init = async()=>{
 
-        if(!defaultValues[KEYS.mapCenterLocation]){
-            return null;
-        }
+        const AISLayersData = await fetchShipTrafficLayersData();
 
-        const [ lon, lat, zoom] = defaultValues[KEYS.mapCenterLocation].split(',').map((d:string)=>+d);
+        const value:ContextProps = {
+            AISLayersData,
+        };
 
-        return { lon, lat, zoom };
-    };
-
-    const defaultVisibleSubLayer = defaultValues[KEYS.visibleSubLayer] || 'Passenger';
-
-    const defaultActiveDate = defaultValues[KEYS.activeDate] ? new Date(+defaultValues[KEYS.activeDate]) : null;
-
-    const defaultMapLocation = getDefaultMapLocation();
-
-    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>(defaultVisibleSubLayer);
-
-    const [ activeDate, setActiveDate ] = React.useState<Date>(defaultActiveDate);
-
-    const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>(defaultMapLocation);
-
-
-    const value = {
-        visibleSubLayer,
-        setVisibleSubLayer,
-        activeDate,
-        setActiveDate,
-        mapCenterLocation, 
-        setMapCenterLocation
-    };
+        setValue(value)
+    }
 
     React.useEffect(()=>{
+        init();
+    }, []);
 
-        if(visibleSubLayer){
-            urlFns.updateQueryParam({
-                key: KEYS.visibleSubLayer,
-                value: visibleSubLayer
-            })
-        }
+    // React.useEffect(()=>{
 
-        if(activeDate){
-            urlFns.updateQueryParam({
-                key: KEYS.activeDate,
-                value: activeDate.getTime().toString()
-            })
-        }
+    //     if(visibleSubLayer){
+    //         urlFns.updateQueryParam({
+    //             key: KEYS.visibleSubLayer,
+    //             value: visibleSubLayer
+    //         })
+    //     }
 
-        if(mapCenterLocation){
-            const { lon, lat, zoom } = mapCenterLocation
-            urlFns.updateQueryParam({
-                key: KEYS.mapCenterLocation,
-                value: `${lon},${lat},${zoom}`
-            });
-        }
+    //     setValue(value=>{
+    //         return {
+    //             ...value,
+    //             visibleSubLayer
+    //         }
+    //     })
 
-    }, [ visibleSubLayer, activeDate, mapCenterLocation])
+    // }, [ visibleSubLayer])
+
+    // React.useEffect(()=>{
+
+    //     if(mapCenterLocation){
+    //         const { lon, lat, zoom } = mapCenterLocation
+    //         urlFns.updateQueryParam({
+    //             key: KEYS.mapCenterLocation,
+    //             value: `${lon},${lat},${zoom}`
+    //         });
+    //     }
+
+        
+    //     setValue(value=>{
+    //         return {
+    //             ...value,
+    //             mapCenterLocation
+    //         }
+    //     })
+
+    // }, [ mapCenterLocation])
 
     return (
         <AppContext.Provider value={value}>
-            { children }
+            { value ? children : null }
         </AppContext.Provider>
     )
 };

@@ -6,38 +6,36 @@ import {
     AppContext
 } from '../../contexts/AppContextProvider';
 
-import { getLayerDataByDate, ShipTrafficLayerInfo } from './data';
-
 import IMapView from 'esri/views/MapView';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
+import { ShipTrafficLayerInfo, getLayerDataByDate } from '../../services/getAISLayersInfo';
+import { ActiveLayerTimeInfo } from '../../types';
 
 export type ShipTrafficSubLayerName = 'Cargo' | 'Fishing' | 'Military' | 'Passenger' | 'Pleasure' | 'Tanker' | 'Tow' | 'Other';
 
-export const ShipTrafficSubLayerStyles: {
-    [ key in ShipTrafficSubLayerName] : {
-        'line-color': string;
-    }
-} = {
+export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
+    'line-color': string
+}> = {
     'Cargo': {
-        'line-color': '#4CE600'
+        'line-color': '#0BF25B'
     },
     'Fishing': {
-        'line-color': '#0070FF'
+        'line-color': '#0DB0FF'
     },
     'Military': {
-        'line-color': '#FF0000'
+        'line-color': '#FB0045'
     },
     'Passenger': {
-        'line-color': '#C500FF'
+        'line-color': '#8B00FD'
     },
     'Pleasure': {
-        'line-color': '#FF73DF'
+        'line-color': '#FE0EDA'
     },
     'Tanker': {
-        'line-color': '#FFFF00'
+        'line-color': '#FFE004'
     },
     'Tow': {
-        'line-color': '#FFAA00'
+        'line-color': '#FF9A11'
     },
     'Other': {
         'line-color': '#686868'
@@ -46,13 +44,17 @@ export const ShipTrafficSubLayerStyles: {
 
 interface Props {
     mapView?: IMapView;
+    visibleSubLayer: ShipTrafficSubLayerName;
+    activeLayerTimeInfo: ActiveLayerTimeInfo;
 }
 
 const ShipTrafficLayer:React.FC<Props> = ({
-    mapView
+    mapView,
+    visibleSubLayer,
+    activeLayerTimeInfo
 })=>{
 
-    const { visibleSubLayer, activeDate } = React.useContext(AppContext);
+    // const { visibleSubLayer } = React.useContext(AppContext);
 
     const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
 
@@ -140,8 +142,8 @@ const ShipTrafficLayer:React.FC<Props> = ({
             // })[0];
             // console.log(layerInfo)
 
-            const layerInfo = await getLayerDataByDate(activeDate);
-            console.log(layerInfo)
+            const layerInfo = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
+            console.log('active ship layer info', layerInfo)
 
             const style = getStyle(layerInfo);
             // console.log(style)
@@ -160,12 +162,12 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
     React.useEffect(()=>{
 
-        if(mapView && visibleSubLayer && activeDate){
+        if(mapView && visibleSubLayer){
             // console.log('visible sub layer on change', visibleSubLayer);
             addLayer();
         }
 
-    }, [ visibleSubLayer, activeDate ]);
+    }, [ visibleSubLayer, activeLayerTimeInfo, mapView ]);
 
     return null;
 };
