@@ -24,7 +24,7 @@ const TimeSelectorContainer:React.FC<Props> = ({
     maxYear
 }) => {
 
-    const color = ShipTrafficSubLayerStyles[visibleSubLayer]["line-color"];
+    const color = ShipTrafficSubLayerStyles[visibleSubLayer]["text-color"];
 
     const monthValOnChange = (month:number)=>{
         const { year } = activeLayerTimeInfo;

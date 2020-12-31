@@ -12,6 +12,7 @@ const StyledBottomPanel = styled.div`
     /* background: radial-gradient(ellipse at bottom, rgba(27, 82, 139, 1), rgba(27, 82, 139, 0)); */
     background: radial-gradient( ellipse at bottom, rgba(27, 82, 139, 1) 0%, rgba(27, 82, 139, 0) 75% );
     z-index: 5;
+    pointer-events: none;
 `;
 
 const GradientEffectAtBottom = styled.div`

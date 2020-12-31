@@ -33,7 +33,7 @@ const LayerList:React.FC<Props> = ({
 
         const layerList = SublayerNames.map((sublayer:ShipTrafficSubLayerName) =>{
 
-            const color = ShipTrafficSubLayerStyles[sublayer]["line-color"];
+            const color = ShipTrafficSubLayerStyles[sublayer]["text-color"];
 
             return (
                 <div 

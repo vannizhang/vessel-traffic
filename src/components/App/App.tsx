@@ -23,12 +23,12 @@ const App:React.FC = ()=>{
 
     const { AISLayersData } = React.useContext(AppContext)
 
-    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>('Fishing');
+    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>('Tanker');
 
     // const [ activeDate, setActiveDate ] = React.useState<Date>(defaultActiveDate);
 
     const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>({
-        lat: 27,
+        lat: 28,
         lon: -80,
         zoom: 7
     });
@@ -80,7 +80,8 @@ const App:React.FC = ()=>{
                 <div
                     style={{
                         display: 'flex',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        pointerEvents: 'initial'
                     }}
                 >
                     <TimeSelector 

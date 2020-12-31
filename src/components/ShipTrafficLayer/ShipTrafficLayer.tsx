@@ -14,30 +14,39 @@ import { ActiveLayerTimeInfo } from '../../types';
 export type ShipTrafficSubLayerName = 'Cargo' | 'Fishing' | 'Military' | 'Passenger' | 'Pleasure' | 'Tanker' | 'Tow' | 'Other';
 
 export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
-    'line-color': string
+    'text-color': string;
+    'line-color': string;
 }> = {
     'Cargo': {
-        'line-color': '#0BF25B'
+        'text-color': '#0BF25B',
+        'line-color': 'rgba(11, 242, 91, .25)'
     },
     'Fishing': {
-        'line-color': '#0DB0FF'
+        'text-color': '#0DB0FF',
+        'line-color': 'rgba(13, 176, 255, .4)'
     },
     'Military': {
+        'text-color': '#FB0045',
         'line-color': '#FB0045'
     },
     'Passenger': {
-        'line-color': '#8B00FD'
+        'text-color': '#8B00FD',
+        'line-color': 'rgba(139,0,253, .35)'
     },
     'Pleasure': {
-        'line-color': '#FE0EDA'
+        'text-color': '#FE0EDA',
+        'line-color': 'rgba(254,14,218, .35)'
     },
     'Tanker': {
-        'line-color': '#FFE004'
+        'text-color': '#FFE004',
+        'line-color': 'rgba(255, 224, 4, .25)'
     },
     'Tow': {
-        'line-color': '#FF9A11'
+        'text-color': '#FF9A11',
+        'line-color': 'rgba(255,154,17, .35)'
     },
     'Other': {
+        'text-color': '#686868',
         'line-color': '#686868'
     }
 }
@@ -143,7 +152,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
             // console.log(layerInfo)
 
             const layerInfo = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
-            console.log('active ship layer info', layerInfo)
+            // console.log('active ship layer info', layerInfo)
 
             const style = getStyle(layerInfo);
             // console.log(style)
@@ -151,6 +160,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
             const layer = new VectorTileLayer({
                 url: layerInfo.Service_URL,
                 style,
+                // effect: "bloom(1.5, 0.5px, 0.1)"
                 effect: "bloom(1.5, 0.5px, 0.1)"
             });
 
