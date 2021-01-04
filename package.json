@@ -53,7 +53,7 @@
     "calcite-web": "github:Esri/calcite-web#v1.2.5",
     "date-fns": "^2.16.1",
     "esri-loader": "^2.16.0",
-    "helper-toolkit-ts": "^1.1.10",
+    "helper-toolkit-ts": "^1.1.14",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.2.1"

@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, {
+    useEffect
+} from 'react';
 
 import {
     MapView,
@@ -15,19 +17,22 @@ import {
 import AppConfig from '../../AppConfig';
 import { AppContext } from '../../contexts/AppContextProvider';
 import { ActiveLayerTimeInfo } from '../../types';
+import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveVisibleLayer2Hash } from '../../utils/URLHashParams';
 import { MapCenterLocation } from '../MapView/MapView';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
+
+const DefaultStateValues = getDefaultStateValuesFromHash()
 
 const App:React.FC = ()=>{
 
     const { AISLayersData } = React.useContext(AppContext)
 
-    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>('Tanker');
+    const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>(DefaultStateValues.sublayer || 'Cargo');
 
     // const [ activeDate, setActiveDate ] = React.useState<Date>(defaultActiveDate);
 
-    const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>({
+    const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>(DefaultStateValues['@'] || {
         lat: 28,
         lon: -80,
         zoom: 7
@@ -35,10 +40,22 @@ const App:React.FC = ()=>{
     
     const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
 
-    const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>({
+    const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>(DefaultStateValues.time || {
         month: +AISLayersData[0].Month,
         year: +AISLayersData[0].Year
     })
+
+    useEffect(() => {
+        saveMapCenterLocation2Hash(mapCenterLocation)
+    }, [mapCenterLocation]);
+
+    useEffect(() => {
+        saveActiveLayerTime2Hash(activeLayerTimeInfo)
+    }, [activeLayerTimeInfo]);
+
+    useEffect(() => {
+        saveVisibleLayer2Hash(visibleSubLayer)
+    }, [visibleSubLayer]);
 
     return (
         <>
