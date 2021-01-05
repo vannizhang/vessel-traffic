@@ -23,6 +23,7 @@ import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
 const DefaultStateValues = getDefaultStateValuesFromHash()
+console.log(DefaultStateValues)
 
 const App:React.FC = ()=>{
 

@@ -66,30 +66,30 @@ const MapView:React.FC<Props> = ({
 
             const map = new Map({
                 basemap: {
-                    baseLayers: 
-                        [
-                            new TileLayer({
-                                portalItem: {
-                                    id: "a66bfb7dd3b14228bf7ba42b138fe2ea" // World Imagery Firefly (with Luminosity blend mode)
-                                },
-                                blendMode: "luminosity",
-                            }),
-                            new VectorTileLayer({
-                                portalItem: {
-                                    id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
-                                },
-                                blendMode: "overlay"
-                            }),
-                            new VectorTileLayer({
-                                portalItem: {
-                                    id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
-                                },
-                                blendMode: "hard-light",
-                                effect: "invert() saturate(0)"
-                            })
-                        ]
-                    }
-                });
+                    baseLayers: [
+                        new TileLayer({
+                            portalItem: {
+                                id: "a66bfb7dd3b14228bf7ba42b138fe2ea" // World Imagery Firefly (with Luminosity blend mode)
+                            },
+                            blendMode: "luminosity",
+                        }),
+                        new VectorTileLayer({
+                            portalItem: {
+                                id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
+                            },
+                            blendMode: "overlay"
+                        }),
+                        // new VectorTileLayer({
+                        //     portalItem: {
+                        //         id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
+                        //     },
+                        //     blendMode: "hard-light",
+                        //     // // for some reason chrome crashes if effect is on
+                        //     // effect: "invert() saturate(0)"
+                        // })
+                    ]
+                }
+            });
 
             const view = new MapView({
                 container: mapDivRef.current,

@@ -55,6 +55,7 @@ const TimeSelectorContainer:React.FC<Props> = ({
                 key='month-selector'
                 min={1}
                 max={12}
+                defaultValue={activeLayerTimeInfo.month}
                 rotatable={true}
                 textColor={color}
                 onChange={monthValOnChange}
@@ -69,6 +70,7 @@ const TimeSelectorContainer:React.FC<Props> = ({
                 key='year-selector'
                 min={minYear}
                 max={maxYear}
+                defaultValue={activeLayerTimeInfo.year}
                 textColor={color}
                 onChange={yearValOnChange}
                 navBtnLabelformatter={(value)=>{
