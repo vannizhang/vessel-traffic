@@ -12,6 +12,7 @@ import { BookmarkData } from '../Bookmarks/Bookmarks';
 import {
     AppContext
 } from '../../contexts/AppContextProvider';
+import { BACKGROUND_COLOR } from '../../constants/UI';
 
 export type MapCenterLocation = {
     lat: number;
@@ -97,7 +98,7 @@ const MapView:React.FC<Props> = ({
                 center: defaultMapCenterLocation ? [ defaultMapCenterLocation.lon, defaultMapCenterLocation.lat ] : undefined,
                 zoom: defaultMapCenterLocation ? defaultMapCenterLocation.zoom : undefined,
                 background: { // autocasts new ColorBackground()
-                    color: "#1b528b" // autocasts as new Color()
+                    color: BACKGROUND_COLOR // autocasts as new Color()
                 }
             });
 

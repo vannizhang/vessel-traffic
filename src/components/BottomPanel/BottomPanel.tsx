@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
+import { DEFAULT_TEXT_COLOR } from '../../constants/UI';
 
 const StyledBottomPanel = styled.div`
     position: absolute;
@@ -19,19 +20,34 @@ const GradientEffectAtBottom = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 200px;
     background: linear-gradient(to top, rgba(27, 82, 139, 1), rgba(27, 82, 139, 0) 100%);
 `;
 
 const ChildrenWrapper = styled.div`
     position: relative;
     /* width: 100%; */
-    margin: auto 3rem;
+    margin: auto 1.5rem;
     height: 100%;
     display: flex;
-    justify-content: center;
+    /* justify-content: space-between; */
     align-items: flex-end;
     /* justify-content:  */
+`;
+
+export const ChildAtCenterPosition = styled.div`
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: initial;
+`
+
+export const ChildAtSidePosition = styled.div`
+    position: relative;
+    width: 515px;
+    pointer-events: initial;
+    color: ${DEFAULT_TEXT_COLOR};
 `;
 
 const BottomPanel:React.FC = ({

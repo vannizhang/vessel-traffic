@@ -4,13 +4,20 @@ import React, {
 
 import {
     MapView,
+    Download,
     ShipTrafficLayer,
     // ShipTrafficLayerQueryTask,
     // ShipTrafficLayerQueryResult,
     LayerList,
     BottomPanel,
-    TimeSelector
+    TimeSelector,
+    TitleAndAboutInfo
 } from '../';
+
+import {
+    ChildAtCenterPosition,
+    ChildAtSidePosition
+} from '../BottomPanel/BottomPanel'
 
 // import { BookmarkData } from '../Bookmarks/Bookmarks';
 
@@ -91,17 +98,11 @@ const App:React.FC = ()=>{
             </div>
 
             <BottomPanel>
-                {/* <div>
-                    title of the app
-                </div> */}
-
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        pointerEvents: 'initial'
-                    }}
-                >
+                <ChildAtSidePosition>
+                    <TitleAndAboutInfo />
+                </ChildAtSidePosition>
+                
+                <ChildAtCenterPosition>
                     <TimeSelector 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
@@ -115,12 +116,12 @@ const App:React.FC = ()=>{
                         isNauticalReferenceLayerVisible={false}
                         onChange={setVisibleSubLayer}
                     />
-                </div>
+                </ChildAtCenterPosition>
 
-                {/* <div>
-                    download the data
-                </div> */}
-
+                <ChildAtSidePosition>
+                    <Download />
+                </ChildAtSidePosition>
+                
             </BottomPanel>
 
         </>
