@@ -11,7 +11,8 @@ import {
     LayerList,
     BottomPanel,
     TimeSelector,
-    TitleAndAboutInfo
+    MobileHeader,
+    TitleAndAboutInfo,
 } from '../';
 
 import {
@@ -29,8 +30,10 @@ import { MapCenterLocation } from '../MapView/MapView';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
+import MobileHide from '../SharedUI/MobileHide';
+
 const DefaultStateValues = getDefaultStateValuesFromHash()
-console.log(DefaultStateValues)
+// console.log(DefaultStateValues)
 
 const App:React.FC = ()=>{
 
@@ -67,6 +70,8 @@ const App:React.FC = ()=>{
 
     return (
         <>
+            <MobileHeader />
+            
             <div style={{
                 'position': 'absolute',
                 'top': '0',
@@ -98,10 +103,12 @@ const App:React.FC = ()=>{
             </div>
 
             <BottomPanel>
-                <ChildAtSidePosition>
-                    <TitleAndAboutInfo />
-                </ChildAtSidePosition>
-                
+                <MobileHide>
+                    <ChildAtSidePosition>
+                        <TitleAndAboutInfo />
+                    </ChildAtSidePosition>
+                </MobileHide>
+
                 <ChildAtCenterPosition>
                     <TimeSelector 
                         visibleSubLayer={visibleSubLayer}
@@ -118,10 +125,12 @@ const App:React.FC = ()=>{
                     />
                 </ChildAtCenterPosition>
 
-                <ChildAtSidePosition>
-                    <Download />
-                </ChildAtSidePosition>
-                
+                <MobileHide>
+                    <ChildAtSidePosition>
+                        <Download />
+                    </ChildAtSidePosition>
+                </MobileHide>
+
             </BottomPanel>
 
         </>

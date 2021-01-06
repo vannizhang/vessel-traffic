@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { IS_MOBILE_DEVICE } from '../../constants/UI';
+
 const SelectBtnContainer = styled.div<{ 
     disabled: boolean
 }>`
@@ -169,7 +171,7 @@ const ValueSelector:React.FC<Props> = ({
                 className='avenir-light'
                 style={{
                     textAlign: "center",
-                    fontSize: 80,
+                    fontSize: IS_MOBILE_DEVICE ? 30 : 80,
                     color: textColor || '#fff',
                     textShadow: '0 0 10px #1B528B',
                 }}

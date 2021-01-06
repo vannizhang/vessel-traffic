@@ -7,11 +7,6 @@ import IwatchUtils from 'esri/core/watchUtils';
 import ITileLayer from 'esri/layers/TileLayer';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
 
-import { BookmarkData } from '../Bookmarks/Bookmarks';
-
-import {
-    AppContext
-} from '../../contexts/AppContextProvider';
 import { BACKGROUND_COLOR } from '../../constants/UI';
 
 export type MapCenterLocation = {

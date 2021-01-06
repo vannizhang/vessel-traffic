@@ -1,3 +1,7 @@
+import { miscFns } from 'helper-toolkit-ts';
+
+export const IS_MOBILE_DEVICE = miscFns.isMobileDevice();
+
 export const BACKGROUND_COLOR = '#1b528b';
 
 export const DEFAULT_TEXT_COLOR = 'rgba(255,255,255,.6)';

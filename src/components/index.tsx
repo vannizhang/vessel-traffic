@@ -4,6 +4,8 @@ export { default as MapView } from './MapView/MapView';
 
 export { default as Download } from './Download/Download';
 
+export { default as MobileHeader } from './MobileHeader/MobileHeader';
+
 export { default as BottomPanel } from './BottomPanel/BottomPanel';
 
 export { default as TimeSelector } from './TimeSelector/TimeSelectorContainer';

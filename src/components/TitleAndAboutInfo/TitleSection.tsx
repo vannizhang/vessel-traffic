@@ -30,9 +30,12 @@ const TitleSection:React.FC<Props> = ({
                 </span>
             </div>
 
-            <div style={{
-                fontSize: '.8rem'
-            }}>
+            <div 
+                className='phone-hide'
+                style={{
+                    fontSize: '.8rem'
+                }}
+            >
                 <span >
                     AIS shipping tracks since Jan 2017 
                 </span>
