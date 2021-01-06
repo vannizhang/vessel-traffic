@@ -1,21 +1,23 @@
 import React from 'react'
-import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL } from '../../constants/UI'
+import { DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL } from '../../constants/UI'
+
+import {
+    STYLE_WITH_TOP_BORDER
+} from '../TitleAndAboutInfo/TitleSection'
 
 type Props = {
     onClick: ()=>void;
 }
 
-const DownloadBtn:React.FC<Props> = ({
-
-}) => {
+const DownloadBtn:React.FC<Props> = () => {
     return (
         <div
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                paddingTop: '.75rem',
-                borderTop: `1px solid ${DEFAULT_BORDER_COLOR}`,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                // share the top border style with Title section
+                ...STYLE_WITH_TOP_BORDER
             }}
         >
             <span style={{

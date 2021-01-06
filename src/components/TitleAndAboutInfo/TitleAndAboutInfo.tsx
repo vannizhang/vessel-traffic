@@ -11,12 +11,7 @@ const TitleAndAboutInfo = () => {
     const [ isAboutInfoVisible, setIsAboutInfoVisible ] = useState<boolean>(false);
 
     return (
-        <div
-            style={{
-                paddingTop: '.75rem',
-                borderTop: `1px solid ${DEFAULT_BORDER_COLOR}`
-            }}
-        >
+        <div>
             <TitleSection 
                 onClick={setIsAboutInfoVisible.bind(this, !isAboutInfoVisible)}
             />

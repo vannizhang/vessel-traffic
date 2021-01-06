@@ -1,21 +1,44 @@
 import React from 'react'
-import { FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL } from '../../constants/UI'
+import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL, IS_MOBILE_DEVICE } from '../../constants/UI'
 
 type Props = {
     onClick: ()=>void;
 }
 
+export const STYLE_WITH_TOP_BORDER:React.CSSProperties = {
+    paddingTop: '.75rem',
+    borderTop: `1px solid ${DEFAULT_BORDER_COLOR}`
+}
+
+const getStyleForTitleSection = ():React.CSSProperties =>{
+
+    const Default_Style = {
+        display: 'flex',
+        cursor: 'pointer',
+        // textShadow: '0 0 3px rgba(0,0,0,.8)',
+        color: 'rgba(255,255,255,.8)',
+    }
+
+    if(IS_MOBILE_DEVICE){
+        return {
+            ...Default_Style,
+            justifyContent: 'flex-end'
+        }
+    }
+
+    return {
+        ...Default_Style,
+        ...STYLE_WITH_TOP_BORDER,
+    }
+}
+
 const TitleSection:React.FC<Props> = ({
     onClick
 }) => {
+
     return (
         <div
-            style={{
-                display: 'flex',
-                cursor: 'pointer',
-                // textShadow: '0 0 3px rgba(0,0,0,.8)',
-                color: 'rgba(255,255,255,.8)'
-            }}
+            style={getStyleForTitleSection()}
             onClick={onClick}
         >
             <div
