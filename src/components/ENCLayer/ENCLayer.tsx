@@ -35,7 +35,7 @@ const ENCLayer:React.FC<Props> = ({
 
     const layerRef = React.useRef<IFeatureLayer>();
 
-    const layerViewRef = React.useRef<IFeatureLayerView>()
+    const layerViewRef = React.useRef<IFeatureLayerView>();
 
     const getDefExp = ()=>{
         return `Type = '${level}' AND Note is null`
@@ -75,32 +75,37 @@ const ENCLayer:React.FC<Props> = ({
         }
     };
 
+    const queryFeature = async(geometry:__esri.Point)=>{
+
+        const res = await layerViewRef.current.queryFeatures({
+            geometry,
+            spatialRelationship: 'intersects',
+            outFields: ['Name', 'Type', 'File_'],
+            returnGeometry: true
+        });
+
+        return res?.features[0]
+
+    }
+
     const initClickEvtHandler = ()=>{
         mapView.on('click', async(evt)=>{
 
-            const res = await layerViewRef.current.queryFeatures({
-                geometry: evt.mapPoint,
-                spatialRelationship: 'intersects',
-                outFields: ['Name', 'Type', 'File_'],
-                returnGeometry: true
-            });
+            const feature = await queryFeature(evt.mapPoint);
 
-            if(res.features && res.features[0]){
+            if(feature){
 
                 const {
                     attributes,
                     geometry
-                } = res.features[0];
-
-                console.log(res.features[0])
-
+                } = feature;
+    
                 onSelect({
                     attributes,
                     geometry
-                })
-            }
+                });
+            };
 
-            // console.log(res.features);
         })
     }
 

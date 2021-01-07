@@ -73,7 +73,7 @@ const DownloadScreen:React.FC<Props> = ({
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        cursor: 'pointer',
+                        // cursor: 'pointer',
                         // height: 90,
                         width: 80,
                         background: DEFAULT_TEXT_COLOR,
