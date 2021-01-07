@@ -7,13 +7,17 @@ import DownloadBtn from './DownloadBtn';
 import DownloadOptions from './DownloadOptions';
 
 type Props = {
+    visible: boolean;
     activeENCsLevel: NOAAENCsLevel;
+    toggleBtnOnClick: ()=>void;
     downloadBySelectedMonthOnClick: ()=>void;
     activeENCsLevelOnChange: (value:NOAAENCsLevel)=>void;
 };
 
 const Download:React.FC<Props> = ({
+    visible,
     activeENCsLevel,
+    toggleBtnOnClick,
     downloadBySelectedMonthOnClick,
     activeENCsLevelOnChange
 }) => {
@@ -30,12 +34,12 @@ const Download:React.FC<Props> = ({
         >
             <div>
                 <DownloadBtn 
-                    optionsVisible={showDownloadOptions}
-                    onClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
+                    optionsVisible={visible}
+                    onClick={toggleBtnOnClick}
                 />
 
                 { 
-                    showDownloadOptions && 
+                    visible && 
                     <DownloadOptions 
                         selectedENCsLevel={activeENCsLevel}
                         downloadBySelectedMonthOnClick={downloadBySelectedMonthOnClick}

@@ -4,7 +4,9 @@ import React, {
 
 import {
     MapView,
+    ENCLayer,
     Download,
+    DownloadScreen,
     ShipTrafficLayer,
     // ShipTrafficLayerQueryTask,
     // ShipTrafficLayerQueryResult,
@@ -31,6 +33,7 @@ import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
 import MobileHide from '../SharedUI/MobileHide';
+import { ENCLayerFeature } from '../ENCLayer/ENCLayer';
 
 const DefaultStateValues = getDefaultStateValuesFromHash()
 // console.log(DefaultStateValues)
@@ -56,11 +59,13 @@ const App:React.FC = ()=>{
         year: +AISLayersData[0].Year
     });
 
+    const [ showDownloadOptions, setShowDownloadOptions ] = React.useState<boolean>(false);
+
     const [ showDownloadScreen, setShowDownloadScreen ] = React.useState<boolean>(false);
 
     const [ selectedENCsLevel, setSelectedENCsLevel ] = React.useState<NOAAENCsLevel>();
 
-    const [ selectedENCsArea, setSelectedENCsArea ] = React.useState<string>();
+    const [ selectedENCFeature, setSelectedENCFeature ] = React.useState<ENCLayerFeature>();
 
     useEffect(() => {
         saveMapCenterLocation2Hash(mapCenterLocation)
@@ -75,8 +80,8 @@ const App:React.FC = ()=>{
     }, [visibleSubLayer]);
 
     useEffect(() => {
-        setShowDownloadScreen( selectedENCsArea ? true : false );
-    }, [selectedENCsArea]);
+        setShowDownloadScreen( selectedENCFeature ? true : false );
+    }, [selectedENCFeature]);
 
     return (
         <>
@@ -106,6 +111,11 @@ const App:React.FC = ()=>{
                     <ShipTrafficLayer 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
+                    />
+
+                    <ENCLayer
+                        level={selectedENCsLevel}
+                        visible={showDownloadOptions}
                     />
 
                 </MapView>
@@ -138,7 +148,9 @@ const App:React.FC = ()=>{
                 <MobileHide>
                     <ChildAtSidePosition>
                         <Download 
+                            visible={showDownloadOptions}
                             activeENCsLevel={selectedENCsLevel}
+                            toggleBtnOnClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
                             downloadBySelectedMonthOnClick={setShowDownloadScreen.bind(this, true)}
                             activeENCsLevelOnChange={setSelectedENCsLevel}
                         />
@@ -146,6 +158,16 @@ const App:React.FC = ()=>{
                 </MobileHide>
 
             </BottomPanel>
+
+            {
+                showDownloadScreen && (
+                    <DownloadScreen 
+                        activeLayerTimeInfo={activeLayerTimeInfo}
+                        selectedENCFeature={selectedENCFeature}
+                        onClose={setShowDownloadScreen.bind(this, false)}
+                    />
+                )
+            }
 
         </>
     );

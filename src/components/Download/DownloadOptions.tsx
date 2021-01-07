@@ -7,20 +7,20 @@ const DownloadOptionsData: {
     label: string;
 }[] = [
     {
-        value: 'level 1',
+        value: 'Overview',
         label: 'noaa electronic charts level 1'
     },
     {
-        value: 'level 2',
+        value: 'General',
         label: 'noaa electronic charts level 2'
     },
     {
-        value: 'level 3',
+        value: 'Coastal',
         label: 'noaa electronic charts level 3'
     },
     {
-        value: 'inland',
-        label: 'inland noaa electronic charts'
+        value: 'IENC',
+        label: 'inland electronic charts'
     },
 ];
 

@@ -3,4 +3,4 @@ export type ActiveLayerTimeInfo = {
     year: number;
 }
 
-export type NOAAENCsLevel = 'level 1' | 'level 2' | 'level 3' | 'inland';
+export type NOAAENCsLevel = 'Overview' | 'General' | 'Coastal' | 'IENC';

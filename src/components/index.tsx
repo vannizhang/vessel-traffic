@@ -4,6 +4,10 @@ export { default as MapView } from './MapView/MapView';
 
 export { default as Download } from './Download/Download';
 
+export { default as ENCLayer } from './ENCLayer/ENCLayer';
+
+export { default as DownloadScreen } from './DownloadScreen/DownloadScreen';
+
 export { default as MobileHeader } from './MobileHeader/MobileHeader';
 
 export { default as BottomPanel } from './BottomPanel/BottomPanel';
