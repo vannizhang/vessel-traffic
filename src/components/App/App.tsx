@@ -24,7 +24,7 @@ import {
 
 import AppConfig from '../../AppConfig';
 import { AppContext } from '../../contexts/AppContextProvider';
-import { ActiveLayerTimeInfo } from '../../types';
+import { ActiveLayerTimeInfo, NOAAENCsLevel } from '../../types';
 import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveVisibleLayer2Hash } from '../../utils/URLHashParams';
 import { MapCenterLocation } from '../MapView/MapView';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
@@ -54,7 +54,13 @@ const App:React.FC = ()=>{
     const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>(DefaultStateValues.time || {
         month: +AISLayersData[0].Month,
         year: +AISLayersData[0].Year
-    })
+    });
+
+    const [ showDownloadScreen, setShowDownloadScreen ] = React.useState<boolean>(false);
+
+    const [ selectedENCsLevel, setSelectedENCsLevel ] = React.useState<NOAAENCsLevel>();
+
+    const [ selectedENCsArea, setSelectedENCsArea ] = React.useState<string>();
 
     useEffect(() => {
         saveMapCenterLocation2Hash(mapCenterLocation)
@@ -67,6 +73,10 @@ const App:React.FC = ()=>{
     useEffect(() => {
         saveVisibleLayer2Hash(visibleSubLayer)
     }, [visibleSubLayer]);
+
+    useEffect(() => {
+        setShowDownloadScreen( selectedENCsArea ? true : false );
+    }, [selectedENCsArea]);
 
     return (
         <>
@@ -127,7 +137,11 @@ const App:React.FC = ()=>{
 
                 <MobileHide>
                     <ChildAtSidePosition>
-                        <Download />
+                        <Download 
+                            activeENCsLevel={selectedENCsLevel}
+                            downloadBySelectedMonthOnClick={setShowDownloadScreen.bind(this, true)}
+                            activeENCsLevelOnChange={setSelectedENCsLevel}
+                        />
                     </ChildAtSidePosition>
                 </MobileHide>
 

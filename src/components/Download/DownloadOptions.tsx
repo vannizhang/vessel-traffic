@@ -1,0 +1,101 @@
+import React from 'react'
+import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR } from '../../constants/UI'
+import { NOAAENCsLevel } from '../../types'
+
+const DownloadOptionsData: {
+    value: NOAAENCsLevel;
+    label: string;
+}[] = [
+    {
+        value: 'level 1',
+        label: 'noaa electronic charts level 1'
+    },
+    {
+        value: 'level 2',
+        label: 'noaa electronic charts level 2'
+    },
+    {
+        value: 'level 3',
+        label: 'noaa electronic charts level 3'
+    },
+    {
+        value: 'inland',
+        label: 'inland noaa electronic charts'
+    },
+];
+
+type Props = {
+    selectedENCsLevel: NOAAENCsLevel;
+    downloadBySelectedMonthOnClick: ()=>void;
+    activeENCsLevelOnChange: (value:NOAAENCsLevel)=>void;
+}
+
+const DownloadOptions:React.FC<Props> = ({
+    selectedENCsLevel,
+    downloadBySelectedMonthOnClick,
+    activeENCsLevelOnChange
+}) => {
+
+    const getOptions = ():JSX.Element=>{
+
+        const ENCsLevels = DownloadOptionsData.map(({
+            value, label
+        })=>{
+            return (
+                <div
+                    className='margin-left-1'
+                    style={{
+                        cursor: 'pointer'
+                    }}
+                    onClick={activeENCsLevelOnChange.bind(this, value)}
+                >
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            borderRadius: '50%',
+                            height: 6,
+                            width: 6,
+                            background: selectedENCsLevel === value ? DEFAULT_TEXT_COLOR : 'transparent',
+                            marginRight: '1rem'
+                        }}
+                    ></div>
+
+                    <span>{label}</span>
+                </div>
+            )
+        });
+
+        return (
+            <>
+                { ENCsLevels }
+
+                <div
+                    style={{
+                        paddingTop: '.5rem',
+                        marginTop: '.5rem',
+                        marginLeft: '2.2rem',
+                        cursor: 'pointer',
+                        borderTop: `1px solid ${DEFAULT_BORDER_COLOR}`
+                    }}
+                    onClick={downloadBySelectedMonthOnClick}
+                >
+                    <span>All Tracks, by selected month</span>
+                </div>
+            </>
+        )
+    }
+
+    return (
+        <div
+            className='font-size--2'
+            style={{
+                textTransform: 'uppercase'
+            }}
+        >
+            { getOptions() }
+
+        </div>
+    )
+}
+
+export default DownloadOptions

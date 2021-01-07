@@ -1,25 +1,48 @@
 import React, {
     useState
 } from 'react'
-import { DEFAULT_BORDER_COLOR } from '../../constants/UI'
+import { NOAAENCsLevel } from '../../types';
 
-import DownloadBtn from './DownloadBtn'
+import DownloadBtn from './DownloadBtn';
+import DownloadOptions from './DownloadOptions';
 
-const Download = () => {
+type Props = {
+    activeENCsLevel: NOAAENCsLevel;
+    downloadBySelectedMonthOnClick: ()=>void;
+    activeENCsLevelOnChange: (value:NOAAENCsLevel)=>void;
+};
+
+const Download:React.FC<Props> = ({
+    activeENCsLevel,
+    downloadBySelectedMonthOnClick,
+    activeENCsLevelOnChange
+}) => {
 
     const [ showDownloadOptions, setShowDownloadOptions ] = useState<boolean>(false);
 
     return (
-        <div>
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                }}
-            >
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+            }}
+        >
+            <div>
                 <DownloadBtn 
+                    optionsVisible={showDownloadOptions}
                     onClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
                 />
+
+                { 
+                    showDownloadOptions && 
+                    <DownloadOptions 
+                        selectedENCsLevel={activeENCsLevel}
+                        downloadBySelectedMonthOnClick={downloadBySelectedMonthOnClick}
+                        activeENCsLevelOnChange={activeENCsLevelOnChange}
+                    />
+                }
+
             </div>
             
         </div>
