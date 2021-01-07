@@ -155,7 +155,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
             // console.log('active ship layer info', layerInfo)
 
             const style = getStyle(layerInfo);
-            console.log(style)
+            // console.log(style)
 
             const layer = new VectorTileLayer({
                 url: layerInfo.Service_URL,
@@ -164,7 +164,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
                 effect: "bloom(1.5, 0.5px, 0.1)"
             });
 
-            console.log(layerInfo.Service_URL, JSON.stringify(style))
+            // console.log(layerInfo.Service_URL, JSON.stringify(style))
 
             return layer;
 

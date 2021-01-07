@@ -116,6 +116,7 @@ const App:React.FC = ()=>{
                     <ENCLayer
                         level={selectedENCsLevel}
                         visible={showDownloadOptions}
+                        onSelect={setSelectedENCFeature}
                     />
 
                 </MapView>
@@ -164,7 +165,10 @@ const App:React.FC = ()=>{
                     <DownloadScreen 
                         activeLayerTimeInfo={activeLayerTimeInfo}
                         selectedENCFeature={selectedENCFeature}
-                        onClose={setShowDownloadScreen.bind(this, false)}
+                        onClose={()=>{
+                            setShowDownloadScreen(false);
+                            setSelectedENCFeature(null);
+                        }}
                     />
                 )
             }
