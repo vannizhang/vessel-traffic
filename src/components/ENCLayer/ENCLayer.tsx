@@ -1,14 +1,19 @@
 import React, {
-    useEffect
+    useEffect,
+    useRef
 } from 'react'
 
 import { loadModules } from 'esri-loader';
 
 import IMapView from 'esri/views/MapView';
+import IGraphic from 'esri/Graphic'
 import IFeatureLayer from 'esri/layers/FeatureLayer';
+import IGraphicLayer from 'esri/layers/GraphicsLayer';
 import IFeatureLayerView from 'esri/views/layers/FeatureLayerView';
+import ISimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import { NOAAENCsLevel } from '../../types';
 import { IGeometry } from '@esri/arcgis-rest-feature-layer';
+import { BACKGROUND_COLOR } from '../../constants/UI';
 
 type ENCLayerFields = 'Type' | 'Name' | 'File_' | 'Note';
 
@@ -37,18 +42,24 @@ const ENCLayer:React.FC<Props> = ({
 
     const layerViewRef = React.useRef<IFeatureLayerView>();
 
+    // will be used to show graphic for the highlight feature on mouse hover event
+    const graphicsLayerRef = React.useRef<IGraphicLayer>();
+
+    const mouseMoveDelay = useRef<number>();
+
     const getDefExp = ()=>{
         return `Type = '${level}' AND Note is null`
     }
 
     const init = async()=>{
 
-        type Modules = [typeof IFeatureLayer ];
+        type Modules = [typeof IFeatureLayer, typeof IGraphicLayer ];
 
         try {
 
-            const [ FeatureLayer ] = await (loadModules([
-                'esri/layers/FeatureLayer'
+            const [ FeatureLayer, GraphicsLayer ] = await (loadModules([
+                'esri/layers/FeatureLayer',
+                'esri/layers/GraphicsLayer'
             ]) as Promise<Modules>);
 
             const layer = new FeatureLayer({
@@ -58,24 +69,33 @@ const ENCLayer:React.FC<Props> = ({
                 outFields: ['Name', 'Type', 'File_'],
                 definitionExpression: getDefExp(),
                 popupEnabled: false,
-                opacity: .75
+                opacity: .75,
+                visible
             });
 
             mapView.map.add(layer);
 
             mapView.whenLayerView(layer).then((layerView)=>{
                 layerViewRef.current = layerView;
-                initClickEvtHandler();
+                initEvtHandlers();
             });
 
             layerRef.current = layer;
+
+            const gLayer = new GraphicsLayer({
+                effect: 'blur(4px)'
+            });
+
+            mapView.map.add(gLayer, 0);
+
+            graphicsLayerRef.current = gLayer;
 
         } catch(err){
             console.error(err);
         }
     };
 
-    const queryFeature = async(geometry:__esri.Point)=>{
+    const queryFeature = async(geometry:__esri.Point):Promise<IGraphic>=>{
 
         const res = await layerViewRef.current.queryFeatures({
             geometry,
@@ -88,24 +108,82 @@ const ENCLayer:React.FC<Props> = ({
 
     }
 
-    const initClickEvtHandler = ()=>{
+    const isLayerVisible = ()=>{
+        return layerRef.current && layerRef.current.visible;
+    }
+
+    const toggleFeatureOnHover = async(graphic?:IGraphic)=>{
+        type Modules = [typeof ISimpleFillSymbol ];
+
+        if(!graphicsLayerRef.current){
+            return;
+        }
+
+        graphicsLayerRef.current.removeAll();
+
+        if(graphic){
+
+            const [ SimpleFillSymbol ] = await (loadModules([
+                'esri/symbols/SimpleFillSymbol'
+            ]) as Promise<Modules>);
+
+            graphic.symbol = new SimpleFillSymbol({
+                style: 'none',
+                outline: {  // autocasts as new SimpleLineSymbol()
+                    color: BACKGROUND_COLOR,
+                    width: 5
+                }
+            })
+
+            graphicsLayerRef.current.add(graphic)
+        }
+    }
+
+    const initEvtHandlers = ()=>{
         mapView.on('click', async(evt)=>{
+            
+            if(isLayerVisible()){
 
-            const feature = await queryFeature(evt.mapPoint);
+                const feature = await queryFeature(evt.mapPoint);
+                // console.log(feature)
 
-            if(feature){
-
-                const {
-                    attributes,
-                    geometry
-                } = feature;
+                if(feature){
     
-                onSelect({
-                    attributes,
-                    geometry
-                });
-            };
+                    const {
+                        attributes,
+                        geometry
+                    } = feature;
+        
+                    onSelect({
+                        attributes,
+                        geometry
+                    });
+                };
+            }
 
+        });
+
+        mapView.on('pointer-move', (evt) => {
+
+            if(isLayerVisible()){
+
+                clearTimeout(mouseMoveDelay.current);
+
+                mouseMoveDelay.current = window.setTimeout(async () => {
+    
+                    const pointerGeometry = mapView.toMap(evt)
+    
+                    const feature = await queryFeature(pointerGeometry);
+
+                    toggleFeatureOnHover(feature)
+
+                    // console.log(feature)
+                }, 50);
+            }
+        });
+
+        mapView.on('pointer-out', (evt) => {
+            toggleFeatureOnHover()
         })
     }
 
