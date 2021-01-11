@@ -38,58 +38,56 @@ const SelectBtnLabel = styled.span`
 type Props = {
     min: number;
     max: number;
-    defaultValue?: number; 
+    value?: number; 
     textColor?: string;
     onChange: (value: number)=>void;
     // format current value
     currentValueLabelformatter?: (value: number)=>string;
     navBtnLabelformatter?: (value: number)=>string;
     rotatable?: boolean;
+    isTopNavDisabled?: boolean;
+    isBottomNavDisabled?: boolean;
 }
 
 const ValueSelector:React.FC<Props> = ({
     min,
     max,
-    defaultValue,
+    value,
     textColor,
     onChange,
     currentValueLabelformatter,
     navBtnLabelformatter,
-    rotatable
+    rotatable,
+    isTopNavDisabled,
+    isBottomNavDisabled
 }) => {
 
-    const [ currentVal, setCurrentVal ] = React.useState<number>(defaultValue || min);
-
     const increment = ()=>{
-        setCurrentVal(val=>{
-            const newVal = val + 1;
-            return newVal > max ? min : newVal;
-        })
+        const newVal = value + 1;
+        onChange(newVal > max ? min : newVal);
     };
 
     const decrement = ()=>{
-        setCurrentVal(val=>{
-            const newVal = val - 1;
-            return newVal < min ? max : newVal;
-        })
+        const newVal = value - 1;
+        onChange(newVal < min ? max : newVal);
     }
 
     const getNavBtn = (direction: 'next' | 'previous')=>{
 
         let labelVal:number;
 
-        let isDisabled = false;
+        let isDisabled = direction === 'next' ? isTopNavDisabled : isBottomNavDisabled;
 
         if(direction==='next'){
 
-            labelVal = currentVal + 1
+            labelVal = value + 1
 
             if(rotatable){
                 labelVal = labelVal > max ? min : labelVal;
             }
             
         } else {
-            labelVal = currentVal - 1;
+            labelVal = value - 1;
 
             if(rotatable){
                 labelVal = labelVal < min ? max : labelVal;
@@ -115,11 +113,11 @@ const ValueSelector:React.FC<Props> = ({
             </svg>
         )
 
-        if(!rotatable){
-            isDisabled = direction === 'next' 
-                ? labelVal > max
-                : labelVal < min;
-        }
+        // if(!rotatable){
+        //     isDisabled = direction === 'next' 
+        //         ? labelVal > max
+        //         : labelVal < min;
+        // }
 
         return (
             <SelectBtnContainer
@@ -152,9 +150,9 @@ const ValueSelector:React.FC<Props> = ({
         )
     }
 
-    React.useEffect(()=>{
-        onChange(currentVal)
-    }, [currentVal]);
+    // React.useEffect(()=>{
+    //     onChange(currentVal)
+    // }, [currentVal]);
 
     return (
         <div
@@ -176,7 +174,7 @@ const ValueSelector:React.FC<Props> = ({
                     textShadow: '0 0 10px #1B528B',
                 }}
             >
-                <span>{currentValueLabelformatter ? currentValueLabelformatter(currentVal) : currentVal}</span>
+                <span>{currentValueLabelformatter ? currentValueLabelformatter(value) : value}</span>
             </div>
 
             { getNavBtn('previous') }

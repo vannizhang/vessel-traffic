@@ -141,8 +141,6 @@ const App:React.FC = ()=>{
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
                         onChange={setActiveLayerTimeInfo}
-                        minYear={+AISLayersData[0].Year}
-                        maxYear={+AISLayersData[AISLayersData.length - 1].Year}
                     />
 
                     <LayerList 
