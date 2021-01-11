@@ -52,7 +52,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
                 symbol: new SimpleLineSymbol({
                     width: 2,
                     color: styleInfo['text-color']
-                })
+                }),
             });
 
             mapView.graphics.add(graphic4QueryResult)
@@ -68,7 +68,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
             mapView.graphics.removeAll();
             showQueryResult()
         }
-        // console.log(feature);
+        console.log(feature);
     }, [feature]);
 
     useEffect(()=>{

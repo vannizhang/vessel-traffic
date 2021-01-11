@@ -108,7 +108,7 @@ const LayerList:React.FC<Props> = ({
                     }}
                 ></div>
 
-                <span className='avenir-demi'>NAUTICAL BOUNDARIES REFERENCE</span>
+                <span className='avenir-demi'>NAUTICAL BOUNDARIES</span>
             </div>
         </div>
     );

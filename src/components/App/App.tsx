@@ -15,6 +15,7 @@ import {
     TimeSelector,
     MobileHeader,
     TitleAndAboutInfo,
+    ShipInfoWindow
 } from '../';
 
 import {
@@ -47,16 +48,16 @@ const App:React.FC = ()=>{
     // const [ activeDate, setActiveDate ] = React.useState<Date>(defaultActiveDate);
 
     const [ mapCenterLocation, setMapCenterLocation ] = React.useState<MapCenterLocation>(DefaultStateValues['@'] || {
-        lat: 28,
-        lon: -80,
-        zoom: 7
+        lat: 40,
+        lon: -108,
+        zoom: 4
     });
     
     const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
 
     const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>(DefaultStateValues.time || {
-        month: +AISLayersData[0].Month,
-        year: +AISLayersData[0].Year
+        month: +AISLayersData[AISLayersData.length - 1].Month,
+        year: +AISLayersData[AISLayersData.length - 1].Year
     });
 
     const [ showDownloadOptions, setShowDownloadOptions ] = React.useState<boolean>(false);
@@ -158,7 +159,10 @@ const App:React.FC = ()=>{
                             activeENCsLevel={selectedENCsLevel}
                             toggleBtnOnClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
                             downloadBySelectedMonthOnClick={setShowDownloadScreen.bind(this, true)}
-                            activeENCsLevelOnChange={setSelectedENCsLevel}
+                            activeENCsLevelOnChange={(value:NOAAENCsLevel)=>{
+                                const newVlaue = value !== selectedENCsLevel ? value : null;
+                                setSelectedENCsLevel(newVlaue);
+                            }}
                         />
                     </ChildAtSidePosition>
                 </MobileHide>
@@ -174,6 +178,16 @@ const App:React.FC = ()=>{
                             setShowDownloadScreen(false);
                             setSelectedENCFeature(null);
                         }}
+                    />
+                )
+            }
+
+            {
+                shipLayerQueryResult && (
+                    <ShipInfoWindow 
+                        visibleSubLayer={visibleSubLayer}
+                        feature={shipLayerQueryResult}
+                        onClose={setShipLayerQueryResult.bind(this, null)}
                     />
                 )
             }

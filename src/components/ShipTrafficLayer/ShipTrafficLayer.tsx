@@ -16,38 +16,47 @@ export type ShipTrafficSubLayerName = 'Cargo' | 'Fishing' | 'Military' | 'Passen
 export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
     'text-color': string;
     'line-color': string;
+    'background-color'?: string;
 }> = {
     'Cargo': {
         'text-color': '#0BF25B',
-        'line-color': 'rgba(11, 242, 91, .25)'
+        'line-color': 'rgba(11, 242, 91, .25)',
+        'background-color': 'rgba(11, 242, 91, .25)'
     },
     'Fishing': {
         'text-color': '#0DB0FF',
-        'line-color': 'rgba(13, 176, 255, .4)'
+        'line-color': 'rgba(13, 176, 255, .4)',
+        'background-color': 'rgba(13, 176, 255, .8)'
     },
     'Military': {
         'text-color': '#FB0045',
-        'line-color': '#FB0045'
+        'line-color': '#FB0045',
+        'background-color': '#FB0045'
     },
     'Passenger': {
         'text-color': '#8B00FD',
-        'line-color': 'rgba(139,0,253, .35)'
+        'line-color': 'rgba(139,0,253, .35)',
+        'background-color': 'rgba(139,0,253, .8)'
     },
     'Pleasure': {
         'text-color': '#FE0EDA',
-        'line-color': 'rgba(254,14,218, .35)'
+        'line-color': 'rgba(254,14,218, .35)',
+        'background-color': 'rgba(254,14,218, .8)'
     },
     'Tanker': {
         'text-color': '#FFE004',
-        'line-color': 'rgba(255, 224, 4, .25)'
+        'line-color': 'rgba(255, 224, 4, .25)',
+        'background-color': 'rgba(255, 224, 4, .8)'
     },
     'Tow': {
         'text-color': '#FF9A11',
-        'line-color': 'rgba(255,154,17, .35)'
+        'line-color': 'rgba(255,154,17, .35)',
+        'background-color': 'rgba(255,154,17, .8)'
     },
     'Other': {
         'text-color': '#686868',
-        'line-color': '#686868'
+        'line-color': '#686868',
+        'background-color': '#686868'
     }
 }
 

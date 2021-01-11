@@ -38,7 +38,7 @@ enum ShipTrafficFeatureServiceFields {
     vesselclass  = 'vesselclass',
 }
 
-export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string | number>
+export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string>
 
 export type ShipTrafficFeature = IFeature & {
     attributes: ShipTrafficFeatureAttributes

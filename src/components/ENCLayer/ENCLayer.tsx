@@ -128,10 +128,10 @@ const ENCLayer:React.FC<Props> = ({
             ]) as Promise<Modules>);
 
             graphic.symbol = new SimpleFillSymbol({
-                style: 'none',
+                color: 'rgba(255, 255, 255, 0.2)',
                 outline: {  // autocasts as new SimpleLineSymbol()
                     color: BACKGROUND_COLOR,
-                    width: 5
+                    width: 2
                 }
             })
 

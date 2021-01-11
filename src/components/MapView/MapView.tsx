@@ -6,6 +6,8 @@ import IMap from "esri/Map";
 import IwatchUtils from 'esri/core/watchUtils';
 import ITileLayer from 'esri/layers/TileLayer';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
+import ICompass from 'esri/widgets/Compass';
+import IHome from 'esri/widgets/Home';
 
 import { BACKGROUND_COLOR } from '../../constants/UI';
 
@@ -44,7 +46,9 @@ const MapView:React.FC<Props> = ({
             typeof IMapView, 
             typeof IMap,
             typeof ITileLayer,
-            typeof IVectorTileLayer
+            typeof IVectorTileLayer,
+            typeof ICompass,
+            typeof IHome
         ];
 
         try {
@@ -52,15 +56,29 @@ const MapView:React.FC<Props> = ({
                 MapView, 
                 Map,
                 TileLayer,
-                VectorTileLayer
+                VectorTileLayer,
+                Compass,
+                Home
             ] = await (loadModules([
                 'esri/views/MapView',
                 'esri/Map',
                 'esri/layers/TileLayer',
-                'esri/layers/VectorTileLayer'
+                'esri/layers/VectorTileLayer',
+                'esri/widgets/Compass',
+                'esri/widgets/Home'
             ]) as Promise<Modules>);
 
+            const referenceLayer = new VectorTileLayer({
+                portalItem: {
+                    id: "4d79f7a4844b46d385e5d69d1a9da08c" // World Terrain Reference (Local Language)
+                },
+                opacity: .25
+            })
+
             const map = new Map({
+                layers: [
+                    referenceLayer
+                ],
                 basemap: {
                     baseLayers: [
                         new TileLayer({
@@ -97,6 +115,18 @@ const MapView:React.FC<Props> = ({
                 },
                 popup: null
             });
+
+            const compass = new Compass({
+                view: view
+            });
+
+            const homeWidget = new Home({
+                view: view
+            })
+
+            view.ui.add(homeWidget, "top-left");
+
+            view.ui.add(compass, "top-left");
 
             view.when(()=>{
                 setMapView(view);
