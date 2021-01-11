@@ -54,7 +54,7 @@ const TitleSection:React.FC<Props> = ({
             </div>
 
             <div 
-                className='phone-hide'
+                // className='phone-hide'
                 style={{
                     fontSize: '.8rem'
                 }}

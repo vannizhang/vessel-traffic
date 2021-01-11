@@ -1,21 +1,30 @@
 import React, {
-    useEffect
+    useEffect,
+    useRef
 } from 'react';
 import { loadModules } from 'esri-loader';
 import IMapView from 'esri/views/MapView';
 import IGraphic from 'esri/Graphic';
 import ISimpleLineSymbol from 'esri/symbols/SimpleLineSymbol'
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
+import {
+    ShipTrafficSubLayerName,
+    ShipTrafficSubLayerStyles
+} from '../ShipTrafficLayer/ShipTrafficLayer'
 
 type Props = {
+    visibleSubLayer: ShipTrafficSubLayerName;
     feature: ShipTrafficFeature;
     mapView?: IMapView;
 }
 
 const ShipTrafficLayerQueryResult:React.FC<Props> = ({
+    visibleSubLayer,
     feature,
     mapView
 }) => {
+
+    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
 
     const showQueryResult = async():Promise<void>=>{
 
@@ -34,13 +43,15 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
             const {
                 geometry
-            } = feature
+            } = feature;
+
+            const styleInfo = ShipTrafficSubLayerStyles[visibleSubLayerRef.current]
 
             const graphic4QueryResult = new Graphic({
                 geometry, 
                 symbol: new SimpleLineSymbol({
                     width: 2,
-                    color: [0,255,255]
+                    color: styleInfo['text-color']
                 })
             });
 
@@ -57,7 +68,12 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
             mapView.graphics.removeAll();
             showQueryResult()
         }
+        // console.log(feature);
     }, [feature]);
+
+    useEffect(()=>{
+        visibleSubLayerRef.current = visibleSubLayer;
+    }, [visibleSubLayer]);
 
     return null;
 }

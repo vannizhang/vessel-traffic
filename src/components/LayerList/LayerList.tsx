@@ -20,7 +20,7 @@ const SublayerNames: ShipTrafficSubLayerName[] = [
     'Pleasure', 
     'Tanker', 
     'Tow', 
-    // 'Other'
+    'Other'
 ];
 
 const LayerList:React.FC<Props> = ({

@@ -4,9 +4,9 @@ import React, {
 
 import { loadModules } from 'esri-loader';
 
-import {
-    AppContext
-} from '../../contexts/AppContextProvider';
+// import {
+//     AppContext
+// } from '../../contexts/AppContextProvider';
 
 import { getLayerDataByDate, ShipTrafficLayerInfo } from '../../services/getAISLayersInfo';
 
@@ -20,20 +20,20 @@ import { ActiveLayerTimeInfo } from '../../types';
 
 enum ShipTrafficFeatureServiceFields {
     mmsi = 'mmsi',
-    trackstarttime  = 'trackstarttime',
-    trackendtime  = 'trackendtime',
-    sog  = 'sog',
-    cog  = 'cog',
-    heading  = 'heading',
+    start_date  = 'start_date',
+    end_date  = 'end_date',
+    mean_sog  = 'mean_sog',
+    mean_cog  = 'mean_cog',
+    mean_heading  = 'mean_heading',
     vesselname  = 'vesselname',
     imo  = 'imo',
-    callsign  = 'callsign',
+    // callsign  = 'callsign',
     vesseltype  = 'vesseltype',
-    status  = 'status',
+    // status  = 'status',
     length  = 'length',
     width  = 'width',
     draft  = 'draft',
-    cargo  = 'cargo',
+    // cargo  = 'cargo',
     vesselgroup  = 'vesselgroup',
     vesselclass  = 'vesselclass',
 }

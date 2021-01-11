@@ -2,9 +2,9 @@ import React from 'react';
 
 import { loadModules } from 'esri-loader';
 
-import {
-    AppContext
-} from '../../contexts/AppContextProvider';
+// import {
+//     AppContext
+// } from '../../contexts/AppContextProvider';
 
 import IMapView from 'esri/views/MapView';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
@@ -55,29 +55,32 @@ interface Props {
     mapView?: IMapView;
     visibleSubLayer: ShipTrafficSubLayerName;
     activeLayerTimeInfo: ActiveLayerTimeInfo;
+    faded?: boolean;
 }
 
 const ShipTrafficLayer:React.FC<Props> = ({
     mapView,
     visibleSubLayer,
-    activeLayerTimeInfo
+    activeLayerTimeInfo,
+    faded
 })=>{
 
     // const { visibleSubLayer } = React.useContext(AppContext);
 
-    const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
+    // const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
+
+    const shipTrafficLayerRef = React.useRef<IVectorTileLayer>();
 
     const addLayer = async()=>{
 
-        if(shipTrafficLayer){
-            mapView.map.remove(shipTrafficLayer);
+        if(shipTrafficLayerRef.current){
+            mapView.map.remove(shipTrafficLayerRef.current);
         }
 
-        const layer = await getLayer();
+        shipTrafficLayerRef.current = await getLayer();
 
-        mapView.map.add(layer);
+        mapView.map.add(shipTrafficLayerRef.current);
 
-        setShipTrafficLayer(layer);
     };
 
     const getStyle = ( layerInfo: ShipTrafficLayerInfo )=>{
@@ -181,6 +184,14 @@ const ShipTrafficLayer:React.FC<Props> = ({
         }
 
     }, [ visibleSubLayer, activeLayerTimeInfo, mapView ]);
+
+    React.useEffect(()=>{
+
+        if(shipTrafficLayerRef.current){
+            shipTrafficLayerRef.current.effect = faded ? 'grayscale(90%)' : '';
+        }
+
+    }, [ faded ]);
 
     return null;
 };

@@ -94,7 +94,8 @@ const MapView:React.FC<Props> = ({
                 zoom: defaultMapCenterLocation ? defaultMapCenterLocation.zoom : undefined,
                 background: { // autocasts new ColorBackground()
                     color: BACKGROUND_COLOR // autocasts as new Color()
-                }
+                },
+                popup: null
             });
 
             view.when(()=>{

@@ -8,8 +8,8 @@ import {
     Download,
     DownloadScreen,
     ShipTrafficLayer,
-    // ShipTrafficLayerQueryTask,
-    // ShipTrafficLayerQueryResult,
+    ShipTrafficLayerQueryTask,
+    ShipTrafficLayerQueryResult,
     LayerList,
     BottomPanel,
     TimeSelector,
@@ -76,7 +76,8 @@ const App:React.FC = ()=>{
     }, [activeLayerTimeInfo]);
 
     useEffect(() => {
-        saveVisibleLayer2Hash(visibleSubLayer)
+        saveVisibleLayer2Hash(visibleSubLayer);
+        setShipLayerQueryResult(null);
     }, [visibleSubLayer]);
 
     useEffect(() => {
@@ -100,17 +101,21 @@ const App:React.FC = ()=>{
                     defaultMapCenterLocation={mapCenterLocation}
                     onStationary={setMapCenterLocation}
                 >
-                    {/* <ShipTrafficLayerQueryTask 
+                    <ShipTrafficLayerQueryTask 
+                        visibleSubLayer={visibleSubLayer}
+                        activeLayerTimeInfo={activeLayerTimeInfo}
                         onSelect={setShipLayerQueryResult}
                     />
                     
                     <ShipTrafficLayerQueryResult 
+                        visibleSubLayer={visibleSubLayer}
                         feature={shipLayerQueryResult}
-                    /> */}
+                    />
                     
                     <ShipTrafficLayer 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
+                        faded={shipLayerQueryResult ? true : false}
                     />
 
                     <ENCLayer
