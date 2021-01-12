@@ -27,3 +27,5 @@ export { default as LayerList } from './LayerList/LayerList';
 export { default as TitleAndAboutInfo } from './TitleAndAboutInfo/TitleAndAboutInfo';
 
 export { default as ShipInfoWindow } from './ShipInfoWindow/ShipInfoWindow';
+
+export { default as NauticalBoundariesLayer } from './NauticalBoundariesLayer/NauticalBoundariesLayer';

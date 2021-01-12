@@ -1,9 +1,22 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components'
 import { DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL } from '../../constants/UI'
 
 import {
     STYLE_WITH_TOP_BORDER
 } from '../TitleAndAboutInfo/TitleSection'
+
+const DownloadBtnLabel = styled.span`
+    @media (max-width: 1250px) {
+        display: none;
+    }
+`
+
+const DownloadBtnLabelNarrowScreen = styled.span`
+    @media (min-width: 1250px) {
+        display: none;
+    }
+`
 
 type Props = {
     optionsVisible: boolean;
@@ -43,7 +56,14 @@ const DownloadBtn:React.FC<Props> = ({
                     fontSize: FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL,
                 }}
             >
-                DOWNLOAD OPTIONS
+                <DownloadBtnLabel>
+                    DOWNLOAD OPTIONS
+                </DownloadBtnLabel>
+
+                <DownloadBtnLabelNarrowScreen>
+                    DOWNLOAD
+                </DownloadBtnLabelNarrowScreen>
+                
             </span>
         </div>
     )

@@ -29,7 +29,7 @@ const Download:React.FC<Props> = ({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'flex-end',
+                // alignItems: 'flex-end',
             }}
         >
             <div>
@@ -38,6 +38,22 @@ const Download:React.FC<Props> = ({
                     onClick={toggleBtnOnClick}
                 />
 
+                {
+                    visible && 
+                    <div
+                        className=''
+                        style={{
+                            maxWidth: 345,
+                            fontSize: '.75rem',
+                            paddingLeft: 10
+                        }}
+                    >
+                        <p
+                            className='trailer-half'
+                        >Choose an area within which to download vessel tracks.<br/> They are available in a range of scales to balance your needs.</p>
+                    </div>
+                }
+            
                 { 
                     visible && 
                     <DownloadOptions 

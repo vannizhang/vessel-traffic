@@ -58,7 +58,7 @@ const DownloadOptions:React.FC<Props> = ({
                             height: 6,
                             width: 6,
                             background: selectedENCsLevel === value ? '#fff' : 'transparent',
-                            marginRight: '1rem'
+                            marginRight: '.5rem'
                         }}
                     ></div>
 
@@ -75,13 +75,17 @@ const DownloadOptions:React.FC<Props> = ({
                     style={{
                         paddingTop: '.5rem',
                         marginTop: '.5rem',
-                        marginLeft: '2.2rem',
+                        // marginLeft: '1.5rem',
                         cursor: 'pointer',
                         borderTop: `1px solid ${DEFAULT_BORDER_COLOR}`
                     }}
                     onClick={downloadBySelectedMonthOnClick}
                 >
-                    <span>All Tracks, by selected month</span>
+                    <span 
+                        style={{
+                            marginLeft: '2rem'
+                        }}
+                    >All Tracks, by selected month</span>
                 </div>
             </>
         )

@@ -4,10 +4,10 @@ import { BREAKPOINT_EXTRA_WIDE, BREAKPOINT_WIDE, DEFAULT_TEXT_COLOR } from '../.
 
 const AboutContainer = styled.div`
     color: ${DEFAULT_TEXT_COLOR};
-    max-width: 515px;
+    max-width: 510px;
 
     @media (max-width: ${BREAKPOINT_EXTRA_WIDE}px) {
-        max-width: 300px;
+        max-width: 290px;
     }
 `;
 

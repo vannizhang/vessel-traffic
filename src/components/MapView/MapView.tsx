@@ -72,7 +72,7 @@ const MapView:React.FC<Props> = ({
                 portalItem: {
                     id: "4d79f7a4844b46d385e5d69d1a9da08c" // World Terrain Reference (Local Language)
                 },
-                opacity: .25
+                opacity: .5
             })
 
             const map = new Map({

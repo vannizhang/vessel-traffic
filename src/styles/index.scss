@@ -3,3 +3,9 @@
 body {
     background-color: #1b528b;
 }
+
+#root {
+    .esri-widget--button {
+        filter: invert(1);
+    }
+}

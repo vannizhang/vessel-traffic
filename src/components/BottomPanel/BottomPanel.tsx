@@ -49,6 +49,10 @@ export const ChildAtSidePosition = styled.div`
     /* width: 515px; */
     pointer-events: initial;
     color: ${DEFAULT_TEXT_COLOR};
+
+    @media (max-width: 1120px) {
+        display: none;
+    }
 `;
 
 const BottomPanel:React.FC = ({

@@ -15,7 +15,8 @@ import {
     TimeSelector,
     MobileHeader,
     TitleAndAboutInfo,
-    ShipInfoWindow
+    ShipInfoWindow,
+    NauticalBoundariesLayer
 } from '../';
 
 import {
@@ -68,6 +69,8 @@ const App:React.FC = ()=>{
 
     const [ selectedENCFeature, setSelectedENCFeature ] = React.useState<ENCLayerFeature>();
 
+    const [ showNauticalBoundaries, setShowNauticalBoundaries ] = React.useState<boolean>(false);
+
     useEffect(() => {
         saveMapCenterLocation2Hash(mapCenterLocation)
     }, [mapCenterLocation]);
@@ -102,6 +105,10 @@ const App:React.FC = ()=>{
                     defaultMapCenterLocation={mapCenterLocation}
                     onStationary={setMapCenterLocation}
                 >
+                    <NauticalBoundariesLayer 
+                        isVisible={showNauticalBoundaries}
+                    />
+
                     <ShipTrafficLayerQueryTask 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
