@@ -67,6 +67,9 @@ interface Props {
     faded?: boolean;
 }
 
+const DEFAULT_EFFECT = 'bloom(1.5, 0.5px, 0.1)';
+const GRAY_EFFECT = 'grayscale(90%)';
+
 const ShipTrafficLayer:React.FC<Props> = ({
     mapView,
     visibleSubLayer,
@@ -173,7 +176,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
                 url: layerInfo.Service_URL,
                 style,
                 // effect: "bloom(1.5, 0.5px, 0.1)"
-                effect: "bloom(1.5, 0.5px, 0.1)"
+                effect: DEFAULT_EFFECT
             });
 
             // console.log(layerInfo.Service_URL, JSON.stringify(style))
@@ -197,7 +200,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
     React.useEffect(()=>{
 
         if(shipTrafficLayerRef.current){
-            shipTrafficLayerRef.current.effect = faded ? 'grayscale(90%)' : '';
+            shipTrafficLayerRef.current.effect = faded ? GRAY_EFFECT : DEFAULT_EFFECT;
         }
 
     }, [ faded ]);

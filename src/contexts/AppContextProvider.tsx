@@ -2,12 +2,17 @@
 import React from 'react';
 
 import {
+    miscFns
+} from 'helper-toolkit-ts';
+
+import {
     fetchShipTrafficLayersData,
     ShipTrafficLayerInfo
 } from '../services/getAISLayersInfo';
 
 interface ContextProps {
     AISLayersData: ShipTrafficLayerInfo[];
+    isMobile: boolean;
 };
 
 interface AppContextProviderProps {};
@@ -26,6 +31,7 @@ export const AppContextProvider:React.FC<AppContextProviderProps> = ({
 
         const value:ContextProps = {
             AISLayersData,
+            isMobile: miscFns.isMobileDevice()
         };
 
         setValue(value)

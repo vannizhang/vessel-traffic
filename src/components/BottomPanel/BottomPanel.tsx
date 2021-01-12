@@ -37,6 +37,7 @@ const ChildrenWrapper = styled.div`
 
 export const ChildAtCenterPosition = styled.div`
     flex-grow: 1;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +46,7 @@ export const ChildAtCenterPosition = styled.div`
 
 export const ChildAtSidePosition = styled.div`
     position: relative;
-    width: 515px;
+    /* width: 515px; */
     pointer-events: initial;
     color: ${DEFAULT_TEXT_COLOR};
 `;

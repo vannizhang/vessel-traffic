@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import { ShipTrafficSubLayerName, ShipTrafficSubLayerStyles } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR } from '../../constants/UI';
+import { AppContext } from '../../contexts/AppContextProvider';
+import { miscFns} from 'helper-toolkit-ts';
+
+const isMobile = miscFns.isMobileDevice();
 
 const InfoWindowConatiner = styled.div`
     position: absolute;
@@ -12,7 +16,7 @@ const InfoWindowConatiner = styled.div`
     width: 100%;
     box-sizing: border-box;
     background: linear-gradient(to bottom, rgba(27, 82, 139, 1), rgba(27, 82, 139, .05) 100%);
-    padding: 2rem 0;
+    padding: ${isMobile ? '0' : '2rem 0'};
     display: flex;
     justify-content: center;
     z-index: 5;
@@ -22,6 +26,7 @@ const InfoBlock = styled.div`
     position: relative;
     padding: 0 1rem;
     text-align: left;
+    margin-bottom: ${isMobile ? '.5rem' : '0'};
 `;
 
 const TitleText = styled.p`
@@ -45,9 +50,48 @@ type Props = {
 
 const DATE_FORMATTER = 'yyyy/MM/dd';
 
-const getDirection = (COG:number):Direction=>{
-    return 'N';
-}
+const getDirection = (angle:number):Direction=>{
+
+    const Directions:Direction[] = [
+        'N', 'N/NE', 'NE', 'E/NE', 'E' , 'E/SE' ,  'SE', 'S/SE' , 'S' , 'S/SW' , 'SW' , 'W/SW' , 'W' , 'W/NW' , 'NW' , 'N/NW'
+    ];
+
+    const Angles = [
+        10.25,
+        32.75,
+        55.25,
+        77.75,  
+        100.25, 
+        122.75, 
+        145.25,
+        167.75,
+        190.25,
+        212.75,
+        235.25,
+        257.75,
+        280.25,
+        302.75,
+        325.25,
+        347.75
+    ];
+
+    console.log(angle)
+
+    if(angle < 0) {
+        return 'N';
+    }
+
+    let index = -1;
+
+    for(let i = 0; i < Angles.length; i++){
+        if(angle < Angles[i]){
+            index = i;
+            break;
+        }
+    }
+
+    return Directions[index];
+};
 
 const ShipInfoWindow:React.FC<Props> = ({
     feature,
@@ -93,10 +137,12 @@ const ShipInfoWindow:React.FC<Props> = ({
             <div
                 style={{
                     position: 'relative',
-                    display: 'flex',
+                    display: isMobile ? 'block' : 'flex',
+                    width: isMobile ? '100%' : 'unset',
                     justifyContent: 'center',
                     alignItems: 'stretch',
                     padding: '.5rem',
+                    paddingTop: isMobile ? '1rem' : '.5rem',
                     color: 'rgba(255,255,255,.8)',
                     textShadow: `0 0 3px ${styleInfo['background-color']}`,
                     background: `linear-gradient(to bottom, ${styleInfo['background-color']}, transparent 100%)`
@@ -197,6 +243,9 @@ const ShipInfoWindow:React.FC<Props> = ({
             
                 <div 
                     style={{
+                        position: isMobile ? 'absolute' : 'relative',
+                        top: isMobile ? '.5rem' : 'unset',
+                        right: isMobile ? '.5rem' : 'unset',
                         height: '100%',
                         cursor: 'pointer'
                     }}
