@@ -22,14 +22,12 @@ const InfoBlock = styled.div`
     position: relative;
     padding: 0 1rem;
     text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 `;
 
-const TitleText = styled.span`
+const TitleText = styled.p`
     font-size: 2.2rem;
     line-height: .8;
+    margin-bottom: 0;
 `;
 
 const SubtitleText = styled.span`
@@ -117,7 +115,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                         <TitleText
                             className='avenir-light'
                         >{ vesselname }</TitleText>
-
+                        
                         <a
                             href={vesselInfoSearchUrl}
                             target='_BLANK'
@@ -157,17 +155,16 @@ const ShipInfoWindow:React.FC<Props> = ({
                         borderRight: `1px solid ${DEFAULT_BORDER_COLOR}`
                     }}
                 >
-                    <div>
-                        <TitleText
-                            className='avenir-light'
-                        >{startTime}</TitleText>
-                    </div>
+                    <TitleText
+                        className='avenir-light'
+                        style={{
+                            marginBottom: '.2rem'
+                        }}
+                    >{startTime}</TitleText>
 
-                    <div>
-                        <SubtitleText>
-                            AVG: { avgSpeed } kn { getDirection(+mean_cog) }
-                        </SubtitleText>
-                    </div>
+                    <SubtitleText>
+                        AVG: { avgSpeed } kn { getDirection(+mean_cog) }
+                    </SubtitleText>
                 </InfoBlock>
 
                 <InfoBlock>
