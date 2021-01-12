@@ -22,18 +22,19 @@ const InfoBlock = styled.div`
     position: relative;
     padding: 0 1rem;
     text-align: left;
-    /* line-height: 1.1rem; */
-    background: #999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 const TitleText = styled.span`
     font-size: 2.2rem;
-    /* line-height: 1.25rem; */
+    line-height: .8;
 `;
 
 const SubtitleText = styled.span`
-    font-size: 0.875rem;
-    /* line-height: .5rem; */
+    font-size: 0.9rem;
+    line-height: 1.2;
 `;
 
 type Direction = 'N' | 'N/NE' | 'NE' | 'E/NE'| 'E' | 'E/SE' | 'SE'| 'S/SE' | 'S' | 'S/SW'| 'SW' | 'W/SW' | 'W'| 'W/NW'| 'NW'| 'N/NW'
@@ -117,7 +118,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                             className='avenir-light'
                         >{ vesselname }</TitleText>
 
-                        {/* <a
+                        <a
                             href={vesselInfoSearchUrl}
                             target='_BLANK'
                             title='Search this vessel on Google'
@@ -134,7 +135,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                                 <path fill='#fff' d="M21.995 21.288L15 14.291a7.317 7.317 0 1 0-.708.708l6.997 6.996zM9.5 15.8a6.3 6.3 0 1 1 6.3-6.3 6.307 6.307 0 0 1-6.3 6.3z"/>
                                 <path fill="none" d="M0 0h24v24H0z"/>
                             </svg>
-                        </a> */}
+                        </a>
 
                     </div>
 
@@ -156,11 +157,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                         borderRight: `1px solid ${DEFAULT_BORDER_COLOR}`
                     }}
                 >
-                    <div
-                        style={{
-                            lineHeight: '0'
-                        }}
-                    >
+                    <div>
                         <TitleText
                             className='avenir-light'
                         >{startTime}</TitleText>
@@ -208,7 +205,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                     }}
                     onClick={onClose}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"><path stroke='#fff' d="M18.01 6.697L12.707 12l5.303 5.303-.707.707L12 12.707 6.697 18.01l-.707-.707L11.293 12 5.99 6.697l.707-.707L12 11.293l5.303-5.303z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"><path fill='#fff' d="M18.01 6.697L12.707 12l5.303 5.303-.707.707L12 12.707 6.697 18.01l-.707-.707L11.293 12 5.99 6.697l.707-.707L12 11.293l5.303-5.303z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
                 </div>
             </div>
         );
