@@ -46,7 +46,8 @@ const DownloadOptions:React.FC<Props> = ({
                     className='margin-left-1'
                     key={value}
                     style={{
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        color: selectedENCsLevel === value ? '#fff' : DEFAULT_TEXT_COLOR,
                     }}
                     onClick={activeENCsLevelOnChange.bind(this, value)}
                 >
@@ -56,7 +57,7 @@ const DownloadOptions:React.FC<Props> = ({
                             borderRadius: '50%',
                             height: 6,
                             width: 6,
-                            background: selectedENCsLevel === value ? DEFAULT_TEXT_COLOR : 'transparent',
+                            background: selectedENCsLevel === value ? '#fff' : 'transparent',
                             marginRight: '1rem'
                         }}
                     ></div>
