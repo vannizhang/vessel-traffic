@@ -8,6 +8,7 @@ import ITileLayer from 'esri/layers/TileLayer';
 import IVectorTileLayer from 'esri/layers/VectorTileLayer';
 import ICompass from 'esri/widgets/Compass';
 import IHome from 'esri/widgets/Home';
+import IMapImageLayer from 'esri/layers/MapImageLayer'
 
 import { BACKGROUND_COLOR } from '../../constants/UI';
 
@@ -47,6 +48,7 @@ const MapView:React.FC<Props> = ({
             typeof IMap,
             typeof ITileLayer,
             typeof IVectorTileLayer,
+            typeof IMapImageLayer,
             typeof ICompass,
             typeof IHome
         ];
@@ -57,6 +59,7 @@ const MapView:React.FC<Props> = ({
                 Map,
                 TileLayer,
                 VectorTileLayer,
+                MapImageLayer,
                 Compass,
                 Home
             ] = await (loadModules([
@@ -64,6 +67,7 @@ const MapView:React.FC<Props> = ({
                 'esri/Map',
                 'esri/layers/TileLayer',
                 'esri/layers/VectorTileLayer',
+                'esri/layers/MapImageLayer',
                 'esri/widgets/Compass',
                 'esri/widgets/Home'
             ]) as Promise<Modules>);
@@ -72,12 +76,20 @@ const MapView:React.FC<Props> = ({
             //     portalItem: {
             //         id: "4d79f7a4844b46d385e5d69d1a9da08c" // World Terrain Reference (Local Language)
             //     },
-            //     opacity: .5
+            //     opacity: .5,
+            //     minScale: 288895
             // })
+
+            const referenceLayer = new MapImageLayer({
+                url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
+                opacity: 1,
+                // minScale: 288895
+            })
+
 
             const map = new Map({
                 layers: [
-                    // referenceLayer
+                    referenceLayer
                 ],
                 basemap: {
                     baseLayers: [

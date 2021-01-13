@@ -54,9 +54,9 @@ export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
         'background-color': 'rgba(255,154,17, .8)'
     },
     'Other': {
-        'text-color': '#686868',
-        'line-color': '#686868',
-        'background-color': '#686868'
+        'text-color': '#fff',
+        'line-color': 'rgba(255,255,255,.3)',
+        'background-color': '#fff'
     }
 }
 
@@ -201,6 +201,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
         if(shipTrafficLayerRef.current){
             shipTrafficLayerRef.current.effect = faded ? GRAY_EFFECT : DEFAULT_EFFECT;
+            shipTrafficLayerRef.current.opacity = faded ? .5 : 1;
         }
 
     }, [ faded ]);

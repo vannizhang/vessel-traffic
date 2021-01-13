@@ -257,11 +257,11 @@ const ShipInfoWindow:React.FC<Props> = ({
         );
     }
 
-    return feature ? (
+    return (
         <InfoWindowConatiner>
             { getContent() }
         </InfoWindowConatiner>
-    ) : null;
+    );
 }
 
 export default ShipInfoWindow;
