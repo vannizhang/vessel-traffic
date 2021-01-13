@@ -68,16 +68,16 @@ const MapView:React.FC<Props> = ({
                 'esri/widgets/Home'
             ]) as Promise<Modules>);
 
-            const referenceLayer = new VectorTileLayer({
-                portalItem: {
-                    id: "4d79f7a4844b46d385e5d69d1a9da08c" // World Terrain Reference (Local Language)
-                },
-                opacity: .5
-            })
+            // const referenceLayer = new VectorTileLayer({
+            //     portalItem: {
+            //         id: "4d79f7a4844b46d385e5d69d1a9da08c" // World Terrain Reference (Local Language)
+            //     },
+            //     opacity: .5
+            // })
 
             const map = new Map({
                 layers: [
-                    referenceLayer
+                    // referenceLayer
                 ],
                 basemap: {
                     baseLayers: [
