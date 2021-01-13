@@ -29,7 +29,7 @@ import {
 import AppConfig from '../../AppConfig';
 import { AppContext } from '../../contexts/AppContextProvider';
 import { ActiveLayerTimeInfo, NOAAENCsLevel } from '../../types';
-import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveVisibleLayer2Hash } from '../../utils/URLHashParams';
+import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveMMSI2Hash, saveVisibleLayer2Hash } from '../../utils/URLHashParams';
 import { MapCenterLocation } from '../MapView/MapView';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
@@ -83,6 +83,11 @@ const App:React.FC = ()=>{
         saveVisibleLayer2Hash(visibleSubLayer);
         setShipLayerQueryResult(null);
     }, [visibleSubLayer]);
+
+    useEffect(() => {
+        const mmsi = shipLayerQueryResult ? shipLayerQueryResult.attributes.mmsi : undefined;
+        saveMMSI2Hash(mmsi);
+    }, [shipLayerQueryResult]);
 
     useEffect(() => {
         setShowDownloadScreen( selectedENCFeature ? true : false );
@@ -152,8 +157,9 @@ const App:React.FC = ()=>{
 
                     <LayerList 
                         visibleSubLayer={visibleSubLayer}
-                        isNauticalReferenceLayerVisible={false}
+                        isNauticalReferenceLayerVisible={showNauticalBoundaries}
                         onChange={setVisibleSubLayer}
+                        nauticalReferenceLayerOnToggle={setShowNauticalBoundaries.bind(this, !showNauticalBoundaries)}
                     />
                 </ChildAtCenterPosition>
 

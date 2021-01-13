@@ -48,7 +48,7 @@ type Props = {
     onClose: ()=>void;
 }
 
-const DATE_FORMATTER = 'yyyy/MM/dd';
+const DATE_FORMATTER = 'MM/dd/yyyy';
 
 const getDirection = (angle:number):Direction=>{
 

@@ -68,7 +68,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
             mapView.graphics.removeAll();
             showQueryResult()
         }
-        console.log(feature);
+        // console.log(feature);
     }, [feature]);
 
     useEffect(()=>{

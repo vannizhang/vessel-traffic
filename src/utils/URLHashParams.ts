@@ -5,12 +5,13 @@ import { MapCenterLocation } from '../components/MapView/MapView';
 import { ShipTrafficSubLayerName } from '../components/ShipTrafficLayer/ShipTrafficLayer';
 import { ActiveLayerTimeInfo } from '../types';
 
-type HashParamKey = '@' | 'sublayer' | 'time';
+type HashParamKey = '@' | 'sublayer' | 'time' | 'mmsi';
 
 type DefaultStateValues = {
     '@': MapCenterLocation,
     'sublayer': ShipTrafficSubLayerName,
-    'time': ActiveLayerTimeInfo
+    'time': ActiveLayerTimeInfo,
+    'mmsi': string;
 }
 
 const DefaultHashData:Record<HashParamKey, string> = urlFns.parseHash();
@@ -18,7 +19,8 @@ const DefaultHashData:Record<HashParamKey, string> = urlFns.parseHash();
 export const getDefaultStateValuesFromHash = ():DefaultStateValues=>{
 
     const {
-        sublayer
+        sublayer,
+        mmsi
     } = DefaultHashData;
 
     const time = decodeTime();
@@ -27,6 +29,7 @@ export const getDefaultStateValuesFromHash = ():DefaultStateValues=>{
         '@': decodeMapCenterInfo(),
         sublayer: sublayer as ShipTrafficSubLayerName,
         time,
+        mmsi
     };
 }
 
@@ -62,6 +65,17 @@ export const saveVisibleLayer2Hash = (sublayerName:ShipTrafficSubLayerName): voi
     const key:HashParamKey = 'sublayer';
 
     const value = sublayerName;
+
+    urlFns.updateHashParam({
+        key,
+        value
+    })
+}
+
+export const saveMMSI2Hash = (mmsi:string): void=>{
+    const key:HashParamKey = 'mmsi';
+
+    const value = mmsi;
 
     urlFns.updateHashParam({
         key,
