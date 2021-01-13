@@ -29,3 +29,5 @@ export { default as TitleAndAboutInfo } from './TitleAndAboutInfo/TitleAndAboutI
 export { default as ShipInfoWindow } from './ShipInfoWindow/ShipInfoWindow';
 
 export { default as NauticalBoundariesLayer } from './NauticalBoundariesLayer/NauticalBoundariesLayer';
+
+export { default as NauticalLayerInfoWindow } from './NauticalLayerInfoWindow/NauticalLayerInfoWindow';

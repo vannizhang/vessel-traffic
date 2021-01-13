@@ -16,7 +16,8 @@ import {
     MobileHeader,
     TitleAndAboutInfo,
     ShipInfoWindow,
-    NauticalBoundariesLayer
+    NauticalBoundariesLayer,
+    NauticalLayerInfoWindow
 } from '../';
 
 import {
@@ -36,6 +37,7 @@ import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLaye
 
 import MobileHide from '../SharedUI/MobileHide';
 import { ENCLayerFeature } from '../ENCLayer/ENCLayer';
+import { NauticalBoundariesLayerQueryResult } from '../NauticalBoundariesLayer/NauticalBoundariesLayer';
 
 const DefaultStateValues = getDefaultStateValuesFromHash()
 // console.log(DefaultStateValues)
@@ -54,12 +56,14 @@ const App:React.FC = ()=>{
         zoom: 4
     });
     
-    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
-
     const [ activeLayerTimeInfo, setActiveLayerTimeInfo ] = React.useState<ActiveLayerTimeInfo>(DefaultStateValues.time || {
         month: +AISLayersData[AISLayersData.length - 1].Month,
         year: +AISLayersData[AISLayersData.length - 1].Year
     });
+
+    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
+
+    const [ nauticalLayerQueryResult, setNauticalLayerQueryResult ] = React.useState<NauticalBoundariesLayerQueryResult>();
 
     const [ showDownloadOptions, setShowDownloadOptions ] = React.useState<boolean>(false);
 
@@ -112,6 +116,7 @@ const App:React.FC = ()=>{
                 >
                     <NauticalBoundariesLayer 
                         isVisible={showNauticalBoundaries}
+                        queryResultOnSelected={setNauticalLayerQueryResult}
                     />
 
                     <ShipTrafficLayerQueryTask 
@@ -159,7 +164,10 @@ const App:React.FC = ()=>{
                         visibleSubLayer={visibleSubLayer}
                         isNauticalReferenceLayerVisible={showNauticalBoundaries}
                         onChange={setVisibleSubLayer}
-                        nauticalReferenceLayerOnToggle={setShowNauticalBoundaries.bind(this, !showNauticalBoundaries)}
+                        nauticalReferenceLayerOnToggle={()=>{
+                            setShowNauticalBoundaries(!showNauticalBoundaries);
+                            setNauticalLayerQueryResult(null);
+                        }}
                     />
                 </ChildAtCenterPosition>
 
@@ -198,9 +206,20 @@ const App:React.FC = ()=>{
                     <ShipInfoWindow 
                         visibleSubLayer={visibleSubLayer}
                         feature={shipLayerQueryResult}
-                        onClose={setShipLayerQueryResult.bind(this, null)}
+                        onClose={()=>{
+                            setShipLayerQueryResult(null);
+                            setNauticalLayerQueryResult(null);
+                        }}
                     />
                 )
+            }
+
+            {   nauticalLayerQueryResult && !shipLayerQueryResult ? (
+                    <NauticalLayerInfoWindow 
+                        data={nauticalLayerQueryResult}
+                        onClose={setNauticalLayerQueryResult.bind(this, null)}
+                    />
+                ): null
             }
 
         </>

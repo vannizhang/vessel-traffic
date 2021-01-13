@@ -35,10 +35,6 @@ const DownloadScreen:React.FC<Props> = ({
             return `${HOST_SERVER_URL}/${selectedENCFeature.attributes['File_']}`;
         }
 
-        const { year, month } = activeLayerTimeInfo;
-
-        const monthStr = month < 10 ? `0${month}` : month.toString();
-
         return `${HOST_SERVER_URL}/${getFilenameByActiveLayerTime()}.gdb.zip`
     }
 

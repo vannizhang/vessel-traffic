@@ -9,7 +9,7 @@ import { miscFns} from 'helper-toolkit-ts';
 
 const isMobile = miscFns.isMobileDevice();
 
-const InfoWindowConatiner = styled.div`
+export const InfoWindowConatiner = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -22,20 +22,35 @@ const InfoWindowConatiner = styled.div`
     z-index: 5;
 `;
 
-const InfoBlock = styled.div`
+export const InfoWindowContentWrapper = styled.div<{
+    background: string
+}>`
+    position: relative;
+    display: ${isMobile ? 'block' : 'flex'};
+    width: ${isMobile ? '100%' : 'unset'};
+    justify-content: center;
+    align-items: stretch;
+    padding: .5rem;
+    padding-top: ${isMobile ? '1rem' : '.5rem'};
+    color: rgba(255,255,255,.8);
+    text-shadow: ${({background})=>`0 0 3px ${background}`};
+    background: ${({background})=>`linear-gradient(to bottom, ${background}, transparent 100%)`};
+`;
+
+export const InfoBlock = styled.div`
     position: relative;
     padding: 0 1rem;
     text-align: left;
     margin-bottom: ${isMobile ? '.5rem' : '0'};
 `;
 
-const TitleText = styled.p`
+export const TitleText = styled.p`
     font-size: 2.2rem;
     line-height: .8;
     margin-bottom: 0;
 `;
 
-const SubtitleText = styled.span`
+export const SubtitleText = styled.span`
     font-size: 0.9rem;
     line-height: 1.2;
 `;
@@ -93,6 +108,27 @@ const getDirection = (angle:number):Direction=>{
     return Directions[index];
 };
 
+export const CloseBtn:React.FC<{
+    onClose:()=>void
+}> = ({
+    onClose
+})=>{
+    return (
+        <div 
+            style={{
+                position: isMobile ? 'absolute' : 'relative',
+                top: isMobile ? '.5rem' : 'unset',
+                right: isMobile ? '.5rem' : 'unset',
+                height: '100%',
+                cursor: 'pointer'
+            }}
+            onClick={onClose}
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"><path fill='#fff' d="M18.01 6.697L12.707 12l5.303 5.303-.707.707L12 12.707 6.697 18.01l-.707-.707L11.293 12 5.99 6.697l.707-.707L12 11.293l5.303-5.303z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
+        </div>
+    )
+}
+
 const ShipInfoWindow:React.FC<Props> = ({
     feature,
     visibleSubLayer,
@@ -134,21 +170,9 @@ const ShipInfoWindow:React.FC<Props> = ({
         const vesselInfoSearchUrl = `https://www.google.com/search?q=${vesselname ? vesselname : visibleSubLayer + ' vessel'}+mmsi ${mmsi}`
 
         return (
-            <div
-                style={{
-                    position: 'relative',
-                    display: isMobile ? 'block' : 'flex',
-                    width: isMobile ? '100%' : 'unset',
-                    justifyContent: 'center',
-                    alignItems: 'stretch',
-                    padding: '.5rem',
-                    paddingTop: isMobile ? '1rem' : '.5rem',
-                    color: 'rgba(255,255,255,.8)',
-                    textShadow: `0 0 3px ${styleInfo['background-color']}`,
-                    background: `linear-gradient(to bottom, ${styleInfo['background-color']}, transparent 100%)`
-                }}
+            <InfoWindowContentWrapper
+                background={styleInfo['background-color']}
             >
-
                 <InfoBlock>
                     <div
                         style={{
@@ -240,8 +264,11 @@ const ShipInfoWindow:React.FC<Props> = ({
                     </SubtitleText>
 
                 </InfoBlock>
-            
-                <div 
+                        
+                <CloseBtn 
+                    onClose={onClose}
+                />
+                {/* <div 
                     style={{
                         position: isMobile ? 'absolute' : 'relative',
                         top: isMobile ? '.5rem' : 'unset',
@@ -252,8 +279,8 @@ const ShipInfoWindow:React.FC<Props> = ({
                     onClick={onClose}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"><path fill='#fff' d="M18.01 6.697L12.707 12l5.303 5.303-.707.707L12 12.707 6.697 18.01l-.707-.707L11.293 12 5.99 6.697l.707-.707L12 11.293l5.303-5.303z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
-                </div>
-            </div>
+                </div> */}
+            </InfoWindowContentWrapper>
         );
     }
 
