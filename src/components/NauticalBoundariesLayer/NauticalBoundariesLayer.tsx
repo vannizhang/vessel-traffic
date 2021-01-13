@@ -7,6 +7,9 @@ import { loadModules } from 'esri-loader';
 import IMapView from 'esri/views/MapView';
 import IFeatureLayer from 'esri/layers/FeatureLayer';
 import IGraphic from 'esri/Graphic';
+import ISimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
+import ISimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
+import { NAUTICAL_LAYER_FILL, NAUTICAL_LAYER_LINE } from '../../constants/UI';
 
 type NauticalBoundariesLayerTitle = 'shipping lane' | 'anchorage area' | 'maritime limit';
 
@@ -28,6 +31,41 @@ const NauticalRefLayerNames:NauticalBoundariesLayerTitle[] = [
     'shipping lane', 'anchorage area', 'maritime limit'
 ];
 
+export const getNauticalPolygonSymbol = async(fillColor?:string)=>{
+
+    type Modules = [typeof ISimpleFillSymbol];
+
+    const [ SimpleFillSymbol] = await (loadModules([
+        'esri/symbols/SimpleFillSymbol',
+    ]) as Promise<Modules>);
+
+    const PolygonSymbol = new SimpleFillSymbol({
+        color: fillColor || NAUTICAL_LAYER_FILL,
+        outline: {  // autocasts as new SimpleLineSymbol()
+            color: NAUTICAL_LAYER_LINE,
+            width: 1,
+        }
+    });
+
+    return PolygonSymbol;
+}
+
+export const getNauticalLineSymbol = async(lineColor?:string, lineWidth?:number)=>{
+    type Modules = [typeof ISimpleLineSymbol ];
+
+    const [ SimpleLineSymbol ] = await (loadModules([
+        'esri/symbols/SimpleLineSymbol'
+    ]) as Promise<Modules>);
+
+    const LineSymbol = new SimpleLineSymbol({
+        color: lineColor || NAUTICAL_LAYER_LINE,
+        width: lineWidth || 1,
+        style: 'dash'
+    });
+
+    return LineSymbol;
+}
+
 const NauticalBoundariesLayer:React.FC<Props> = ({
     isVisible,
     mapView,
@@ -40,15 +78,20 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
 
     const show = async()=>{
 
-        type Modules = [typeof IFeatureLayer ];
+        type Modules = [typeof IFeatureLayer, typeof ISimpleFillSymbol, typeof ISimpleLineSymbol ];
 
         if(!layerRef.current){
 
             try {
                 const [ FeatureLayer ] = await (loadModules([
-                    'esri/layers/FeatureLayer'
+                    'esri/layers/FeatureLayer',
+                    'esri/symbols/SimpleFillSymbol',
+                    'esri/symbols/SimpleLineSymbol'
                 ]) as Promise<Modules>);
 
+                const PolygonSymbol = await getNauticalPolygonSymbol();
+
+                const LineSymbol = await getNauticalLineSymbol();
 
                 layerRef.current = NauticalRefLayerNames.map((title, index)=>{
                     return new FeatureLayer({
@@ -58,7 +101,11 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
                         layerId: index,
                         minScale: MIN_SCALE,
                         outFields: ['*'],
-                        title
+                        title,
+                        renderer: {
+                            type: 'simple',
+                            symbol: title === 'maritime limit' ?  LineSymbol : PolygonSymbol
+                        } as any
                     })
                 })
 

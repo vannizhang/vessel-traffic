@@ -12,3 +12,8 @@ export const FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL = '1.8rem';
 
 export const BREAKPOINT_EXTRA_WIDE = 1469;
 export const BREAKPOINT_WIDE = 1250;
+
+export const NAUTICAL_LAYER_BACKGROUND = 'rgba(190,255,232, .8)'; //'#BEFFE8';
+export const NAUTICAL_LAYER_HIGHLIGHT = 'rgba(190,255,232, .5)'; //'#BEFFE8';
+export const NAUTICAL_LAYER_FILL = 'rgba(190,255,232, .2)';
+export const NAUTICAL_LAYER_LINE= 'rgba(190,255,232, .4)';

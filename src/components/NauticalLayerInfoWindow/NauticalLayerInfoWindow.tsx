@@ -1,5 +1,5 @@
 import React from 'react';
-import { BACKGROUND_COLOR } from '../../constants/UI';
+import { BACKGROUND_COLOR, NAUTICAL_LAYER_BACKGROUND } from '../../constants/UI';
 import { NauticalBoundariesLayerQueryResult } from '../NauticalBoundariesLayer/NauticalBoundariesLayer';
 
 import {
@@ -45,7 +45,7 @@ const NauticalLayerInfoWindow:React.FC<Props> = ({
     return (
         <InfoWindowConatiner>
             <InfoWindowContentWrapper
-                background={BACKGROUND_COLOR}
+                background={NAUTICAL_LAYER_BACKGROUND}
             >
                 <InfoBlock
                     style={{

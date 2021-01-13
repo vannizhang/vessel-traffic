@@ -17,7 +17,8 @@ import {
     TitleAndAboutInfo,
     ShipInfoWindow,
     NauticalBoundariesLayer,
-    NauticalLayerInfoWindow
+    NauticalLayerInfoWindow,
+    NauticalQueryResult
 } from '../';
 
 import {
@@ -117,6 +118,10 @@ const App:React.FC = ()=>{
                     <NauticalBoundariesLayer 
                         isVisible={showNauticalBoundaries}
                         queryResultOnSelected={setNauticalLayerQueryResult}
+                    />
+
+                    <NauticalQueryResult 
+                        data={nauticalLayerQueryResult}
                     />
 
                     <ShipTrafficLayerQueryTask 
