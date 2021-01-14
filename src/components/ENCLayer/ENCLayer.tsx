@@ -213,6 +213,9 @@ const ENCLayer:React.FC<Props> = ({
             // layerRef.current.refresh()
         }
 
+        // call this to remove temprory graphics created by mouse hover events
+        toggleFeatureOnHover();
+
     }, [level])
     
     return null;
