@@ -80,17 +80,17 @@ const MapView:React.FC<Props> = ({
             //     minScale: 288895
             // })
 
-            const referenceLayer = new MapImageLayer({
-                url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
-                opacity: 1,
-                // minScale: 288895
-            })
+            // const referenceLayer = new MapImageLayer({
+            //     url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
+            //     opacity: 1,
+            //     // minScale: 288895
+            // })
 
 
             const map = new Map({
-                layers: [
-                    referenceLayer
-                ],
+                // layers: [
+                //     referenceLayer
+                // ],
                 basemap: {
                     baseLayers: [
                         new TileLayer({
@@ -113,6 +113,11 @@ const MapView:React.FC<Props> = ({
                         //     // // for some reason chrome crashes if effect is on
                         //     // effect: "invert() saturate(0)"
                         // })
+                        new MapImageLayer({
+                            url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
+                            blendMode: "hard-light",
+                            effect: "invert() saturate(0)"
+                        })
                     ]
                 }
             });
