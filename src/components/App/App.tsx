@@ -31,10 +31,10 @@ import {
 import AppConfig from '../../AppConfig';
 import { AppContext } from '../../contexts/AppContextProvider';
 import { ActiveLayerTimeInfo, NOAAENCsLevel } from '../../types';
-import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveMMSI2Hash, saveVisibleLayer2Hash } from '../../utils/URLHashParams';
+import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveVisibleLayer2Hash, saveQueryPoint2Hash } from '../../utils/URLHashParams';
 import { MapCenterLocation } from '../MapView/MapView';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
-import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
+import { ShipTrafficFeature, ShipLayerQueryResult } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 
 import MobileHide from '../SharedUI/MobileHide';
 import { ENCLayerFeature } from '../ENCLayer/ENCLayer';
@@ -62,7 +62,7 @@ const App:React.FC = ()=>{
         year: +AISLayersData[AISLayersData.length - 1].Year
     });
 
-    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipTrafficFeature>();
+    const [ shipLayerQueryResult, setShipLayerQueryResult ] = React.useState<ShipLayerQueryResult>();
 
     const [ nauticalLayerQueryResult, setNauticalLayerQueryResult ] = React.useState<NauticalBoundariesLayerQueryResult>();
 
@@ -90,8 +90,7 @@ const App:React.FC = ()=>{
     }, [visibleSubLayer]);
 
     useEffect(() => {
-        const mmsi = shipLayerQueryResult ? shipLayerQueryResult.attributes.mmsi : undefined;
-        saveMMSI2Hash(mmsi);
+        saveQueryPoint2Hash(shipLayerQueryResult ? shipLayerQueryResult.queryGeometry : undefined);
     }, [shipLayerQueryResult]);
 
     useEffect(() => {
@@ -127,12 +126,13 @@ const App:React.FC = ()=>{
                     <ShipTrafficLayerQueryTask 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
+                        defaultQueryPoint={DefaultStateValues.queryPoint}
                         onSelect={setShipLayerQueryResult}
                     />
                     
                     <ShipTrafficLayerQueryResult 
                         visibleSubLayer={visibleSubLayer}
-                        feature={shipLayerQueryResult}
+                        feature={shipLayerQueryResult ? shipLayerQueryResult.feature : undefined}
                     />
                     
                     <ShipTrafficLayer 
@@ -210,7 +210,7 @@ const App:React.FC = ()=>{
                 shipLayerQueryResult && (
                     <ShipInfoWindow 
                         visibleSubLayer={visibleSubLayer}
-                        feature={shipLayerQueryResult}
+                        feature={shipLayerQueryResult ? shipLayerQueryResult.feature : undefined}
                         onClose={()=>{
                             setShipLayerQueryResult(null);
                             setNauticalLayerQueryResult(null);

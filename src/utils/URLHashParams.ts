@@ -4,14 +4,15 @@ import {
 import { MapCenterLocation } from '../components/MapView/MapView';
 import { ShipTrafficSubLayerName } from '../components/ShipTrafficLayer/ShipTrafficLayer';
 import { ActiveLayerTimeInfo } from '../types';
+import IPoint from 'esri/geometry/Point'
 
-type HashParamKey = '@' | 'sublayer' | 'time' | 'mmsi';
+type HashParamKey = '@' | 'sublayer' | 'time' | 'queryPoint';
 
 type DefaultStateValues = {
     '@': MapCenterLocation,
     'sublayer': ShipTrafficSubLayerName,
     'time': ActiveLayerTimeInfo,
-    'mmsi': string;
+    'queryPoint': [number, number]; // longitude, latitude
 }
 
 const DefaultHashData:Record<HashParamKey, string> = urlFns.parseHash();
@@ -20,16 +21,17 @@ export const getDefaultStateValuesFromHash = ():DefaultStateValues=>{
 
     const {
         sublayer,
-        mmsi
     } = DefaultHashData;
 
     const time = decodeTime();
+
+    const queryPoint = decodeQueryPoint();
 
     return {
         '@': decodeMapCenterInfo(),
         sublayer: sublayer as ShipTrafficSubLayerName,
         time,
-        mmsi
+        queryPoint
     };
 }
 
@@ -72,10 +74,10 @@ export const saveVisibleLayer2Hash = (sublayerName:ShipTrafficSubLayerName): voi
     })
 }
 
-export const saveMMSI2Hash = (mmsi:string): void=>{
-    const key:HashParamKey = 'mmsi';
+export const saveQueryPoint2Hash = (mapPoint:IPoint): void=>{
+    const key:HashParamKey = 'queryPoint';
 
-    const value = mmsi;
+    const value = mapPoint ? `${mapPoint.longitude.toFixed(5)},${mapPoint.latitude.toFixed(5)}` : undefined;
 
     urlFns.updateHashParam({
         key,
@@ -101,6 +103,22 @@ const decodeTime = ():ActiveLayerTimeInfo=>{
         month
     }
 
+}
+
+const decodeQueryPoint = ():[number, number]=>{
+    const {
+        queryPoint
+    } = DefaultHashData;
+
+    if(!queryPoint){
+        return null;
+    }
+
+    const [ lon, lat ] = queryPoint.split(',').map(val=>+val);
+
+    return [
+        lon, lat
+    ]
 }
 
 const decodeMapCenterInfo = ():MapCenterLocation=>{

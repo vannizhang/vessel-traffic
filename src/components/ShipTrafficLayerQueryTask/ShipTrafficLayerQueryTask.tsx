@@ -44,16 +44,23 @@ export type ShipTrafficFeature = IFeature & {
     attributes: ShipTrafficFeatureAttributes
 }
 
+export type ShipLayerQueryResult = {
+    feature: ShipTrafficFeature;
+    queryGeometry: IPoint;
+}
+
 type Props = {
     visibleSubLayer: ShipTrafficSubLayerName;
     activeLayerTimeInfo: ActiveLayerTimeInfo;
-    onSelect: (feature:ShipTrafficFeature)=>void;
+    defaultQueryPoint?: [number, number] // lon, lat
+    onSelect: (result:ShipLayerQueryResult)=>void;
     mapView?: IMapView;
 }
 
 const ShipTrafficLayerQueryTask:React.FC<Props> = ({
     visibleSubLayer,
     activeLayerTimeInfo,
+    defaultQueryPoint,
     onSelect,
     mapView
 }) => {
@@ -69,7 +76,7 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
         });
     };
 
-    const queryFeatures = async (mapPoint:IPoint):Promise<void> => {
+    const queryFeatures = async (queryGeometry?:IPoint):Promise<void> => {
         // console.log(mapView.scale)
 
         type Modules = [typeof IQueryTask];
@@ -79,16 +86,14 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                 'esri/tasks/QueryTask'
             ]) as Promise<Modules>);
 
-            const isVisible = isLayerInVisibleRange();
-
-            if (isVisible && layerDataRef.current.Feature_Service) {
+            if (layerDataRef.current.Feature_Service) {
 
                 const queryTask = new QueryTask({
                     url: layerDataRef.current.Feature_Service
                 });
 
-                const results:IFeatureSet = await queryTask.execute({
-                    geometry: mapPoint,
+                const results:IFeatureSet= await queryTask.execute({
+                    geometry: queryGeometry,
                     distance: 50,
                     units: 'meters',
                     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
@@ -103,7 +108,14 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                     } 
                     : null;
 
-                onSelect(feature);
+                const queryResult = feature 
+                    ? {
+                        feature,
+                        queryGeometry
+                    } 
+                    : undefined;
+
+                onSelect(queryResult);
             }
         
         } catch(err){
@@ -112,13 +124,29 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
 
     };
 
-    const isLayerInVisibleRange = ():boolean=>{
-        return true;
-    }
-
     useEffect(() => {
         if (mapView) {
             initEventListeners();
+
+            if(defaultQueryPoint){
+                (async()=>{
+
+                    type Modules = [typeof IPoint];
+
+                    const [ Point ] = await (loadModules([
+                        'esri/geometry/Point'
+                    ]) as Promise<Modules>);
+
+                    const [ longitude, latitude ] = defaultQueryPoint;
+
+                    const defaultQueryPointGeom = new Point({
+                        longitude, 
+                        latitude
+                    });
+
+                    queryFeatures(defaultQueryPointGeom)
+                })();
+            }
         }
     }, [mapView]);
 
