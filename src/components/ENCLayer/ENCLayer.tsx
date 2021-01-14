@@ -201,6 +201,9 @@ const ENCLayer:React.FC<Props> = ({
             layerRef.current.visible = visible;
         }
 
+        // call this to remove temprory graphics created by mouse hover events
+        toggleFeatureOnHover();
+
     }, [visible])
 
     useEffect(()=>{
