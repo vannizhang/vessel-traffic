@@ -9,6 +9,7 @@ import {
 type Props = {
     visibleSubLayer: ShipTrafficSubLayerName;
     isNauticalReferenceLayerVisible: boolean;
+    isNauticalBoundariesInVisibleRange: boolean;
     onChange: (val: ShipTrafficSubLayerName)=>void;
     nauticalReferenceLayerOnToggle: ()=>void;
 }
@@ -27,6 +28,7 @@ const SublayerNames: ShipTrafficSubLayerName[] = [
 const LayerList:React.FC<Props> = ({
     visibleSubLayer,
     isNauticalReferenceLayerVisible,
+    isNauticalBoundariesInVisibleRange,
     onChange,
     nauticalReferenceLayerOnToggle
 })=>{
@@ -97,6 +99,8 @@ const LayerList:React.FC<Props> = ({
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
+                    pointerEvents: !isNauticalBoundariesInVisibleRange ? 'none' : 'initial',
+                    opacity: !isNauticalBoundariesInVisibleRange ? .5 : 1
                 }}
                 onClick={nauticalReferenceLayerOnToggle}
             >

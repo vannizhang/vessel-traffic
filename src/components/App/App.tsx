@@ -76,6 +76,8 @@ const App:React.FC = ()=>{
 
     const [ showNauticalBoundaries, setShowNauticalBoundaries ] = React.useState<boolean>(false);
 
+    const [ isNauticalBoundariesInVisibleRange, setIsNauticalBoundariesInVisibleRange ] = React.useState<boolean>(false);
+
     useEffect(() => {
         saveMapCenterLocation2Hash(mapCenterLocation)
     }, [mapCenterLocation]);
@@ -120,6 +122,7 @@ const App:React.FC = ()=>{
                 >
                     <NauticalBoundariesLayer 
                         isVisible={showNauticalBoundaries}
+                        isInVisibleScaleOnChange={setIsNauticalBoundariesInVisibleRange}
                         queryResultOnSelected={setNauticalLayerQueryResult}
                     />
 
@@ -172,7 +175,9 @@ const App:React.FC = ()=>{
                     <LayerList 
                         visibleSubLayer={visibleSubLayer}
                         isNauticalReferenceLayerVisible={showNauticalBoundaries}
+                        isNauticalBoundariesInVisibleRange={isNauticalBoundariesInVisibleRange}
                         onChange={setVisibleSubLayer}
+
                         nauticalReferenceLayerOnToggle={()=>{
                             setShowNauticalBoundaries(!showNauticalBoundaries);
                             setNauticalLayerQueryResult(null);

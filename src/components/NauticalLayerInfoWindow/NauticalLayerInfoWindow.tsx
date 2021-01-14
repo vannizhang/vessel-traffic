@@ -36,7 +36,7 @@ const NauticalLayerInfoWindow:React.FC<Props> = ({
         }
 
         if(layerName === 'maritime limit'){
-            return attributes['LEGAL_AUTH']
+            return attributes['Type']
         }
 
         return ''

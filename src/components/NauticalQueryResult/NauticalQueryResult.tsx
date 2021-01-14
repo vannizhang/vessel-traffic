@@ -7,7 +7,7 @@ import IMapView from 'esri/views/MapView';
 import IGraphic from 'esri/Graphic';
 
 import { NauticalBoundariesLayerQueryResult, getNauticalLineSymbol, getNauticalPolygonSymbol } from '../NauticalBoundariesLayer/NauticalBoundariesLayer';
-import { NAUTICAL_LAYER_HIGHLIGHT } from '../../constants/UI';
+import { NAUTICAL_LAYER_COLOR, NAUTICAL_LAYER_HIGHLIGHT } from '../../constants/UI';
 
 type Props = {
     data: NauticalBoundariesLayerQueryResult;
@@ -41,7 +41,10 @@ const NauticalQueryResult:React.FC<Props> = ({
 
             graphic.symbol = graphic.geometry.type === 'polygon' 
                 ? await getNauticalPolygonSymbol(NAUTICAL_LAYER_HIGHLIGHT)
-                : await getNauticalLineSymbol(NAUTICAL_LAYER_HIGHLIGHT, 2)
+                : await getNauticalLineSymbol({
+                    lineColor: NAUTICAL_LAYER_COLOR,
+                    lineWidth: 2
+                })
 
             graphicRef.current = graphic;
 

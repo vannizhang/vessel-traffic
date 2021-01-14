@@ -9,6 +9,7 @@ import IFeatureLayer from 'esri/layers/FeatureLayer';
 import IGraphic from 'esri/Graphic';
 import ISimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import ISimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
+import IwatchUtils from 'esri/core/watchUtils';
 import { NAUTICAL_LAYER_FILL, NAUTICAL_LAYER_LINE } from '../../constants/UI';
 
 type NauticalBoundariesLayerTitle = 'shipping lane' | 'anchorage area' | 'maritime limit';
@@ -21,6 +22,7 @@ export type NauticalBoundariesLayerQueryResult = {
 type Props = {
     isVisible: boolean;
     mapView?: IMapView;
+    isInVisibleScaleOnChange: (isInVisibleScale:boolean)=>void;
     queryResultOnSelected: (data:NauticalBoundariesLayerQueryResult)=>void;
 }
 
@@ -50,7 +52,11 @@ export const getNauticalPolygonSymbol = async(fillColor?:string)=>{
     return PolygonSymbol;
 }
 
-export const getNauticalLineSymbol = async(lineColor?:string, lineWidth?:number)=>{
+export const getNauticalLineSymbol = async({
+    lineColor, lineWidth, isDashed
+}:{
+    lineColor?:string, lineWidth?:number, isDashed?:boolean
+})=>{
     type Modules = [typeof ISimpleLineSymbol ];
 
     const [ SimpleLineSymbol ] = await (loadModules([
@@ -60,7 +66,7 @@ export const getNauticalLineSymbol = async(lineColor?:string, lineWidth?:number)
     const LineSymbol = new SimpleLineSymbol({
         color: lineColor || NAUTICAL_LAYER_LINE,
         width: lineWidth || 1,
-        style: 'dash'
+        style: isDashed ? 'dash' : 'solid'
     });
 
     return LineSymbol;
@@ -69,6 +75,7 @@ export const getNauticalLineSymbol = async(lineColor?:string, lineWidth?:number)
 const NauticalBoundariesLayer:React.FC<Props> = ({
     isVisible,
     mapView,
+    isInVisibleScaleOnChange,
     queryResultOnSelected
 }) => {
 
@@ -91,7 +98,9 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
 
                 const PolygonSymbol = await getNauticalPolygonSymbol();
 
-                const LineSymbol = await getNauticalLineSymbol();
+                const LineSymbol = await getNauticalLineSymbol({
+                    isDashed: true
+                });
 
                 layerRef.current = NauticalRefLayerNames.map((title, index)=>{
                     return new FeatureLayer({
@@ -165,6 +174,29 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
         });
     }
 
+    const addWatchEvent = async () => {
+        type Modules = [typeof IwatchUtils];
+
+        try {
+            const [watchUtils] = await (loadModules([
+                'esri/core/watchUtils',
+            ]) as Promise<Modules>);
+
+            watchUtils.whenTrue(mapView, 'stationary', () => {
+                // console.log('mapview is stationary', mapView.center, mapView.zoom);
+
+                const isInVisibleScale = mapView.scale < MIN_SCALE;
+
+                isInVisibleScaleOnChange(isInVisibleScale)
+
+                // console.log(isInVisibleScale);
+
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(()=>{
 
         if(!mapView){
@@ -175,7 +207,13 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
 
         isVisible ? show() : hide();
 
-    }, [isVisible])
+    }, [isVisible]);
+
+    useEffect(()=>{
+        if(mapView){
+            addWatchEvent()
+        }
+    }, [mapView])
 
     return null;
 }
