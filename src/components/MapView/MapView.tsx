@@ -116,7 +116,8 @@ const MapView:React.FC<Props> = ({
                         new MapImageLayer({
                             url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
                             blendMode: "hard-light",
-                            effect: "invert() saturate(0)"
+                            effect: "invert() saturate(0)",
+                            maxScale: 36112
                         })
                     ]
                 }
