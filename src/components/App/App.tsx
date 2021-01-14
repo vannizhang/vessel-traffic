@@ -91,6 +91,10 @@ const App:React.FC = ()=>{
 
     useEffect(() => {
         saveQueryPoint2Hash(shipLayerQueryResult ? shipLayerQueryResult.queryGeometry : undefined);
+
+        if(shipLayerQueryResult){
+            setNauticalLayerQueryResult(null)
+        }
     }, [shipLayerQueryResult]);
 
     useEffect(() => {

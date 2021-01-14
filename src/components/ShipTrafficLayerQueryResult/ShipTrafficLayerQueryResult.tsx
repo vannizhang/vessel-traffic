@@ -26,7 +26,13 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
     const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
 
+    const graphicRef = useRef<IGraphic>();
+
     const showQueryResult = async():Promise<void>=>{
+
+        if(graphicRef.current){
+            mapView.graphics.remove(graphicRef.current);
+        }
 
         if(!feature){
             return;
@@ -47,7 +53,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
             const styleInfo = ShipTrafficSubLayerStyles[visibleSubLayerRef.current]
 
-            const graphic4QueryResult = new Graphic({
+            graphicRef.current = new Graphic({
                 geometry, 
                 symbol: new SimpleLineSymbol({
                     width: 2,
@@ -55,7 +61,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
                 }),
             });
 
-            mapView.graphics.add(graphic4QueryResult)
+            mapView.graphics.add(graphicRef.current)
 
         } catch(err){
             console.error(err);
@@ -65,7 +71,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
     useEffect(()=>{
         if(mapView){
-            mapView.graphics.removeAll();
+            // mapView.graphics.removeAll();
             showQueryResult()
         }
         // console.log(feature);

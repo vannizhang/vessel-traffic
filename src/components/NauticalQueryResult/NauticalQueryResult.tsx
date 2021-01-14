@@ -19,6 +19,8 @@ const NauticalQueryResult:React.FC<Props> = ({
     mapView
 }) => {
 
+    const graphicRef = useRef<IGraphic>();
+
     const showQueryResult = async():Promise<void>=>{
 
         if(!data){
@@ -41,7 +43,9 @@ const NauticalQueryResult:React.FC<Props> = ({
                 ? await getNauticalPolygonSymbol(NAUTICAL_LAYER_HIGHLIGHT)
                 : await getNauticalLineSymbol(NAUTICAL_LAYER_HIGHLIGHT, 2)
 
-            mapView.graphics.add(graphic)
+            graphicRef.current = graphic;
+
+            mapView.graphics.add(graphicRef.current);
 
         } catch(err){
             console.error(err);
@@ -49,9 +53,16 @@ const NauticalQueryResult:React.FC<Props> = ({
 
     };
 
+    const clear = ()=>{
+
+        if(graphicRef.current){
+            mapView.graphics.remove(graphicRef.current);
+        }
+    }
+
     useEffect(()=>{
         if(mapView){
-            mapView.graphics.removeAll();
+            clear();
             showQueryResult()
         }
         // console.log(feature);
