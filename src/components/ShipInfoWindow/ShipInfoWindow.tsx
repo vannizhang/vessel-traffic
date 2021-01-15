@@ -20,6 +20,7 @@ export const InfoWindowConatiner = styled.div`
     display: flex;
     justify-content: center;
     z-index: 5;
+    pointer-events: none;
 `;
 
 export const InfoWindowContentWrapper = styled.div<{
@@ -35,6 +36,7 @@ export const InfoWindowContentWrapper = styled.div<{
     color: rgba(255,255,255,.8);
     text-shadow: ${({background})=>`0 0 3px ${background}`};
     background: ${({background})=>`linear-gradient(to bottom, ${background}, transparent 100%)`};
+    pointer-events: initial;
 `;
 
 export const InfoBlock = styled.div`

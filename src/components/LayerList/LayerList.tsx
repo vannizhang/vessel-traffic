@@ -84,7 +84,8 @@ const LayerList:React.FC<Props> = ({
                 marginLeft: '1rem',
                 paddingLeft: '2rem',
                 userSelect: 'none',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.3)'
+                borderLeft: '1px solid rgba(255, 255, 255, 0.3)',
+                pointerEvents:'initial'
             }}
         >
             { getList() }

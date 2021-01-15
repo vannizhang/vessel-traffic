@@ -41,7 +41,7 @@ export const ChildAtCenterPosition = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: initial;
+    pointer-events: none;
     max-width: 100%;
 `
 

@@ -27,7 +27,7 @@ type Props = {
 }
 
 const ITEM_ID = '096312c326b74d4eb10f99b33dfec5b4';
-const MIN_SCALE = 1155581;
+const MIN_SCALE = 2311162; //1155581;
 
 const NauticalRefLayerNames:NauticalBoundariesLayerTitle[] = [
     'shipping lane', 'anchorage area', 'maritime limit'

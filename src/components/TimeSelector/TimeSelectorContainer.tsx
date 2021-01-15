@@ -59,7 +59,8 @@ const TimeSelectorContainer:React.FC<Props> = ({
     return (
         <div
             style={{
-                display: 'flex'
+                display: 'flex',
+                pointerEvents: 'initial'
             }}
         >
             <ValueSelector 
