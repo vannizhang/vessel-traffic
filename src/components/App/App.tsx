@@ -6,7 +6,7 @@ import {
     MapView,
     ENCLayer,
     Download,
-    DocumentHead,
+    // DocumentHead,
     DownloadScreen,
     ShipTrafficLayer,
     ShipTrafficLayerQueryTask,
@@ -90,6 +90,8 @@ const App:React.FC = ()=>{
     useEffect(() => {
         saveVisibleLayer2Hash(visibleSubLayer);
         setShipLayerQueryResult(null);
+
+        document.title = `U.S. Vessel Traffic | ${visibleSubLayer}`;
     }, [visibleSubLayer]);
 
     useEffect(() => {
@@ -106,9 +108,6 @@ const App:React.FC = ()=>{
 
     return (
         <>
-            <DocumentHead 
-                visibleSubLayer={visibleSubLayer}
-            />
 
             <MobileHeader />
             
