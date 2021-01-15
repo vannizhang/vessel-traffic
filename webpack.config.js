@@ -1,9 +1,19 @@
 const path = require('path');
+const package = require('./package.json');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const {
+    title,
+    author,
+    keywords,
+    description,
+    homepage
+} = package;
 
 module.exports =  (env, options)=> {
 
@@ -69,6 +79,17 @@ module.exports =  (env, options)=> {
             ]
         },
         plugins: [
+            // copy static files from public folder to build directory
+            new CopyPlugin({
+                patterns: [
+                    { 
+                        from: "public/**/*", 
+                        globOptions: {
+                            ignore: ["**/index.html"],
+                        },
+                    }
+                ],
+            }),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
@@ -78,6 +99,17 @@ module.exports =  (env, options)=> {
             new HtmlWebpackPlugin({
                 template: './src/index.template.html',
                 filename: 'index.html',
+                meta: {
+                    title,
+                    description,
+                    author,
+                    keywords: Array.isArray(keywords) 
+                        ? package.keywords.join(',') 
+                        : undefined,
+                    'og:title': title,
+                    'og:description': description,
+                    'og:url': homepage,
+                },
                 minify: {
                     html5                          : true,
                     collapseWhitespace             : true,
