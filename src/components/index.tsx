@@ -22,7 +22,7 @@ export { default as ShipTrafficLayerQueryTask } from './ShipTrafficLayerQueryTas
 
 export { default as LayerList } from './LayerList/LayerList';
 
-// export { default as TimeSlider } from './TimeSlider/TimeSlider';
+export { default as DocumentHead } from './DocumentHead/DocumentHead';
 
 export { default as TitleAndAboutInfo } from './TitleAndAboutInfo/TitleAndAboutInfo';
 

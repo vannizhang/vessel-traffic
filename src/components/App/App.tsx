@@ -6,6 +6,7 @@ import {
     MapView,
     ENCLayer,
     Download,
+    DocumentHead,
     DownloadScreen,
     ShipTrafficLayer,
     ShipTrafficLayerQueryTask,
@@ -105,6 +106,10 @@ const App:React.FC = ()=>{
 
     return (
         <>
+            <DocumentHead 
+                visibleSubLayer={visibleSubLayer}
+            />
+
             <MobileHeader />
             
             <div style={{
