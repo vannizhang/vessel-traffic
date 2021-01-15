@@ -11,6 +11,14 @@ import {
     AppContextProvider
 } from './contexts/AppContextProvider';
 
+import {
+    setDefaultOptions
+} from 'esri-loader';
+
+setDefaultOptions({
+    version: '4.18'
+})
+
 ReactDOM.render(
     (
         <AppContextProvider>

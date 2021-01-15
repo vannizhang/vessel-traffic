@@ -92,9 +92,11 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                     url: layerDataRef.current.Feature_Service
                 });
 
+                const distance = mapView.zoom < 12 ? 100 : 50;
+
                 const results:IFeatureSet= await queryTask.execute({
                     geometry: queryGeometry,
-                    distance: 50,
+                    distance,
                     units: 'meters',
                     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
                     outFields : ['*'],

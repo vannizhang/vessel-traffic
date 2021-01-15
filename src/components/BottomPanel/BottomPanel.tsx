@@ -42,6 +42,7 @@ export const ChildAtCenterPosition = styled.div`
     justify-content: center;
     align-items: center;
     pointer-events: initial;
+    max-width: 100%;
 `
 
 export const ChildAtSidePosition = styled.div`
