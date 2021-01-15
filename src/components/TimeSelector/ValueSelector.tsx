@@ -139,6 +139,9 @@ const ValueSelector:React.FC<Props> = ({
                     >
                         <SelectBtnLabel
                             className='avenir-demi'
+                            style={{
+                                opacity: isDisabled ? .3 : 1
+                            }}
                         >
                             { navBtnLabelformatter ? navBtnLabelformatter(labelVal) : labelVal }
                         </SelectBtnLabel>
