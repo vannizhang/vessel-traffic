@@ -29,7 +29,7 @@ import {
 
 // import { BookmarkData } from '../Bookmarks/Bookmarks';
 
-import AppConfig from '../../AppConfig';
+// import AppConfig from '../../AppConfig';
 import { AppContext } from '../../contexts/AppContextProvider';
 import { ActiveLayerTimeInfo, NOAAENCsLevel } from '../../types';
 import { getDefaultStateValuesFromHash, saveActiveLayerTime2Hash, saveMapCenterLocation2Hash, saveVisibleLayer2Hash, saveQueryPoint2Hash } from '../../utils/URLHashParams';
@@ -120,7 +120,7 @@ const App:React.FC = ()=>{
             }}>
                 
                 <MapView 
-                    webmapId={AppConfig.WebMapID}
+                    // webmapId={AppConfig.WebMapID}
                     defaultMapCenterLocation={mapCenterLocation}
                     onStationary={setMapCenterLocation}
                 >

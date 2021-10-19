@@ -19,7 +19,7 @@ export type MapCenterLocation = {
 }
 
 interface Props {
-    webmapId: string;
+    // webmapId: string;
     defaultMapCenterLocation?: MapCenterLocation;
     onStationary: (centerLocation:MapCenterLocation)=>void;
     // paddingRight?: number;
@@ -27,7 +27,7 @@ interface Props {
 };
 
 const MapView:React.FC<Props> = ({
-    webmapId,
+    // webmapId,
     defaultMapCenterLocation,
     onStationary,
     // paddingRight = 0,
