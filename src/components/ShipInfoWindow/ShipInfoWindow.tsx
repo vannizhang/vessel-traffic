@@ -148,9 +148,9 @@ const ShipInfoWindow:React.FC<Props> = ({
         } = feature;
 
         const {
-            vesselname,
-            vesselgroup,
-            vesselclass,
+            vessel_name,
+            vessel_group,
+            vessel_class,
             start_date,
             end_date,
             length,
@@ -169,7 +169,7 @@ const ShipInfoWindow:React.FC<Props> = ({
 
         const styleInfo = ShipTrafficSubLayerStyles[visibleSubLayer];
 
-        const vesselInfoSearchUrl = `https://www.google.com/search?q=${vesselname ? vesselname : visibleSubLayer + ' vessel'}+mmsi ${mmsi}`
+        const vesselInfoSearchUrl = `https://www.google.com/search?q=${vessel_name ? vessel_name : visibleSubLayer + ' vessel'}+mmsi ${mmsi}`
 
         return (
             <InfoWindowContentWrapper
@@ -186,7 +186,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                     >
                         <TitleText
                             className='avenir-light'
-                        >{ vesselname }</TitleText>
+                        >{ vessel_name }</TitleText>
                         
                         <a
                             href={vesselInfoSearchUrl}
@@ -211,7 +211,7 @@ const ShipInfoWindow:React.FC<Props> = ({
 
                     <div>
                         <SubtitleText className='margin-right-half'>
-                            { vesselclass }
+                            { vessel_class }
                         </SubtitleText>
 
                         <SubtitleText>

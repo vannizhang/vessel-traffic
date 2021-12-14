@@ -25,17 +25,17 @@ enum ShipTrafficFeatureServiceFields {
     mean_sog  = 'mean_sog',
     mean_cog  = 'mean_cog',
     mean_heading  = 'mean_heading',
-    vesselname  = 'vesselname',
+    vesselname  = 'vessel_name',
     imo  = 'imo',
     // callsign  = 'callsign',
-    vesseltype  = 'vesseltype',
+    vesseltype  = 'vessel_type',
     // status  = 'status',
     length  = 'length',
     width  = 'width',
     draft  = 'draft',
     // cargo  = 'cargo',
-    vesselgroup  = 'vesselgroup',
-    vesselclass  = 'vesselclass',
+    vesselgroup  = 'vessel_group',
+    vesselclass  = 'vessel_class',
 }
 
 export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string>
