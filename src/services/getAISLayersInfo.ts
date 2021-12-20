@@ -23,7 +23,6 @@ export type ShipTrafficLayerInfo = {
 
 let shipTrafficLayersData: ShipTrafficLayerInfo[];
 
-const isProd = location.hostname === 'livingatlas.arcgis.com'
 const AIS_APP_SOURCE_DATA_URL_PROD = 'https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/AIS_App_Source_Data/FeatureServer/0';
 const AIS_APP_SOURCE_DATA_URL_DEV = 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/AIS_App_Source_Data_DEV/FeatureServer/6/';
 const AIS_APP_SOURCE_DATA_URL = location.hostname === 'livingatlas.arcgis.com'

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 
 const TITLE = 'U.S. Vessel Traffic';
-const DESCRIPTION = 'AIS shipping tracks since Jan 2015. Find patterns & download for analysis';
+const DESCRIPTION = 'AIS shipping tracks since Jan 2017. Find patterns & download for analysis';
 const AUTHOR = 'ArcGIS Living Atlas of the World';
 const KEYWORDS = [
     "AIS",
