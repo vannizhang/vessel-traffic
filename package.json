@@ -56,7 +56,7 @@
     "@esri/arcgis-rest-request": "^2.0.0",
     "@esri/arcgis-rest-types": "^2.23.0",
     "@types/arcgis-js-api": "^4.18.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "calcite-web": "github:Esri/calcite-web#v1.2.5",
     "date-fns": "^2.16.1",
     "esri-loader": "^3.3.0",
