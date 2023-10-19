@@ -30,7 +30,7 @@ const ChildrenWrapper = styled.div`
     margin: auto 1.5rem;
     height: 100%;
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     align-items: flex-end;
     /* justify-content:  */
 `;

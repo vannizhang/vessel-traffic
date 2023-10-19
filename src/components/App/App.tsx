@@ -40,6 +40,7 @@ import { ShipTrafficFeature, ShipLayerQueryResult } from '../ShipTrafficLayerQue
 import MobileHide from '../SharedUI/MobileHide';
 import { ENCLayerFeature } from '../ENCLayer/ENCLayer';
 import { NauticalBoundariesLayerQueryResult } from '../NauticalBoundariesLayer/NauticalBoundariesLayer';
+import { MainenanceMessage } from '../MainenanceMessage/MainenanceMessage';
 
 const DefaultStateValues = getDefaultStateValuesFromHash()
 // console.log(DefaultStateValues)
@@ -110,6 +111,8 @@ const App:React.FC = ()=>{
         <>
 
             <MobileHeader />
+
+            <MainenanceMessage />
             
             <div style={{
                 'position': 'absolute',
@@ -134,7 +137,7 @@ const App:React.FC = ()=>{
                         data={nauticalLayerQueryResult}
                     />
 
-                    <ShipTrafficLayerQueryTask 
+                    {/* <ShipTrafficLayerQueryTask 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
                         defaultQueryPoint={DefaultStateValues.queryPoint}
@@ -144,13 +147,13 @@ const App:React.FC = ()=>{
                     <ShipTrafficLayerQueryResult 
                         visibleSubLayer={visibleSubLayer}
                         feature={shipLayerQueryResult ? shipLayerQueryResult.feature : undefined}
-                    />
+                    /> */}
                     
-                    <ShipTrafficLayer 
+                    {/* <ShipTrafficLayer 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
                         faded={shipLayerQueryResult ? true : false}
-                    />
+                    /> */}
 
                     <ENCLayer
                         level={selectedENCsLevel}
@@ -169,7 +172,7 @@ const App:React.FC = ()=>{
                     </ChildAtSidePosition>
                 </MobileHide>
 
-                <ChildAtCenterPosition>
+                {/* <ChildAtCenterPosition>
                     <TimeSelector 
                         visibleSubLayer={visibleSubLayer}
                         activeLayerTimeInfo={activeLayerTimeInfo}
@@ -187,7 +190,7 @@ const App:React.FC = ()=>{
                             setNauticalLayerQueryResult(null);
                         }}
                     />
-                </ChildAtCenterPosition>
+                </ChildAtCenterPosition> */}
 
                 <MobileHide>
                     <ChildAtSidePosition>
