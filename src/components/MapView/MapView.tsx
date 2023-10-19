@@ -24,6 +24,7 @@ interface Props {
     onStationary: (centerLocation:MapCenterLocation)=>void;
     // paddingRight?: number;
     // bookmark?: BookmarkData;
+    children:React.ReactNode
 };
 
 const MapView:React.FC<Props> = ({

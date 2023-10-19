@@ -21,9 +21,13 @@ interface AppContextProviderProps {};
 
 export const AppContext = React.createContext<ContextProps>(null);
 
+type Props = {
+    children:React.ReactNode
+}
+
 export const AppContextProvider:React.FC<AppContextProviderProps> = ({ 
     children 
-})=>{
+}:Props)=>{
 
     const [ value, setValue ] = React.useState<ContextProps>()
 

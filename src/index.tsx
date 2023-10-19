@@ -1,7 +1,7 @@
-import './styles/index.scss';
+import './styles/index.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import {
     App
@@ -19,11 +19,10 @@ setDefaultOptions({
     version: '4.18'
 })
 
-ReactDOM.render(
-    (
-        <AppContextProvider>
-            <App />
-        </AppContextProvider>
-    ), 
-    document.getElementById('root')
+const root = createRoot(document.getElementById('root'));
+
+root.render(
+    <AppContextProvider>
+        <App />
+    </AppContextProvider>
 );

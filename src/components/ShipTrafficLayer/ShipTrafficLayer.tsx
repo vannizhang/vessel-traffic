@@ -110,7 +110,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
             'Other'
         ].map((sublayer:ShipTrafficSubLayerName, index) =>{
 
-            const layout = {
+            const layout:any = {
                 "line-cap": "round",
                 "line-join": "round"
             };

@@ -1,9 +1,13 @@
 import React from 'react';
 import { IS_MOBILE_DEVICE } from '../../constants/UI';
 
-const MobileHide:React.FC = ({
+type Props = {
+    children:React.ReactNode
+}
+
+const MobileHide:React.FC<Props> = ({
     children
-}) => {
+}:Props) => {
     return !IS_MOBILE_DEVICE ? (
         <>{ children }</>
     ) : null;

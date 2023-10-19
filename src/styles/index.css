@@ -1,0 +1,9 @@
+@import './calcite-web/css/calcite-web.min.css';
+
+body {
+    background-color: #1b528b;
+}
+
+#root .esri-widget--button {
+    filter: invert(1);
+}

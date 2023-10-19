@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import styled from 'styled-components'
 import { DEFAULT_TEXT_COLOR } from '../../constants/UI';
@@ -56,9 +56,13 @@ export const ChildAtSidePosition = styled.div`
     }
 `;
 
-const BottomPanel:React.FC = ({
+type Props = {
+    children:ReactNode
+}
+
+const BottomPanel:React.FC<Props> = ({
     children
-}) => {
+}:Props) => {
     return (
         <StyledBottomPanel>
             <GradientEffectAtBottom/>
