@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Vessel Traffic Layer | Performance Testing</title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
+
+    <script>
+        var dojoConfig = {
+          async: true,
+          isDebug: false,
+   
+          has: {
+            "esri-tiles-debug": 1
+          }
+        };
+    </script>
+    
+    <script src="https://js.arcgis.com/4.28/"></script>
+
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/layers/VectorTileLayer", "esri/core/reactiveUtils"], (
+        Map,
+        MapView,
+        VectorTileLayer,
+        reactiveUtils
+      ) => {
+
+        const searchParams = new URLSearchParams(window.location.search.slice(1))
+
+        const vesselTrafficLayerId = searchParams.get('vesselTrafficLayerId') || 'e03be77f634e423f900041cd13aa1679';
+        const location = searchParams.get('location') || '';
+
+        const [x,y,z] = location.split(',').map(d=>+d)
+
+        const center = x && y 
+            ? [x, y] 
+            : [-85, 27];
+        const zoom = z || 8;
+
+        // Create a Map
+        const map = new Map({
+            basemap: "satellite"
+        });
+
+        // Make map view and bind it to the map
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center,
+          zoom
+        });
+
+        const tileLayer = new VectorTileLayer({
+          portalItem: {
+            id: vesselTrafficLayerId
+          }
+        });
+
+        map.add(tileLayer);
+
+        // Watch view's stationary property for becoming true.
+        reactiveUtils.when(
+            () => view.stationary === true,
+            () => {
+                // Get the new center of the view only when view is stationary.
+                if (view.center) {
+                    searchParams.set('location', [view.center.longitude, view.center.latitude, view.zoom]);
+                    searchParams.set('vesselTrafficLayerId', vesselTrafficLayerId)
+                    // window.location.search = '?' + searchParams.toString()
+                    window.history.replaceState(undefined, '', window.location.origin + window.location.pathname + '?' + searchParams.toString());
+                }
+            }
+        );
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
