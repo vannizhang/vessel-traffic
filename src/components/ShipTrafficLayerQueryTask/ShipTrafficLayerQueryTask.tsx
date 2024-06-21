@@ -2,7 +2,7 @@ import React, {
     useEffect, useRef
 } from 'react'
 
-import { loadModules } from 'esri-loader';
+// import { loadModules } from 'esri-loader';
 
 // import {
 //     AppContext
@@ -10,10 +10,10 @@ import { loadModules } from 'esri-loader';
 
 import { getLayerDataByDate, ShipTrafficLayerInfo } from '../../services/getAISLayersInfo';
 
-import IMapView from 'esri/views/MapView';
-import IPoint from 'esri/geometry/Point';
-import IQueryTask from 'esri/tasks/QueryTask';
-import IFeatureSet from 'esri/tasks/support/FeatureSet';
+import MapView from '@arcgis/core/views/MapView';
+import Point from '@arcgis/core/geometry/Point';
+// import QueryTask from '@arcgis/core/tasks/QueryTask';
+// import IFeatureSet from '@arcgis/core/tasks/support/FeatureSet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { IFeature } from "@esri/arcgis-rest-types";
 import { ActiveLayerTimeInfo } from '../../types';
@@ -46,7 +46,7 @@ export type ShipTrafficFeature = IFeature & {
 
 export type ShipLayerQueryResult = {
     feature: ShipTrafficFeature;
-    queryGeometry: IPoint;
+    queryGeometry: Point;
 }
 
 type Props = {
@@ -54,7 +54,7 @@ type Props = {
     activeLayerTimeInfo: ActiveLayerTimeInfo;
     defaultQueryPoint?: [number, number] // lon, lat
     onSelect: (result:ShipLayerQueryResult)=>void;
-    mapView?: IMapView;
+    mapView?: MapView;
 }
 
 const ShipTrafficLayerQueryTask:React.FC<Props> = ({
@@ -76,32 +76,47 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
         });
     };
 
-    const queryFeatures = async (queryGeometry?:IPoint):Promise<void> => {
+    const queryFeatures = async (queryGeometry?:Point):Promise<void> => {
         // console.log(mapView.scale)
 
-        type Modules = [typeof IQueryTask];
+        // type Modules = [typeof IQueryTask];
 
         try {
-            const [ QueryTask] = await (loadModules([
-                'esri/tasks/QueryTask'
-            ]) as Promise<Modules>);
+            // const [ QueryTask] = await (loadModules([
+            //     'esri/tasks/QueryTask'
+            // ]) as Promise<Modules>);
 
             if (layerDataRef.current.Feature_Service) {
 
-                const queryTask = new QueryTask({
-                    url: layerDataRef.current.Feature_Service
-                });
+                // const queryTask = new QueryTask({
+                //     url: layerDataRef.current.Feature_Service
+                // });
 
-                const distance = mapView.zoom < 12 ? 100 : 50;
+                const distance = mapView.zoom < 12 ? '100' : '50';
 
-                const results:IFeatureSet= await queryTask.execute({
-                    geometry: queryGeometry,
+                const searchParams = new URLSearchParams({
+                    geometry: JSON.stringify(queryGeometry),
+                    geometryType: 'esriGeometryPoint',
                     distance,
-                    units: 'meters',
+                    units: 'esriSRUnit_Meter',
                     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
-                    outFields : ['*'],
-                    returnGeometry: true
-                });
+                    outFields : '*',
+                    returnGeometry: 'true',
+                    f: 'json'
+                })
+
+                const res = await fetch(layerDataRef.current.Feature_Service + '/query?' + searchParams.toString())
+
+                // const results:IFeatureSet= await queryTask.execute({
+                //     geometry: queryGeometry,
+                //     distance,
+                //     units: 'meters',
+                //     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
+                //     outFields : ['*'],
+                //     returnGeometry: true
+                // });
+
+                const results = await res.json()
 
                 const feature:ShipTrafficFeature = results.features[0] 
                     ? {
@@ -133,11 +148,11 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
             if(defaultQueryPoint){
                 (async()=>{
 
-                    type Modules = [typeof IPoint];
+                    // type Modules = [typeof IPoint];
 
-                    const [ Point ] = await (loadModules([
-                        'esri/geometry/Point'
-                    ]) as Promise<Modules>);
+                    // const [ Point ] = await (loadModules([
+                    //     'esri/geometry/Point'
+                    // ]) as Promise<Modules>);
 
                     const [ longitude, latitude ] = defaultQueryPoint;
 

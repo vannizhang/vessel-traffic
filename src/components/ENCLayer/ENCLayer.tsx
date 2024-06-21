@@ -3,14 +3,12 @@ import React, {
     useRef
 } from 'react'
 
-import { loadModules } from 'esri-loader';
-
-import IMapView from 'esri/views/MapView';
-import IGraphic from 'esri/Graphic'
-import IFeatureLayer from 'esri/layers/FeatureLayer';
-import IGraphicLayer from 'esri/layers/GraphicsLayer';
-import IFeatureLayerView from 'esri/views/layers/FeatureLayerView';
-import ISimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
+import IMapView from '@arcgis/core/views/MapView';
+import IGraphic from '@arcgis/core/Graphic'
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import FeatureLayerView from '@arcgis/core/views/layers/FeatureLayerView';
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import { NOAAENCsLevel } from '../../types';
 import { IGeometry } from '@esri/arcgis-rest-feature-layer';
 import { BACKGROUND_COLOR } from '../../constants/UI';
@@ -38,12 +36,12 @@ const ENCLayer:React.FC<Props> = ({
     onSelect
 }) => {
 
-    const layerRef = React.useRef<IFeatureLayer>();
+    const layerRef = React.useRef<FeatureLayer>();
 
-    const layerViewRef = React.useRef<IFeatureLayerView>();
+    const layerViewRef = React.useRef<FeatureLayerView>();
 
     // will be used to show graphic for the highlight feature on mouse hover event
-    const graphicsLayerRef = React.useRef<IGraphicLayer>();
+    const graphicsLayerRef = React.useRef<GraphicsLayer>();
 
     const mouseMoveDelay = useRef<number>();
 
@@ -53,14 +51,14 @@ const ENCLayer:React.FC<Props> = ({
 
     const init = async()=>{
 
-        type Modules = [typeof IFeatureLayer, typeof IGraphicLayer ];
+        // type Modules = [typeof IFeatureLayer, typeof IGraphicLayer ];
 
         try {
 
-            const [ FeatureLayer, GraphicsLayer ] = await (loadModules([
-                'esri/layers/FeatureLayer',
-                'esri/layers/GraphicsLayer'
-            ]) as Promise<Modules>);
+            // const [ FeatureLayer, GraphicsLayer ] = await (loadModules([
+            //     'esri/layers/FeatureLayer',
+            //     'esri/layers/GraphicsLayer'
+            // ]) as Promise<Modules>);
 
             const layer = new FeatureLayer({
                 portalItem: {
@@ -113,7 +111,7 @@ const ENCLayer:React.FC<Props> = ({
     }
 
     const toggleFeatureOnHover = async(graphic?:IGraphic)=>{
-        type Modules = [typeof ISimpleFillSymbol ];
+        // type Modules = [typeof ISimpleFillSymbol ];
 
         if(!graphicsLayerRef.current){
             return;
@@ -123,9 +121,9 @@ const ENCLayer:React.FC<Props> = ({
 
         if(graphic){
 
-            const [ SimpleFillSymbol ] = await (loadModules([
-                'esri/symbols/SimpleFillSymbol'
-            ]) as Promise<Modules>);
+            // const [ SimpleFillSymbol ] = await (loadModules([
+            //     'esri/symbols/SimpleFillSymbol'
+            // ]) as Promise<Modules>);
 
             graphic.symbol = new SimpleFillSymbol({
                 color: 'rgba(255, 255, 255, 0.2)',
@@ -182,7 +180,7 @@ const ENCLayer:React.FC<Props> = ({
             }
         });
 
-        mapView.on('pointer-out', (evt) => {
+        mapView.on('pointer-leave', (evt) => {
             toggleFeatureOnHover()
         })
     }

@@ -3,25 +3,24 @@ import React, {
     useEffect
 } from 'react'
 
-import { loadModules } from 'esri-loader';
-import IMapView from 'esri/views/MapView';
-import IFeatureLayer from 'esri/layers/FeatureLayer';
-import IGraphic from 'esri/Graphic';
-import ISimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
-import ISimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
-import IwatchUtils from 'esri/core/watchUtils';
+import MapView from '@arcgis/core/views/MapView';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import Graphic from '@arcgis/core/Graphic';
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
+import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
+import { watch } from '@arcgis/core/core/reactiveUtils';
 import { NAUTICAL_LAYER_FILL, NAUTICAL_LAYER_LINE } from '../../constants/UI';
 
 type NauticalBoundariesLayerTitle = 'shipping lane' | 'anchorage area' | 'maritime limit';
 
 export type NauticalBoundariesLayerQueryResult = {
     layerName: NauticalBoundariesLayerTitle;
-    graphic: IGraphic,
+    graphic: Graphic,
 }
 
 type Props = {
     isVisible: boolean;
-    mapView?: IMapView;
+    mapView?: MapView;
     isInVisibleScaleOnChange: (isInVisibleScale:boolean)=>void;
     queryResultOnSelected: (data:NauticalBoundariesLayerQueryResult)=>void;
 }
@@ -35,11 +34,11 @@ const NauticalRefLayerNames:NauticalBoundariesLayerTitle[] = [
 
 export const getNauticalPolygonSymbol = async(fillColor?:string)=>{
 
-    type Modules = [typeof ISimpleFillSymbol];
+    // type Modules = [typeof ISimpleFillSymbol];
 
-    const [ SimpleFillSymbol] = await (loadModules([
-        'esri/symbols/SimpleFillSymbol',
-    ]) as Promise<Modules>);
+    // const [ SimpleFillSymbol] = await (loadModules([
+    //     'esri/symbols/SimpleFillSymbol',
+    // ]) as Promise<Modules>);
 
     const PolygonSymbol = new SimpleFillSymbol({
         color: fillColor || NAUTICAL_LAYER_FILL,
@@ -57,11 +56,11 @@ export const getNauticalLineSymbol = async({
 }:{
     lineColor?:string, lineWidth?:number, isDashed?:boolean
 })=>{
-    type Modules = [typeof ISimpleLineSymbol ];
+    // type Modules = [typeof ISimpleLineSymbol ];
 
-    const [ SimpleLineSymbol ] = await (loadModules([
-        'esri/symbols/SimpleLineSymbol'
-    ]) as Promise<Modules>);
+    // const [ SimpleLineSymbol ] = await (loadModules([
+    //     'esri/symbols/SimpleLineSymbol'
+    // ]) as Promise<Modules>);
 
     const LineSymbol = new SimpleLineSymbol({
         color: lineColor || NAUTICAL_LAYER_LINE,
@@ -79,22 +78,22 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
     queryResultOnSelected
 }) => {
 
-    const layerRef = useRef<IFeatureLayer[]>();
+    const layerRef = useRef<FeatureLayer[]>();
 
     const isVisibleRef = useRef<boolean>(isVisible);
 
     const show = async()=>{
 
-        type Modules = [typeof IFeatureLayer, typeof ISimpleFillSymbol, typeof ISimpleLineSymbol ];
+        // type Modules = [typeof IFeatureLayer, typeof ISimpleFillSymbol, typeof ISimpleLineSymbol ];
 
         if(!layerRef.current){
 
             try {
-                const [ FeatureLayer ] = await (loadModules([
-                    'esri/layers/FeatureLayer',
-                    'esri/symbols/SimpleFillSymbol',
-                    'esri/symbols/SimpleLineSymbol'
-                ]) as Promise<Modules>);
+                // const [ FeatureLayer ] = await (loadModules([
+                //     'esri/layers/FeatureLayer',
+                //     'esri/symbols/SimpleFillSymbol',
+                //     'esri/symbols/SimpleLineSymbol'
+                // ]) as Promise<Modules>);
 
                 const PolygonSymbol = await getNauticalPolygonSymbol();
 
@@ -150,48 +149,61 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
                 const response = await mapView.hitTest(event);
                 // console.log(response)
 
-                if (response.results.length) {
+                // if (response.results.length) {
 
-                    const result = response.results.filter((result)=>{
-                        // check if the graphic belongs to the layer of interest
-                        return layerRef.current.indexOf(result.graphic.layer as any) > -1;
-                    })[0];
+                //     const result = response.results.filter((result)=>{
+                //         // check if the graphic belongs to the layer of interest
+                //         return layerRef.current.indexOf(result.graphic.layer as any) > -1;
+                //     })[0];
 
-                    if(result){
-                        // do something with the result graphic
-                        // console.log(result.graphic);
+                //     if(result){
+                //         // do something with the result graphic
+                //         // console.log(result.graphic);
 
-                        const queryResult:NauticalBoundariesLayerQueryResult = {
-                            layerName: result.graphic.layer.title as NauticalBoundariesLayerTitle,
-                            graphic: result.graphic
-                        } 
+                //         const queryResult:NauticalBoundariesLayerQueryResult = {
+                //             layerName: result.graphic.layer.title as NauticalBoundariesLayerTitle,
+                //             graphic: result.graphic
+                //         } 
 
-                        queryResultOnSelected(queryResult);
-                    }
+                //         queryResultOnSelected(queryResult);
+                //     }
 
-                }
+                // }
             }
         });
     }
 
     const addWatchEvent = async () => {
-        type Modules = [typeof IwatchUtils];
+        // type Modules = [typeof IwatchUtils];
 
         try {
-            const [watchUtils] = await (loadModules([
-                'esri/core/watchUtils',
-            ]) as Promise<Modules>);
+            // const [watchUtils] = await (loadModules([
+            //     'esri/core/watchUtils',
+            // ]) as Promise<Modules>);
 
-            watchUtils.whenTrue(mapView, 'stationary', () => {
+            watch(() => mapView.stationary, (stationary)=>{
                 // console.log('mapview is stationary', mapView.center, mapView.zoom);
+
+                if(!stationary){
+                    return
+                }
 
                 const isInVisibleScale = mapView.scale < MIN_SCALE;
 
                 isInVisibleScaleOnChange(isInVisibleScale)
 
-                // console.log(isInVisibleScale);
-
             });
+
+            // watchUtils.whenTrue(mapView, 'stationary', () => {
+            //     // console.log('mapview is stationary', mapView.center, mapView.zoom);
+
+            //     const isInVisibleScale = mapView.scale < MIN_SCALE;
+
+            //     isInVisibleScaleOnChange(isInVisibleScale)
+
+            //     // console.log(isInVisibleScale);
+
+            // });
         } catch (err) {
             console.error(err);
         }

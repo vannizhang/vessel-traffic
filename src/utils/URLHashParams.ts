@@ -4,7 +4,7 @@ import {
 import { MapCenterLocation } from '../components/MapView/MapView';
 import { ShipTrafficSubLayerName } from '../components/ShipTrafficLayer/ShipTrafficLayer';
 import { ActiveLayerTimeInfo } from '../types';
-import IPoint from 'esri/geometry/Point'
+import IPoint from '@arcgis/core/geometry/Point'
 
 type HashParamKey = '@' | 'sublayer' | 'time' | 'queryPoint';
 

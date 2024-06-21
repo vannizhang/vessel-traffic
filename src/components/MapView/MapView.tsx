@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { loadModules, loadCss } from 'esri-loader';
-import IMapView from 'esri/views/MapView';
-import IMap from "esri/Map";
-import IwatchUtils from 'esri/core/watchUtils';
-import ITileLayer from 'esri/layers/TileLayer';
-import IVectorTileLayer from 'esri/layers/VectorTileLayer';
-import ICompass from 'esri/widgets/Compass';
-import IHome from 'esri/widgets/Home';
-import IMapImageLayer from 'esri/layers/MapImageLayer'
+import ArcGISMapView from '@arcgis/core/views/MapView';
+import Map from "@arcgis/core/Map";
+import { watch } from '@arcgis/core/core/reactiveUtils';
+import TileLayer from '@arcgis/core/layers/TileLayer';
+import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
+import Compass from '@arcgis/core/widgets/Compass';
+import Home from '@arcgis/core/widgets/Home';
+import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
 
 import { BACKGROUND_COLOR } from '../../constants/UI';
 
@@ -40,38 +39,38 @@ const MapView:React.FC<Props> = ({
 
     // const { mapCenterLocation, setMapCenterLocation } = React.useContext(AppContext);
 
-    const [ mapView, setMapView] = React.useState<IMapView>(null);
+    const [ mapView, setMapView] = React.useState<ArcGISMapView>(null);
 
     const initMapView = async()=>{
         
-        type Modules = [
-            typeof IMapView, 
-            typeof IMap,
-            typeof ITileLayer,
-            typeof IVectorTileLayer,
-            typeof IMapImageLayer,
-            typeof ICompass,
-            typeof IHome
-        ];
+        // type Modules = [
+        //     typeof IMapView, 
+        //     typeof IMap,
+        //     typeof ITileLayer,
+        //     typeof IVectorTileLayer,
+        //     typeof IMapImageLayer,
+        //     typeof ICompass,
+        //     typeof IHome
+        // ];
 
         try {
-            const [ 
-                MapView, 
-                Map,
-                TileLayer,
-                VectorTileLayer,
-                MapImageLayer,
-                Compass,
-                Home
-            ] = await (loadModules([
-                'esri/views/MapView',
-                'esri/Map',
-                'esri/layers/TileLayer',
-                'esri/layers/VectorTileLayer',
-                'esri/layers/MapImageLayer',
-                'esri/widgets/Compass',
-                'esri/widgets/Home'
-            ]) as Promise<Modules>);
+            // const [ 
+            //     MapView, 
+            //     Map,
+            //     TileLayer,
+            //     VectorTileLayer,
+            //     MapImageLayer,
+            //     Compass,
+            //     Home
+            // ] = await (loadModules([
+            //     'esri/views/MapView',
+            //     'esri/Map',
+            //     'esri/layers/TileLayer',
+            //     'esri/layers/VectorTileLayer',
+            //     'esri/layers/MapImageLayer',
+            //     'esri/widgets/Compass',
+            //     'esri/widgets/Home'
+            // ]) as Promise<Modules>);
 
             // const referenceLayer = new VectorTileLayer({
             //     portalItem: {
@@ -124,7 +123,7 @@ const MapView:React.FC<Props> = ({
                 }
             });
 
-            const view = new MapView({
+            const view = new ArcGISMapView({
                 container: mapDivRef.current,
                 map,
                 center: defaultMapCenterLocation ? [ defaultMapCenterLocation.lon, defaultMapCenterLocation.lat ] : undefined,
@@ -168,18 +167,22 @@ const MapView:React.FC<Props> = ({
     // };
 
     const addWatchEvent = async()=>{
-        type Modules = [typeof IwatchUtils];
+        // type Modules = [typeof IwatchUtils];
 
         if(onStationary){
             try {
-                const [ 
-                    watchUtils 
-                ] = await (loadModules([
-                    'esri/core/watchUtils'
-                ]) as Promise<Modules>);
+                // const [ 
+                //     watchUtils 
+                // ] = await (loadModules([
+                //     'esri/core/watchUtils'
+                // ]) as Promise<Modules>);
     
-                watchUtils.whenTrue(mapView, 'stationary', ()=>{
+                watch(() => mapView.stationary, (stationary)=>{
                     // console.log('mapview is stationary', mapView.center, mapView.zoom);
+
+                    if(!stationary){
+                        return
+                    }
     
                     onStationary({
                         lat: +mapView.center.latitude.toFixed(3),
@@ -196,7 +199,7 @@ const MapView:React.FC<Props> = ({
     };
 
     React.useEffect(()=>{
-        loadCss();
+        // loadCss();
         initMapView();
     }, []);
 

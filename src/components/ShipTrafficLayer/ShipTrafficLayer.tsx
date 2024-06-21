@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { loadModules } from 'esri-loader';
-
 // import {
 //     AppContext
 // } from '../../contexts/AppContextProvider';
 
-import IMapView from 'esri/views/MapView';
-import IVectorTileLayer from 'esri/layers/VectorTileLayer';
+import MapView from '@arcgis/core/views/MapView';
+import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
 import { ShipTrafficLayerInfo, getLayerDataByDate } from '../../services/getAISLayersInfo';
 import { ActiveLayerTimeInfo } from '../../types';
 
@@ -61,7 +59,7 @@ export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
 }
 
 interface Props {
-    mapView?: IMapView;
+    mapView?: MapView;
     visibleSubLayer: ShipTrafficSubLayerName;
     activeLayerTimeInfo: ActiveLayerTimeInfo;
     faded?: boolean;
@@ -81,7 +79,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
     // const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
 
-    const shipTrafficLayerRef = React.useRef<IVectorTileLayer>();
+    const shipTrafficLayerRef = React.useRef<VectorTileLayer>();
 
     const addLayer = async()=>{
 
@@ -149,14 +147,14 @@ const ShipTrafficLayer:React.FC<Props> = ({
         };
     };
 
-    const getLayer = async(): Promise<IVectorTileLayer>=>{
+    const getLayer = async(): Promise<VectorTileLayer>=>{
 
-        type Modules = [typeof IVectorTileLayer];
+        // type Modules = [typeof IVectorTileLayer];
 
         try {
-            const [ VectorTileLayer] = await (loadModules([
-                'esri/layers/VectorTileLayer'
-            ]) as Promise<Modules>);
+            // const [ VectorTileLayer] = await (loadModules([
+            //     'esri/layers/VectorTileLayer'
+            // ]) as Promise<Modules>);
 
             // const activeYear = activeDate.getFullYear();
             // const activeMonth = activeDate.getMonth() + 1;

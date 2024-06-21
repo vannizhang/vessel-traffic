@@ -2,10 +2,10 @@ import React, {
     useEffect,
     useRef
 } from 'react';
-import { loadModules } from 'esri-loader';
-import IMapView from 'esri/views/MapView';
-import IGraphic from 'esri/Graphic';
-import ISimpleLineSymbol from 'esri/symbols/SimpleLineSymbol'
+
+import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
+import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol'
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 import {
     ShipTrafficSubLayerName,
@@ -15,7 +15,7 @@ import {
 type Props = {
     visibleSubLayer: ShipTrafficSubLayerName;
     feature: ShipTrafficFeature;
-    mapView?: IMapView;
+    mapView?: MapView;
 }
 
 const ShipTrafficLayerQueryResult:React.FC<Props> = ({
@@ -26,7 +26,7 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
     const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
 
-    const graphicRef = useRef<IGraphic>();
+    const graphicRef = useRef<Graphic>();
 
     const showQueryResult = async():Promise<void>=>{
 
@@ -38,14 +38,14 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
             return;
         }
 
-        type Modules = [typeof IGraphic, typeof ISimpleLineSymbol];
+        // type Modules = [typeof IGraphic, typeof ISimpleLineSymbol];
 
         try {
 
-            const [ Graphic, SimpleLineSymbol ] = await (loadModules([
-                'esri/Graphic',
-                'esri/symbols/SimpleLineSymbol'
-            ]) as Promise<Modules>);
+            // const [ Graphic, SimpleLineSymbol ] = await (loadModules([
+            //     'esri/Graphic',
+            //     'esri/symbols/SimpleLineSymbol'
+            // ]) as Promise<Modules>);
 
             const {
                 geometry

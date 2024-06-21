@@ -2,16 +2,15 @@ import React, {
     useEffect,
     useRef
 } from 'react';
-import { loadModules } from 'esri-loader';
-import IMapView from 'esri/views/MapView';
-import IGraphic from 'esri/Graphic';
+import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
 
 import { NauticalBoundariesLayerQueryResult, getNauticalLineSymbol, getNauticalPolygonSymbol } from '../NauticalBoundariesLayer/NauticalBoundariesLayer';
 import { NAUTICAL_LAYER_COLOR, NAUTICAL_LAYER_HIGHLIGHT } from '../../constants/UI';
 
 type Props = {
     data: NauticalBoundariesLayerQueryResult;
-    mapView?: IMapView;
+    mapView?: MapView;
 }
 
 const NauticalQueryResult:React.FC<Props> = ({
@@ -19,7 +18,7 @@ const NauticalQueryResult:React.FC<Props> = ({
     mapView
 }) => {
 
-    const graphicRef = useRef<IGraphic>();
+    const graphicRef = useRef<Graphic>();
 
     const showQueryResult = async():Promise<void>=>{
 
@@ -27,13 +26,13 @@ const NauticalQueryResult:React.FC<Props> = ({
             return;
         }
 
-        type Modules = [typeof IGraphic];
+        // type Modules = [typeof IGraphic];
 
         try {
 
-            const [ Graphic ] = await (loadModules([
-                'esri/Graphic'
-            ]) as Promise<Modules>);
+            // const [ Graphic ] = await (loadModules([
+            //     'esri/Graphic'
+            // ]) as Promise<Modules>);
 
             const {
                 graphic
