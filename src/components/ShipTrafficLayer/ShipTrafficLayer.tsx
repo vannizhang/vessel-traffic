@@ -109,8 +109,8 @@ const ShipTrafficLayer:React.FC<Props> = ({
         ].map((sublayer:ShipTrafficSubLayerName, index) =>{
 
             const layout:any = {
-                "line-cap": "round",
-                "line-join": "round"
+                "line-cap": "butt",
+                "line-join": "miter"
             };
 
             if(sublayer !== visibleSubLayer){
@@ -166,6 +166,12 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
             const layerInfo = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
             // console.log('active ship layer info', layerInfo)
+
+            // layerInfo.Layer_Name = 'US_Vessel_Traffic_2016_01'
+            // layerInfo.Service_URL = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_01_test/VectorTileServer'
+
+            // layerInfo.Layer_Name = 'US_Vessel_Traffic_2016_01_gen500'
+            // layerInfo.Service_URL = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_01_gen500/VectorTileServer'
 
             const style = getStyle(layerInfo);
             // console.log(style)

@@ -99,26 +99,26 @@ const MapView:React.FC<Props> = ({
                             },
                             blendMode: "luminosity",
                         }),
-                        new VectorTileLayer({
-                            portalItem: {
-                                id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
-                            },
-                            blendMode: "overlay"
-                        }),
                         // new VectorTileLayer({
                         //     portalItem: {
-                        //         id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
+                        //         id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
                         //     },
+                        //     blendMode: "overlay"
+                        // }),
+                        // // new VectorTileLayer({
+                        // //     portalItem: {
+                        // //         id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
+                        // //     },
+                        // //     blendMode: "hard-light",
+                        // //     // // for some reason chrome crashes if effect is on
+                        // //     // effect: "invert() saturate(0)"
+                        // // })
+                        // new MapImageLayer({
+                        //     url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
                         //     blendMode: "hard-light",
-                        //     // // for some reason chrome crashes if effect is on
-                        //     // effect: "invert() saturate(0)"
+                        //     effect: "invert() saturate(0)",
+                        //     maxScale: 36112
                         // })
-                        new MapImageLayer({
-                            url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
-                            blendMode: "hard-light",
-                            effect: "invert() saturate(0)",
-                            maxScale: 36112
-                        })
                     ]
                 }
             });
