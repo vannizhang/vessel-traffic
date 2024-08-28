@@ -1,0 +1,387 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Vessel Traffic Layer | Generalized</title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+    <script>
+      var dojoConfig = {
+        async: true,
+        isDebug: false,
+        has: {
+          "esri-tiles-debug": 1
+        }
+      };
+    </script>
+    <script src="https://js.arcgis.com/4.30/"></script>
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/layers/VectorTileLayer", "esri/core/reactiveUtils"], (Map, MapView, VectorTileLayer, reactiveUtils) => {
+        // Create a Map
+        const map = new Map({
+          basemap: "satellite"
+        });
+        // Make map view and bind it to the map
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-85, 27],
+          zoom: 6
+        });
+        const style = {
+          "version": 8,
+          "sources": {
+            "esri": {
+              "type": "vector",
+              "url": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_12_scaled/VectorTileServer/"
+            }
+          },
+          "layers": [{
+            "id": "US_Vessel_Traffic_gen/Cargo",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              0
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                // "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#4CE600",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Fishing",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              1
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#0070FF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Military",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              2
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FF0000",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Passenger",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              3
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#C500FF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Pleasure",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              4
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FF73DF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Tanker",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              5
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FFFF00",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Tow",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              6
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FFAA00",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Other",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              7
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#686868",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic_gen/Not Available",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic_gen",
+            "filter": ["==", "_symbol",
+              8
+            ],
+            "maxzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#E41A1C",
+              "line-width": 1.33333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Cargo",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              0
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                // "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#4CE600",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Fishing",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              1
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#0070FF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Military",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              2
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FF0000",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Passenger",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              3
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#C500FF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Pleasure",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              4
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FF73DF",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Tanker",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              5
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FFFF00",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Tow",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              6
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#FFAA00",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Other",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              7
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#686868",
+              "line-width": 0.333333
+            }
+          }, {
+            "id": "US_Vessel_Traffic/Not Available",
+            "type": "line",
+            "source": "esri",
+            "source-layer": "US_Vessel_Traffic",
+            "filter": ["==", "_symbol",
+              8
+            ],
+            "minzoom": 12.5305,
+            "layout": {
+                "line-cap": "butt",
+                "line-join": "miter",
+                "visibility": "none"
+            },
+            "paint": {
+              "line-color": "#E41A1C",
+              "line-width": 1.33333
+            }
+          }]
+        }
+        const tileLayer = new VectorTileLayer({
+          url: 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_05_scaled/VectorTileServer',
+          style,
+          effect: 'bloom(1.5, 0.5px, 0.1)'
+        });
+        map.add(tileLayer);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
