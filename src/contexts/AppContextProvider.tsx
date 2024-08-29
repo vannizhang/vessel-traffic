@@ -6,8 +6,9 @@ import {
 } from 'helper-toolkit-ts';
 
 import {
-    fetchShipTrafficLayersData,
-    ShipTrafficLayerInfo
+    // fetchShipTrafficLayersData,
+    ShipTrafficLayerInfo,
+    shipTrafficLayersData
 } from '../services/getAISLayersInfo';
 import { AISFileSizeInfo, getAISFileSize } from '../services/getAISFileSizeLookup';
 
@@ -33,7 +34,7 @@ export const AppContextProvider:React.FC<AppContextProviderProps> = ({
 
     const init = async()=>{
 
-        const AISLayersData = await fetchShipTrafficLayersData();
+        const AISLayersData = shipTrafficLayersData;
 
         const AISFileSizeLookup = await getAISFileSize();
         // console.log(AISFileSizeLookup)

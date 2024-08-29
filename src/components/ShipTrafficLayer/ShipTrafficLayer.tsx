@@ -9,7 +9,7 @@ import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
 import { ShipTrafficLayerInfo, getLayerDataByDate } from '../../services/getAISLayersInfo';
 import { ActiveLayerTimeInfo } from '../../types';
 
-export type ShipTrafficSubLayerName = 'Cargo' | 'Fishing' | 'Military' | 'Passenger' | 'Pleasure' | 'Tanker' | 'Tow' | 'Other';
+export type ShipTrafficSubLayerName = 'Cargo' | 'Fishing' | 'Military' | 'Passenger' | 'Pleasure' | 'Tanker' | 'Tow' | 'Other' | 'Not Available';
 
 export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
     'text-color': string;
@@ -55,6 +55,11 @@ export const ShipTrafficSubLayerStyles: Record<ShipTrafficSubLayerName, {
         'text-color': '#fff',
         'line-color': 'rgba(255,255,255,.3)',
         'background-color': '#fff'
+    },
+    'Not Available': {
+        'text-color': '#fff',
+        'line-color': 'rgba(255,255,255,.3)',
+        'background-color': '#fff'
     }
 }
 
@@ -95,9 +100,58 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
     const getStyle = ( layerInfo: ShipTrafficLayerInfo )=>{
 
-        const layerName = layerInfo.Layer_Name;
+        // const layerName = layerInfo.Layer_Name;
 
-        const layers = [
+        // const layers = [
+        //     'Cargo', 
+        //     'Fishing', 
+        //     'Military', 
+        //     'Passenger', 
+        //     'Pleasure', 
+        //     'Tanker', 
+        //     'Tow', 
+        //     'Other'
+        // ].map((sublayer:ShipTrafficSubLayerName, index) =>{
+
+        //     const layout:any = {
+        //         "line-cap": "butt",
+        //         "line-join": "miter"
+        //     };
+
+        //     if(sublayer !== visibleSubLayer){
+        //         layout["visibility"] = "none";
+        //     }
+
+        //     return {
+        //         "id": `${layerName}/${sublayer}`,
+        //         "type": "line",
+        //         "source": "esri",
+        //         "source-layer": layerName,
+        //         "filter": [
+        //             "==",
+        //             "_symbol",
+        //             index
+        //         ],
+        //         "layout": layout,
+        //         "paint": {
+        //             "line-color": ShipTrafficSubLayerStyles[sublayer]["line-color"],
+        //             "line-width": 0.333333
+        //         }
+        //     }
+        // });
+
+        // return {
+        //     "version": 8,
+        //     "sources": {
+        //         "esri": {
+        //             "type": "vector",
+        //             "url": layerInfo.Service_URL
+        //         }
+        //     },
+        //     "layers": layers
+        // };
+
+        const SubLayerNames:ShipTrafficSubLayerName[] = [
             'Cargo', 
             'Fishing', 
             'Military', 
@@ -105,35 +159,55 @@ const ShipTrafficLayer:React.FC<Props> = ({
             'Pleasure', 
             'Tanker', 
             'Tow', 
-            'Other'
-        ].map((sublayer:ShipTrafficSubLayerName, index) =>{
+            'Other',
+            'Not Available'
+        ]
 
-            const layout:any = {
-                "line-cap": "butt",
-                "line-join": "miter"
-            };
+        const layers:any[] = []
 
-            if(sublayer !== visibleSubLayer){
-                layout["visibility"] = "none";
-            }
+        for(let index = 0; index < SubLayerNames.length; index++){
 
-            return {
-                "id": `${layerName}/${sublayer}`,
+            const subLayerName = SubLayerNames[index];
+
+            const color = ShipTrafficSubLayerStyles[subLayerName]["line-color"];
+
+            const subLayerInfoBase ={
                 "type": "line",
                 "source": "esri",
-                "source-layer": layerName,
-                "filter": [
-                    "==",
-                    "_symbol",
+                "filter": ["==", "_symbol",
                     index
                 ],
-                "layout": layout,
+                "layout": {
+                    "line-cap": "butt",
+                    "line-join": "miter",
+                },
                 "paint": {
-                    "line-color": ShipTrafficSubLayerStyles[sublayer]["line-color"],
-                    "line-width": 0.333333
+                  "line-color": color,
+                  "line-width": 0.333333
                 }
+            } as any
+
+            if(subLayerName !== visibleSubLayer){
+                subLayerInfoBase.layout["visibility"] = "none";
             }
-        });
+
+            const subLayerInfo = {
+                ...subLayerInfoBase,
+                "id": "US_Vessel_Traffic/" + subLayerName,
+                "source-layer": "US_Vessel_Traffic",
+                "minzoom": 12.5305,
+            }
+
+            const generailizedSubLayerInfo = {
+                ...subLayerInfoBase,
+                "id": "US_Vessel_Traffic_gen/" + subLayerName,
+                "source-layer": "US_Vessel_Traffic_gen",
+                "maxzoom": 12.5305,
+            }
+
+            layers.push(subLayerInfo)
+            layers.push(generailizedSubLayerInfo)
+        }
 
         return {
             "version": 8,
@@ -174,7 +248,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
             // layerInfo.Service_URL = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_01_gen500/VectorTileServer'
 
             const style = getStyle(layerInfo);
-            // console.log(style)
+            console.log(style)
 
             const layer = new VectorTileLayer({
                 url: layerInfo.Service_URL,
