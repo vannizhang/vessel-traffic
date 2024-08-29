@@ -168,11 +168,7 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
     }, [mapView]);
 
     useEffect(()=>{
-        
-        (async()=>{
-            layerDataRef.current = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
-        })()
-        
+        layerDataRef.current = getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
     }, [activeLayerTimeInfo]);
 
     useEffect(()=>{

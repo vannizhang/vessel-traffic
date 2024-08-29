@@ -221,49 +221,23 @@ const ShipTrafficLayer:React.FC<Props> = ({
         };
     };
 
-    const getLayer = async(): Promise<VectorTileLayer>=>{
+    const getLayer = (): VectorTileLayer=>{
 
-        // type Modules = [typeof IVectorTileLayer];
+        const layerInfo = getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
 
-        try {
-            // const [ VectorTileLayer] = await (loadModules([
-            //     'esri/layers/VectorTileLayer'
-            // ]) as Promise<Modules>);
+        const style = getStyle(layerInfo);
+        console.log(style)
 
-            // const activeYear = activeDate.getFullYear();
-            // const activeMonth = activeDate.getMonth() + 1;
+        const layer = new VectorTileLayer({
+            url: layerInfo.Service_URL,
+            style,
+            // effect: "bloom(1.5, 0.5px, 0.1)"
+            effect: DEFAULT_EFFECT
+        });
 
-            // ShipTrafficLayersData.filter(d=>{
-            //     return d.Year === activeYear && d.Month === activeMonth;
-            // })[0];
-            // console.log(layerInfo)
+        // console.log(layerInfo.Service_URL, JSON.stringify(style))
 
-            const layerInfo = await getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
-            // console.log('active ship layer info', layerInfo)
-
-            // layerInfo.Layer_Name = 'US_Vessel_Traffic_2016_01'
-            // layerInfo.Service_URL = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_01_test/VectorTileServer'
-
-            // layerInfo.Layer_Name = 'US_Vessel_Traffic_2016_01_gen500'
-            // layerInfo.Service_URL = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2016_01_gen500/VectorTileServer'
-
-            const style = getStyle(layerInfo);
-            console.log(style)
-
-            const layer = new VectorTileLayer({
-                url: layerInfo.Service_URL,
-                style,
-                // effect: "bloom(1.5, 0.5px, 0.1)"
-                effect: DEFAULT_EFFECT
-            });
-
-            // console.log(layerInfo.Service_URL, JSON.stringify(style))
-
-            return layer;
-
-        } catch(err){   
-            return null;
-        }
+        return layer;
     };
 
     React.useEffect(()=>{

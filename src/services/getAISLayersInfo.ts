@@ -170,7 +170,7 @@ export const shipTrafficLayersData: ShipTrafficLayerInfo[] = [
 //   return []
 // }
 
-export const getLayerDataByDate = async(year: number, month: number):Promise<ShipTrafficLayerInfo>=>{
+export const getLayerDataByDate = (year: number, month: number):ShipTrafficLayerInfo=>{
 
   // if(!shipTrafficLayersData){
   //   shipTrafficLayersData = await fetchShipTrafficLayersData()
