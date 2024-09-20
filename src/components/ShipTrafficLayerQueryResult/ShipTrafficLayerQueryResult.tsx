@@ -47,14 +47,16 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
             //     'esri/symbols/SimpleLineSymbol'
             // ]) as Promise<Modules>);
 
-            const {
-                geometry
-            } = feature;
+            const geometry = feature.geometry as any;
+            // console.log(geometry)
 
             const styleInfo = ShipTrafficSubLayerStyles[visibleSubLayerRef.current]
 
             graphicRef.current = new Graphic({
-                geometry, 
+                geometry: {
+                    type: "polygon",
+                    rings: geometry.paths,
+                } as any, 
                 symbol: new SimpleLineSymbol({
                     width: 2,
                     color: styleInfo['text-color']

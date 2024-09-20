@@ -101,6 +101,7 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                     units: 'esriSRUnit_Meter',
                     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
                     outFields : '*',
+                    outSR: '4326',
                     returnGeometry: 'true',
                     f: 'json'
                 })
