@@ -226,7 +226,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
         const layerInfo = getLayerDataByDate(activeLayerTimeInfo.year, activeLayerTimeInfo.month);
 
         const style = getStyle(layerInfo);
-        console.log(style)
+        // console.log(style)
 
         const layer = new VectorTileLayer({
             url: layerInfo.Service_URL,
