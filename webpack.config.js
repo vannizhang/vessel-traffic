@@ -23,7 +23,7 @@ module.exports =  (env, options)=> {
             chunkFilename: '[name].[contenthash].js',
             clean: true
         },
-        devtool: 'source-map',
+        devtool:  devMode ? 'source-map' : undefined,
         resolve: {
             extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
             alias: {
@@ -125,18 +125,18 @@ module.exports =  (env, options)=> {
             // !devMode ? new BundleAnalyzerPlugin() : false
         ].filter(Boolean),
         optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    // vendor chunk
-                    vendor: {
-                        // sync + async chunks
-                        chunks: 'all',
-                        name: 'vendor',
-                        // import file path containing node_modules
-                        test: /node_modules/
-                    }
-                }
-            },
+            // splitChunks: {
+            //     cacheGroups: {
+            //         // vendor chunk
+            //         vendor: {
+            //             // sync + async chunks
+            //             chunks: 'all',
+            //             name: 'vendor',
+            //             // import file path containing node_modules
+            //             test: /node_modules/
+            //         }
+            //     }
+            // },
             minimizer: [
                 new TerserPlugin({
                     extractComments: true,
