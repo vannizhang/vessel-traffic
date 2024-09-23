@@ -8,6 +8,8 @@ const DownloadIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
 
 const HOST_SERVER_URL = 'https://esri-vessel-traffic.s3.amazonaws.com'
 
+const ZIPFILE_NAME_PREFIX = `US_Vessel_Traffic`
+
 type Props = {
     activeLayerTimeInfo: ActiveLayerTimeInfo;
     selectedENCFeature: ENCLayerFeature;
@@ -27,7 +29,7 @@ const DownloadScreen:React.FC<Props> = ({
 
         const monthStr = month < 10 ? `0${month}` : month.toString();
 
-        return `AIS_Tracks_${year}_${monthStr}`;
+        return `${ZIPFILE_NAME_PREFIX}_${year}_${monthStr}`;
     }
 
     const getUrlForZippedPackage = ():string=>{
