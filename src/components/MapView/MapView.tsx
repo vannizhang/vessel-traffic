@@ -7,7 +7,7 @@ import TileLayer from '@arcgis/core/layers/TileLayer';
 import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
 import Compass from '@arcgis/core/widgets/Compass';
 import Home from '@arcgis/core/widgets/Home';
-import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
+// import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
 
 import { BACKGROUND_COLOR } from '../../constants/UI';
 
@@ -105,14 +105,13 @@ const MapView:React.FC<Props> = ({
                         //     },
                         //     blendMode: "overlay"
                         // }),
-                        // // new VectorTileLayer({
-                        // //     portalItem: {
-                        // //         id: "94329802cbfa44a18f423e6f1a0b875c" // World Ocean Reference (with Hard Light blend mode)
-                        // //     },
-                        // //     blendMode: "hard-light",
-                        // //     // // for some reason chrome crashes if effect is on
-                        // //     // effect: "invert() saturate(0)"
-                        // // })
+                        new VectorTileLayer({
+                            portalItem: {
+                                id: "805e3b2cc1384c2d97671d30d98efe5e" // World Ocean Reference (with Hard Light blend mode)
+                            },
+                            blendMode: "hard-light",
+                            effect: "invert() saturate(0)"
+                        })
                         // new MapImageLayer({
                         //     url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
                         //     blendMode: "hard-light",
