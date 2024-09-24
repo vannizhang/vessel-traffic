@@ -105,6 +105,7 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                     inSR: queryGeometry?.spatialReference?.wkid as any,
                     outSR: '4326',
                     returnGeometry: 'true',
+                    resultRecordCount: '1',
                     f: 'json'
                 })
 

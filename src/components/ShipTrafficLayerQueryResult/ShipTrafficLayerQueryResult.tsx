@@ -54,8 +54,8 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
 
             graphicRef.current = new Graphic({
                 geometry: {
-                    type: "polygon",
-                    rings: geometry.paths,
+                    type: "polyline",
+                    paths: geometry.paths,
                 } as any, 
                 symbol: new SimpleLineSymbol({
                     width: 2,
