@@ -17,6 +17,7 @@ import Point from '@arcgis/core/geometry/Point';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { IFeature } from "@esri/arcgis-rest-types";
 import { ActiveLayerTimeInfo } from '../../types';
+// import {  } from "@arcgis/core/geometry/support/webMercatorUtils.js";
 
 enum ShipTrafficFeatureServiceFields {
     mmsi = 'mmsi',
@@ -101,6 +102,7 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
                     units: 'esriSRUnit_Meter',
                     where: `${ShipTrafficFeatureServiceFields.vesselgroup} = '${visibleSubLayerRef.current}'`,
                     outFields : '*',
+                    inSR: queryGeometry?.spatialReference?.wkid as any,
                     outSR: '4326',
                     returnGeometry: 'true',
                     f: 'json'
