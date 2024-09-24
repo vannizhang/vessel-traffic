@@ -196,6 +196,10 @@ const ShipTrafficLayer:React.FC<Props> = ({
                 "id": "US_Vessel_Traffic/" + subLayerName,
                 "source-layer": "US_Vessel_Traffic",
                 "minzoom": 12.5305,
+                "paint": {
+                    "line-color": color,
+                    "line-width": 1
+                }
             }
 
             const generailizedSubLayerInfo = {
