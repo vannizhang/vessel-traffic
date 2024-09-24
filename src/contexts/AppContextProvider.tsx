@@ -10,11 +10,11 @@ import {
     ShipTrafficLayerInfo,
     shipTrafficLayersData
 } from '../services/getAISLayersInfo';
-import { AISFileSizeInfo, getAISFileSize } from '../services/getAISFileSizeLookup';
+// import { AISFileSizeInfo, getAISFileSize } from '../services/getAISFileSizeLookup';
 
 interface ContextProps {
     AISLayersData: ShipTrafficLayerInfo[];
-    AISFileSizeLookup: AISFileSizeInfo;
+    // AISFileSizeLookup: AISFileSizeInfo;
     isMobile: boolean;
 };
 
@@ -36,13 +36,13 @@ export const AppContextProvider:React.FC<AppContextProviderProps> = ({
 
         const AISLayersData = shipTrafficLayersData;
 
-        const AISFileSizeLookup = await getAISFileSize();
-        // console.log(AISFileSizeLookup)
+        // const AISFileSizeLookup = await getAISFileSize();
+        // // console.log(AISFileSizeLookup)
 
         const value:ContextProps = {
             AISLayersData,
             isMobile: miscFns.isMobileDevice(),
-            AISFileSizeLookup
+            // AISFileSizeLookup
         };
 
         setValue(value)

@@ -16,29 +16,29 @@ type Props = {
     onClose: ()=>void;
 }
 
+const getFilenameByActiveLayerTime = (activeLayerTimeInfo:ActiveLayerTimeInfo):string=>{
+    const { year, month } = activeLayerTimeInfo;
+
+    const monthStr = month < 10 ? `0${month}` : month.toString();
+
+    return `${ZIPFILE_NAME_PREFIX}_${year}_${monthStr}`;
+}
+
 const DownloadScreen:React.FC<Props> = ({
     activeLayerTimeInfo,
     selectedENCFeature,
     onClose
 }) => {
 
-    const { AISLayersData, AISFileSizeLookup } = useContext(AppContext)
+    const { AISLayersData } = useContext(AppContext)
 
-    const getFilenameByActiveLayerTime = ():string=>{
-        const { year, month } = activeLayerTimeInfo;
-
-        const monthStr = month < 10 ? `0${month}` : month.toString();
-
-        return `${ZIPFILE_NAME_PREFIX}_${year}_${monthStr}`;
-    }
-
-    const getUrlForZippedPackage = ():string=>{
+    const urlForZippedPackage:string = useMemo(()=>{
         if(selectedENCFeature){
             return `${HOST_SERVER_URL}/${selectedENCFeature.attributes['File_']}`;
         }
 
-        return `${HOST_SERVER_URL}/${getFilenameByActiveLayerTime()}.gdb.zip`
-    }
+        return `${HOST_SERVER_URL}/${getFilenameByActiveLayerTime(activeLayerTimeInfo)}.gdb.zip`
+    }, [selectedENCFeature, activeLayerTimeInfo])
 
     const fullTimeRange = useMemo(()=>{
         const firstItem = AISLayersData[0];
@@ -62,19 +62,21 @@ const DownloadScreen:React.FC<Props> = ({
 
     const getSize = ():string=>{
 
-        const key = selectedENCFeature ? selectedENCFeature.attributes.File_.split('.')[0] : getFilenameByActiveLayerTime();
-        // console.log(key)
+        return ``
 
-        const filesizeData = AISFileSizeLookup[key] || { size: 0 }
+        // const key = selectedENCFeature ? selectedENCFeature.attributes.File_.split('.')[0] : getFilenameByActiveLayerTime();
+        // // console.log(key)
 
-        const { size } = filesizeData;
-        // console.log(AISFileSizeLookup, size)
+        // const filesizeData = AISFileSizeLookup[key] || { size: 0 }
 
-        if(size > 1000){
-            return (size /1000).toFixed(1) + 'GB';
-        }
+        // const { size } = filesizeData;
+        // // console.log(AISFileSizeLookup, size)
 
-        return size > 0 ? size.toFixed(0) + 'MB' : size.toFixed(3) + 'MB'
+        // if(size > 1000){
+        //     return (size /1000).toFixed(1) + 'GB';
+        // }
+
+        // return size > 0 ? size.toFixed(0) + 'MB' : size.toFixed(3) + 'MB'
     }
 
     return (
@@ -121,7 +123,7 @@ const DownloadScreen:React.FC<Props> = ({
                 >
                     <div>
                         <a
-                            href={getUrlForZippedPackage()}
+                            href={urlForZippedPackage}
                             target='_blank'
                         >
                             { DownloadIcon }
