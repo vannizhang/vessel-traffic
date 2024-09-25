@@ -1236,15 +1236,36 @@ export const shipTrafficLayersData: ShipTrafficLayerInfo[] = [{
   Service_URL: "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_02_optimized/VectorTileServer",
   Year: 2024
 }, {
+  /**
+   * Item Id of the Vessel Traffic Vector Tile Layer for this month
+   */
   ArcGIS_Online_Item_ID: "250147caf57b493f9d81bc2fdaa9876d",
-  Date: "2024_03",
+  /**
+  * Name of the Vessel Traffic Vector Tile Layer
+  */
+  Layer_Name: "US_Vessel_Traffic_2024_03_optimized",
+  /**
+   * URL of the Vessel Traffic Vector Tile Layer
+   */
+  Service_URL: "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_03_optimized/VectorTileServer",
+  /**
+   * Item id of the Feature Service (with embedded credential) that contains the polylines from the raw AIS data
+   */
   FC_item_id: "529f7976ce6a42ca91f546adc49352a2",
+  /**
+   * Name of the Feature Service
+   */
   FC_Name: "US_Vessel_Traffic_2024_03_creds",
+  /**
+   * URL of the Feature Service (with embedded credential) that contains the polylines from the raw AIS data
+   */
   Feature_Service: "https://utility.arcgis.com/usrsvcs/servers/529f7976ce6a42ca91f546adc49352a2/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/2",
   Layer: "US Vessel Traffic 2024 03",
-  Layer_Name: "US_Vessel_Traffic_2024_03_optimized",
+  /**
+   * Year and Month
+   */
+  Date: "2024_03",
   Month: 3,
-  Service_URL: "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_03_optimized/VectorTileServer",
   Year: 2024
 }]
 
