@@ -47,7 +47,7 @@ const DefaultStateValues = getDefaultStateValuesFromHash()
 
 const App:React.FC = ()=>{
 
-    const { AISLayersData } = React.useContext(AppContext)
+    const { AISLayersData, hideBottomPanel } = React.useContext(AppContext)
 
     const [ visibleSubLayer, setVisibleSubLayer ] = React.useState<ShipTrafficSubLayerName>(DefaultStateValues.sublayer || 'Cargo');
 
@@ -165,49 +165,51 @@ const App:React.FC = ()=>{
 
             </div>
 
-            <BottomPanel>
-                <MobileHide>
-                    <ChildAtSidePosition>
-                        <TitleAndAboutInfo />
-                    </ChildAtSidePosition>
-                </MobileHide>
+            { hideBottomPanel === false ? (
+                <BottomPanel>
+                    <MobileHide>
+                        <ChildAtSidePosition>
+                            <TitleAndAboutInfo />
+                        </ChildAtSidePosition>
+                    </MobileHide>
 
-                <ChildAtCenterPosition>
-                    <TimeSelector 
-                        visibleSubLayer={visibleSubLayer}
-                        activeLayerTimeInfo={activeLayerTimeInfo}
-                        onChange={setActiveLayerTimeInfo}
-                    />
+                    <ChildAtCenterPosition>
+                        <TimeSelector 
+                            visibleSubLayer={visibleSubLayer}
+                            activeLayerTimeInfo={activeLayerTimeInfo}
+                            onChange={setActiveLayerTimeInfo}
+                        />
 
-                    <LayerList 
-                        visibleSubLayer={visibleSubLayer}
-                        isNauticalReferenceLayerVisible={showNauticalBoundaries}
-                        isNauticalBoundariesInVisibleRange={isNauticalBoundariesInVisibleRange}
-                        onChange={setVisibleSubLayer}
+                        <LayerList 
+                            visibleSubLayer={visibleSubLayer}
+                            isNauticalReferenceLayerVisible={showNauticalBoundaries}
+                            isNauticalBoundariesInVisibleRange={isNauticalBoundariesInVisibleRange}
+                            onChange={setVisibleSubLayer}
 
-                        nauticalReferenceLayerOnToggle={()=>{
-                            setShowNauticalBoundaries(!showNauticalBoundaries);
-                            setNauticalLayerQueryResult(null);
-                        }}
-                    />
-                </ChildAtCenterPosition>
-
-                <MobileHide>
-                    <ChildAtSidePosition>
-                        <Download 
-                            visible={showDownloadOptions}
-                            activeENCsLevel={selectedENCsLevel}
-                            toggleBtnOnClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
-                            downloadBySelectedMonthOnClick={setShowDownloadScreen.bind(this, true)}
-                            activeENCsLevelOnChange={(value:NOAAENCsLevel)=>{
-                                const newVlaue = value !== selectedENCsLevel ? value : null;
-                                setSelectedENCsLevel(newVlaue);
+                            nauticalReferenceLayerOnToggle={()=>{
+                                setShowNauticalBoundaries(!showNauticalBoundaries);
+                                setNauticalLayerQueryResult(null);
                             }}
                         />
-                    </ChildAtSidePosition>
-                </MobileHide>
+                    </ChildAtCenterPosition>
 
-            </BottomPanel>
+                    <MobileHide>
+                        <ChildAtSidePosition>
+                            <Download 
+                                visible={showDownloadOptions}
+                                activeENCsLevel={selectedENCsLevel}
+                                toggleBtnOnClick={setShowDownloadOptions.bind(this, !showDownloadOptions)}
+                                downloadBySelectedMonthOnClick={setShowDownloadScreen.bind(this, true)}
+                                activeENCsLevelOnChange={(value:NOAAENCsLevel)=>{
+                                    const newVlaue = value !== selectedENCsLevel ? value : null;
+                                    setSelectedENCsLevel(newVlaue);
+                                }}
+                            />
+                        </ChildAtSidePosition>
+                    </MobileHide>
+
+                </BottomPanel>
+             ) : null }
 
             {
                 showDownloadScreen && (

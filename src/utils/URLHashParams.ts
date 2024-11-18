@@ -6,13 +6,14 @@ import { ShipTrafficSubLayerName } from '../components/ShipTrafficLayer/ShipTraf
 import { ActiveLayerTimeInfo } from '../types';
 import IPoint from '@arcgis/core/geometry/Point'
 
-type HashParamKey = '@' | 'sublayer' | 'time' | 'queryPoint';
+type HashParamKey = '@' | 'sublayer' | 'time' | 'queryPoint' | 'hideBottomPanel';
 
 type DefaultStateValues = {
     '@': MapCenterLocation,
     'sublayer': ShipTrafficSubLayerName,
     'time': ActiveLayerTimeInfo,
     'queryPoint': [number, number]; // longitude, latitude
+    'hideBottomPanel': boolean;
 }
 
 const DefaultHashData:Record<HashParamKey, string> = urlFns.parseHash();
@@ -31,7 +32,8 @@ export const getDefaultStateValuesFromHash = ():DefaultStateValues=>{
         '@': decodeMapCenterInfo(),
         sublayer: sublayer as ShipTrafficSubLayerName,
         time,
-        queryPoint
+        queryPoint,
+        hideBottomPanel: decodeHideBottomPanel()
     };
 }
 
@@ -136,4 +138,16 @@ const decodeMapCenterInfo = ():MapCenterLocation=>{
         lon, lat, zoom 
     }
 
+}
+
+const decodeHideBottomPanel = ():boolean=>{
+    const {
+        hideBottomPanel
+    } = DefaultHashData;
+
+    if(!hideBottomPanel){
+        return false;
+    }
+
+    return hideBottomPanel === 'true';
 }
