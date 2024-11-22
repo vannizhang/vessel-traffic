@@ -895,6 +895,15 @@ const AIS_FILE_SIZE_LOOKUP = {
     },
     "US_Vessel_Traffic_2024_03.zip": {
       "Size": 807780399
+    },
+    "US_Vessel_Traffic_2024_04.zip": {
+      "Size": 503675051
+    },
+    "US_Vessel_Traffic_2024_05.zip": {
+      "Size": 637498471
+    },
+    "US_Vessel_Traffic_2024_06.zip": {
+      "Size": 643229614
     }
 }
 
