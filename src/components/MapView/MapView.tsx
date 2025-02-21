@@ -99,25 +99,14 @@ const MapView:React.FC<Props> = ({
                             },
                             blendMode: "luminosity",
                         }),
-                        // new VectorTileLayer({
-                        //     portalItem: {
-                        //         id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
-                        //     },
-                        //     blendMode: "overlay"
-                        // }),
                         new VectorTileLayer({
                             portalItem: {
                                 id: "6061e78281f94bb6a671d11253d41f6e" // World Ocean Reference - US
                             },
-                            blendMode: "hard-light",
-                            effect: "invert() saturate(0)"
+                            blendMode: "screen",
+                            effect: "invert()",
+                            opacity: .75
                         })
-                        // new MapImageLayer({
-                        //     url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer',
-                        //     blendMode: "hard-light",
-                        //     effect: "invert() saturate(0)",
-                        //     maxScale: 36112
-                        // })
                     ]
                 }
             });
