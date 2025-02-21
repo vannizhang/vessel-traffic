@@ -107,7 +107,7 @@ const MapView:React.FC<Props> = ({
                         // }),
                         new VectorTileLayer({
                             portalItem: {
-                                id: "805e3b2cc1384c2d97671d30d98efe5e" // World Ocean Reference (with Hard Light blend mode)
+                                id: "6061e78281f94bb6a671d11253d41f6e" // World Ocean Reference - US
                             },
                             blendMode: "hard-light",
                             effect: "invert() saturate(0)"
