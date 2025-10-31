@@ -6,7 +6,7 @@
 //     Layer: string;
 //     Month: number;
 //     Tile_Item: string;
-//     Tile_URL: string;
+//     Service_URL: string;
 //     Year: number;
 //     Source_Layer: string;
 //   }
@@ -1366,7 +1366,112 @@ export const shipTrafficLayersData: ShipTrafficLayerInfo[] = [{
   Date: "2024_06",
   Month: 6,
   Year: 2024
-}
+},
+{
+  /**
+   * Item Id of the Vessel Traffic Vector Tile Layer for this month
+   */
+  ArcGIS_Online_Item_ID: "5e5146dd37744272b2578c4910fa8508",
+  /**
+  * Name of the Vessel Traffic Vector Tile Layer
+  */
+  Layer_Name: "US_Vessel_Traffic_2024_07_optimized",
+  /**
+   * URL of the Vessel Traffic Vector Tile Layer
+   */
+  Service_URL: "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_07_optimized/VectorTileServer",
+  /**
+   * Item id of the Feature Service (with embedded credential) that contains the polylines from the raw AIS data
+   */
+  FC_item_id: "400f6c41029c44d1b2c74705631e352a",
+  /**
+   * Name of the Feature Service
+   */
+  FC_Name: "US_Vessel_Traffic_2024_06_creds",
+  /**
+   * URL of the Feature Service (with embedded credential) that contains the polylines from the raw AIS data
+   */
+  Feature_Service: "https://utility.arcgis.com/usrsvcs/servers/400f6c41029c44d1b2c74705631e352a/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/5",
+  Layer: "US Vessel Traffic 2024 06",
+  /**
+   * Year and Month
+   */
+  Date: "2024_06",
+  Month: 6,
+  Year: 2024
+},
+ {
+   "Layer": "US Vessel Traffic 2024 07",
+   "Month": 7,
+   "Year": 2024,
+   "Date": "2024_07",
+   "ArcGIS_Online_Item_ID": "7d0d8f2cacd043dbb3f7bbc7e8511399",
+   "Layer_Name": "US_Vessel_Traffic_2024_07_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_07_optimized/VectorTileServer",
+   "FC_item_id": "d0b7391d74e9445985843262be2721c8",
+   "FC_Name": "US_Vessel_Traffic_2024_07_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/d0b7391d74e9445985843262be2721c8/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/6"
+ },
+ {
+   "Layer": "US Vessel Traffic 2024 08",
+   "Month": 8,
+   "Year": 2024,
+   "Date": "2024_08",
+   "ArcGIS_Online_Item_ID": "754cb1aa48194ababa71697367c652e5",
+   "Layer_Name": "US_Vessel_Traffic_2024_08_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_08_optimized/VectorTileServer",
+   "FC_item_id": "1b14a0822d4c4b908a2aba692e174c5a",
+   "FC_Name": "US_Vessel_Traffic_2024_08_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/1b14a0822d4c4b908a2aba692e174c5a/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/7"
+ },
+ {
+   "Layer": "US Vessel Traffic 2024 09",
+   "Month": 9,
+   "Year": 2024,
+   "Date": "2024_09",
+   "ArcGIS_Online_Item_ID": "0590642d8139493d9ccf3362e4dbeacc",
+   "Layer_Name": "US_Vessel_Traffic_2024_09_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_09_optimized/VectorTileServer",
+   "FC_item_id": "3e3dd8c947124391af3eaf4b08b1c5c0",
+   "FC_Name": "US_Vessel_Traffic_2024_09_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/3e3dd8c947124391af3eaf4b08b1c5c0/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/8"
+ },
+ {
+   "Layer": "US Vessel Traffic 2024 10",
+   "Month": 10,
+   "Year": 2024,
+   "Date": "2024_10",
+   "ArcGIS_Online_Item_ID": "409ab7e1b94447c68619eedf5c6bc9c2",
+   "Layer_Name": "US_Vessel_Traffic_2024_10_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_10_optimized/VectorTileServer",
+   "FC_item_id": "68ea6b47f9c54faea4e61c91f017afec",
+   "FC_Name": "US_Vessel_Traffic_2024_10_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/68ea6b47f9c54faea4e61c91f017afec/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/9"
+ },
+ {
+   "Layer": "US Vessel Traffic 2024 11",
+   "Month": 11,
+   "Year": 2024,
+   "Date": "2024_11",
+   "ArcGIS_Online_Item_ID": "c7e8b4631b9947af9eb5b650b33df876",
+   "Layer_Name": "US_Vessel_Traffic_2024_11_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_11_optimized/VectorTileServer",
+   "FC_item_id": "f6b974b1110a4bb2821d81e8a806d26d",
+   "FC_Name": "US_Vessel_Traffic_2024_11_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/f6b974b1110a4bb2821d81e8a806d26d/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/10"
+ },
+ {
+   "Layer": "US Vessel Traffic 2024 12",
+   "Month": 12,
+   "Year": 2024,
+   "Date": "2024_12",
+   "ArcGIS_Online_Item_ID": "5cc7cf32b7a240bbb2294af5e5576630",
+   "Layer_Name": "US_Vessel_Traffic_2024_12_optimized",
+   "Service_URL": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/US_Vessel_Traffic_2024_12_optimized/VectorTileServer",
+   "FC_item_id": "fe9c9838150b4c74bf457ccc8f2875c5",
+   "FC_Name": "US_Vessel_Traffic_2024_12_creds",
+   "Feature_Service": "https://utility.arcgis.com/usrsvcs/servers/fe9c9838150b4c74bf457ccc8f2875c5/rest/services/AIS/2024_US_Vessel_Traffic/FeatureServer/11"
+ }
 ]
 
 // const AIS_APP_SOURCE_DATA_URL_PROD = 'https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/AIS_App_Source_Data/FeatureServer/0';
@@ -1391,7 +1496,7 @@ export const shipTrafficLayersData: ShipTrafficLayerInfo[] = [{
 //           Layer,
 //           Month,
 //           Tile_Item,
-//           Tile_URL,
+//           Service_URL,
 //           Year,
 //           Source_Layer
 //         } = feature.attributes;
@@ -1401,7 +1506,7 @@ export const shipTrafficLayersData: ShipTrafficLayerInfo[] = [{
 //           Year,
 //           Layer_Name: Source_Layer,
 //           ArcGIS_Online_Item_ID: Tile_Item,
-//           Service_URL: Tile_URL,
+//           Service_URL: Service_URL,
 //           Feature_Service: Feat_URL
 //         };
 

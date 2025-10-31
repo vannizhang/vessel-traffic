@@ -904,6 +904,24 @@ const AIS_FILE_SIZE_LOOKUP = {
     },
     "US_Vessel_Traffic_2024_06.zip": {
       "Size": 643229614
+    },
+    "US_Vessel_Traffic_2024_07.zip": {
+      "Size": 1129393578
+    },
+    "US_Vessel_Traffic_2024_08.zip": {
+      "Size": 1159101363
+    },
+    "US_Vessel_Traffic_2024_09.zip": {
+      "Size": 1013342779
+    },
+    "US_Vessel_Traffic_2024_10.zip": {
+      "Size": 975945335
+    },
+    "US_Vessel_Traffic_2024_11.zip": {
+      "Size": 872612184
+    },
+    "US_Vessel_Traffic_2024_12.zip": {
+      "Size": 830217697
     }
 }
 
