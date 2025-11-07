@@ -72,7 +72,6 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "axios": "^1.7.2",
-    "calcite-web": "github:Esri/calcite-web#v1.2.5",
     "date-fns": "^2.16.1",
     "helper-toolkit-ts": "^1.1.14",
     "react": "^18.1.0",
