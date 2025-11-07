@@ -4,7 +4,7 @@
   "description": "AIS shipping tracks since Jan 2017. Find patterns & download for analysis",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack serve --mode development --open",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
@@ -60,8 +60,8 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.92.1",
     "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-cli": "4.10",
-    "webpack-dev-server": "^4.9.3"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "@arcgis/core": "4.29",

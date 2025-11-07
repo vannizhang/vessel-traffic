@@ -17,6 +17,12 @@ module.exports =  (env, options)=> {
     return {
         mode: options.mode,
         entry: path.resolve(__dirname, './src/index.tsx'),
+        devServer: {
+            server: 'https',
+            host: 'localhost',
+            allowedHosts: "all",
+            port: 8080
+        },
         output: {
             path: path.resolve(__dirname, './dist'),
             filename: '[name].[contenthash].js',
