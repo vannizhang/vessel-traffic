@@ -10,6 +10,7 @@ import Home from '@arcgis/core/widgets/Home';
 // import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
 
 import { BACKGROUND_COLOR } from '../../constants/UI';
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 
 export type MapCenterLocation = {
     lat: number;
@@ -98,6 +99,21 @@ const MapView:React.FC<Props> = ({
                                 id: "a66bfb7dd3b14228bf7ba42b138fe2ea" // World Imagery Firefly (with Luminosity blend mode)
                             },
                             blendMode: "luminosity",
+                        }),
+                        // new VectorTileLayer({
+                        //     portalItem: {
+                        //         id: "1ddbb25aa29c4811aaadd94de469856a" // Human Geography Dark Detail (with Overlay blend mode),
+                        //     },
+                        //     blendMode: "overlay"
+                        // }),
+                        new VectorTileLayer({
+                            // A derivative of Human Geography Dark Base created by John Nelson.
+                            // Retains only the "water" layer, suitable as a lightweight and performant oceans overlay.
+                            portalItem: {
+                                id: "346d4c674e004e75bc2b941de63656da" 
+                            },
+                            blendMode: "multiply",
+                            opacity: .85
                         }),
                         new VectorTileLayer({
                             portalItem: {
