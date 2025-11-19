@@ -109,8 +109,9 @@ const MapView:React.FC<Props> = ({
                         new VectorTileLayer({
                             // A derivative of Human Geography Dark Base created by John Nelson.
                             // Retains only the "water" layer, suitable as a lightweight and performant oceans overlay.
+                            // @see https://www.arcgis.com/home/item.html?id=3ddaa8669db44d73ae70c34ad12b00f4
                             portalItem: {
-                                id: "346d4c674e004e75bc2b941de63656da" 
+                                id: "3ddaa8669db44d73ae70c34ad12b00f4" 
                             },
                             blendMode: "multiply",
                             opacity: .85
