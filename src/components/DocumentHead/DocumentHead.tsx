@@ -1,5 +1,4 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import React, { useEffect } from 'react';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 
 const TITLE = 'U.S. Vessel Traffic';
@@ -12,6 +11,16 @@ const KEYWORDS = [
     "Living Atlas"
 ].join(',')
 
+const setMeta = (name: string, content: string) => {
+    let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+    if (!el) {
+        el = document.createElement('meta');
+        el.name = name;
+        document.head.appendChild(el);
+    }
+    el.content = content;
+};
+
 type Props = {
     visibleSubLayer: ShipTrafficSubLayerName;
 }
@@ -19,17 +28,17 @@ type Props = {
 const DocumentHead:React.FC<Props> = ({
     visibleSubLayer
 }) => {
-    return (
-        <Helmet>
-            <title>{TITLE} | {visibleSubLayer}</title>
-            <meta name="description" content={DESCRIPTION} />
-            <meta name="author" content={AUTHOR} />
-            <meta name="keywords" content={KEYWORDS} />
-            <meta name="og:title" content={TITLE} />
-            <meta name="og:description" content={DESCRIPTION} />
-            <meta name="og:image" content={window.location.origin + window.location.pathname + `public/thumbnail.png`} />
-        </Helmet>
-    )
+    useEffect(() => {
+        document.title = `${TITLE} | ${visibleSubLayer}`;
+        setMeta('description', DESCRIPTION);
+        setMeta('author', AUTHOR);
+        setMeta('keywords', KEYWORDS);
+        setMeta('og:title', TITLE);
+        setMeta('og:description', DESCRIPTION);
+        setMeta('og:image', window.location.origin + window.location.pathname + 'public/thumbnail.png');
+    }, [visibleSubLayer]);
+
+    return null;
 }
 
 export default DocumentHead

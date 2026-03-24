@@ -36,7 +36,7 @@ const MapView:React.FC<Props> = ({
     children
 })=>{
 
-    const mapDivRef = React.useRef<HTMLDivElement>();
+    const mapDivRef = React.useRef<HTMLDivElement>(null);
 
     // const { mapCenterLocation, setMapCenterLocation } = React.useContext(AppContext);
 

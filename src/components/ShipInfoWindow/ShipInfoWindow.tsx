@@ -144,7 +144,7 @@ const ShipInfoWindow:React.FC<Props> = ({
     onClose
 }) => {
 
-    const getContent = ():JSX.Element=>{
+    const getContent = ()=>{
 
         if(!feature){
             return null;

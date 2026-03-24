@@ -35,7 +35,6 @@
     "@babel/preset-typescript": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@types/classnames": "^2.2.10",
-    "@types/react-helmet": "^6.1.8",
     "@types/react-responsive": "^8.0.2",
     "@vue/preload-webpack-plugin": "^2.0.0",
     "autoprefixer": "^10.2.6",
@@ -68,14 +67,13 @@
     "@esri/arcgis-rest-feature-layer": "^2.24.0",
     "@esri/arcgis-rest-request": "^2.0.0",
     "@esri/arcgis-rest-types": "^2.23.0",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "axios": "^1.7.2",
     "date-fns": "^2.16.1",
     "helper-toolkit-ts": "^1.1.14",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "resolutions": {
   }

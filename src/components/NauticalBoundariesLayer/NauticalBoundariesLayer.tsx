@@ -78,7 +78,7 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
     queryResultOnSelected
 }) => {
 
-    const layerRef = useRef<FeatureLayer[]>();
+    const layerRef = useRef<FeatureLayer[]>(null);
 
     const isVisibleRef = useRef<boolean>(isVisible);
 

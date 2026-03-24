@@ -68,8 +68,8 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
 
     // const { visibleSubLayer, activeDate } = React.useContext(AppContext);
 
-    const layerDataRef = useRef<ShipTrafficLayerInfo>();
-    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
+    const layerDataRef = useRef<ShipTrafficLayerInfo>(null);
+    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>(null);
 
     const initEventListeners = ():void => {
         mapView.on('click', (event) => {

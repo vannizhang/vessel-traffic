@@ -36,14 +36,14 @@ const ENCLayer:React.FC<Props> = ({
     onSelect
 }) => {
 
-    const layerRef = React.useRef<FeatureLayer>();
+    const layerRef = React.useRef<FeatureLayer>(null);
 
-    const layerViewRef = React.useRef<FeatureLayerView>();
+    const layerViewRef = React.useRef<FeatureLayerView>(null);
 
     // will be used to show graphic for the highlight feature on mouse hover event
-    const graphicsLayerRef = React.useRef<GraphicsLayer>();
+    const graphicsLayerRef = React.useRef<GraphicsLayer>(null);
 
-    const mouseMoveDelay = useRef<number>();
+    const mouseMoveDelay = useRef<number>(null);
 
     const getDefExp = ()=>{
         return `Type = '${level}' AND Note is null`
