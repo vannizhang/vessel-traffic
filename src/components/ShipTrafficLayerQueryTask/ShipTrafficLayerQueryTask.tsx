@@ -2,12 +2,6 @@ import React, {
     useEffect, useRef
 } from 'react'
 
-// import { loadModules } from 'esri-loader';
-
-// import {
-//     AppContext
-// } from '../../contexts/AppContextProvider';
-
 import { getLayerDataByDate, ShipTrafficLayerInfo } from '../../services/getAISLayersInfo';
 
 import MapView from '@arcgis/core/views/MapView';
@@ -15,8 +9,9 @@ import Point from '@arcgis/core/geometry/Point';
 // import QueryTask from '@arcgis/core/tasks/QueryTask';
 // import IFeatureSet from '@arcgis/core/tasks/support/FeatureSet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
-import { IFeature } from "@esri/arcgis-rest-types";
+// import { IFeature } from "@esri/arcgis-rest-types";
 import { ActiveLayerTimeInfo } from '../../types';
+import { IFeature } from '@esri/arcgis-rest-feature-service';
 // import {  } from "@arcgis/core/geometry/support/webMercatorUtils.js";
 
 enum ShipTrafficFeatureServiceFields {

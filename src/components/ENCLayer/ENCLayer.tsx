@@ -10,8 +10,9 @@ import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import FeatureLayerView from '@arcgis/core/views/layers/FeatureLayerView';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import { NOAAENCsLevel } from '../../types';
-import { IGeometry } from '@esri/arcgis-rest-feature-layer';
+// import { IGeometry } from '@esri/arcgis-rest-feature-layer';
 import { BACKGROUND_COLOR } from '../../constants/UI';
+import { IGeometry } from '@esri/arcgis-rest-feature-service';
 
 type ENCLayerFields = 'Type' | 'Name' | 'File_' | 'Note';
 
