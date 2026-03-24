@@ -106,10 +106,13 @@ const MapView:React.FC<Props> = ({
                     width: '100%',
                     height: '100%',
                 }}
+                background={{
+                    color: BACKGROUND_COLOR
+                }}
             >
+                <arcgis-zoom slot="top-left"></arcgis-zoom>
                 <arcgis-home slot="top-left"></arcgis-home>
                 <arcgis-compass slot="top-left"></arcgis-compass>
-                <arcgis-zoom slot="top-left"></arcgis-zoom>
             </arcgis-map>
             { mapView
                 ? React.Children.map(children, (child)=>{
