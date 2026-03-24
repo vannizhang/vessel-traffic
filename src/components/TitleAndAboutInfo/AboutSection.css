@@ -1,0 +1,15 @@
+.about-container {
+    max-width: 510px;
+}
+
+@media (max-width: 1469px) {
+    .about-container {
+        max-width: 290px;
+    }
+}
+
+.about-styled-p {
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+    margin-bottom: 0.75rem;
+}

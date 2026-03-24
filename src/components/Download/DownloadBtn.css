@@ -1,0 +1,19 @@
+.download-btn-label {
+    display: inline;
+}
+
+.download-btn-label-narrow-screen {
+    display: inline;
+}
+
+@media (max-width: 1250px) {
+    .download-btn-label {
+        display: none;
+    }
+}
+
+@media (min-width: 1250px) {
+    .download-btn-label-narrow-screen {
+        display: none;
+    }
+}

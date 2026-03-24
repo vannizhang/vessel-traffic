@@ -1,39 +1,7 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import { IS_MOBILE_DEVICE } from '../../constants/UI';
-
-const SelectBtnContainer = styled.div<{ 
-    disabled: boolean
-}>`
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    pointer-events: ${props => props.disabled ? 'none' : 'unset'};
-    opacity: ${ props => props.disabled ? '.5' : 'unset'};
-
-    path {
-        fill: rgba(255, 255, 255, 0.6);
-    }
-
-    :hover path {
-        fill: rgba(255, 255, 255, 0.8);
-    }
-
-    :active path {
-        fill: rgba(255, 255, 255, 1);
-    }
-
-`;
-
-const SelectBtnLabel = styled.span`
-    font-size: 14px;
-    letter-spacing: -1px;
-    color:#000;
-`;
+import './ValueSelector.css';
 
 type Props = {
     min: number;
@@ -120,9 +88,9 @@ const ValueSelector:React.FC<Props> = ({
         // }
 
         return (
-            <SelectBtnContainer
+            <div
+                className={`select-btn-container${isDisabled ? ' select-btn-container--disabled' : ''}`}
                 onClick={direction==='next' ? increment : decrement }
-                disabled={isDisabled}
             >
                 { icon }
 
@@ -137,18 +105,18 @@ const ValueSelector:React.FC<Props> = ({
                             textAlign: 'center'
                         }}
                     >
-                        <SelectBtnLabel
-                            className='avenir-demi'
+                        <span
+                            className='select-btn-label avenir-demi'
                             style={{
                                 opacity: isDisabled ? .3 : 1
                             }}
                         >
                             { navBtnLabelformatter ? navBtnLabelformatter(labelVal) : labelVal }
-                        </SelectBtnLabel>
+                        </span>
                     </div>
                 }
                 
-            </SelectBtnContainer>
+            </div>
 
         )
     }

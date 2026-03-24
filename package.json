@@ -37,7 +37,6 @@
     "@types/classnames": "^2.2.10",
     "@types/react-helmet": "^6.1.8",
     "@types/react-responsive": "^8.0.2",
-    "@types/styled-components": "^5.1.29",
     "@vue/preload-webpack-plugin": "^2.0.0",
     "autoprefixer": "^10.2.6",
     "babel-loader": "^8.2.2",
@@ -76,10 +75,8 @@
     "helper-toolkit-ts": "^1.1.14",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0",
-    "styled-components": "^5.2.1"
+    "react-helmet": "^6.1.0"
   },
   "resolutions": {
-    "styled-components": "^5"
   }
 }

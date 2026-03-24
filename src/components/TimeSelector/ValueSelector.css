@@ -1,0 +1,30 @@
+.select-btn-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.select-btn-container path {
+    fill: rgba(255, 255, 255, 0.6);
+}
+
+.select-btn-container:hover path {
+    fill: rgba(255, 255, 255, 0.8);
+}
+
+.select-btn-container:active path {
+    fill: rgba(255, 255, 255, 1);
+}
+
+.select-btn-container--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.select-btn-label {
+    font-size: 14px;
+    letter-spacing: -1px;
+    color: #000;
+}

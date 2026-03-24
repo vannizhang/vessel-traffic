@@ -1,21 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { BREAKPOINT_EXTRA_WIDE, BREAKPOINT_WIDE, DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL, IS_MOBILE_DEVICE } from '../../constants/UI'
-
-const Subtitle = styled.div`
-    font-size: .8rem;
-
-    @media (max-width: ${BREAKPOINT_EXTRA_WIDE}px) {
-        display: none;
-    }
-`;
-
-// export const NarrowScreenHide = styled.div`
-//     display: block;
-//     @media (max-width: ${BREAKPOINT_WIDE}px) {
-//         display: none;
-//     }
-// `;
+import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL, IS_MOBILE_DEVICE } from '../../constants/UI'
+import './TitleSection.css';
 
 type Props = {
     onClick: ()=>void;
@@ -69,7 +54,7 @@ const TitleSection:React.FC<Props> = ({
                 </span>
             </div>
 
-            <Subtitle>
+            <div className="title-subtitle">
                 <span >
                     AIS shipping tracks since Jan 2015 
                 </span>
@@ -77,7 +62,7 @@ const TitleSection:React.FC<Props> = ({
                 <span>
                     Find patterns & download for analysis
                 </span>
-            </Subtitle>
+            </div>
         </div>
     )
 }
