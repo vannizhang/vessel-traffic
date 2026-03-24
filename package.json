@@ -60,7 +60,8 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
-    "@arcgis/core": "4.29",
+    "@arcgis/core": "^5.0.13",
+    "@arcgis/map-components": "^5.0.13",
     "@esri/arcgis-rest-feature-service": "^4.10.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

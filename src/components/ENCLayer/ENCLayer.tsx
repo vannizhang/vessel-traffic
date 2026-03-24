@@ -13,6 +13,8 @@ import { NOAAENCsLevel } from '../../types';
 // import { IGeometry } from '@esri/arcgis-rest-feature-layer';
 import { BACKGROUND_COLOR } from '../../constants/UI';
 import { IGeometry } from '@esri/arcgis-rest-feature-service';
+import Point from '@arcgis/core/geometry/Point';
+import { ClickEvent, PointerLeaveEvent, PointerMoveEvent } from '@arcgis/core/views/input/types';
 
 type ENCLayerFields = 'Type' | 'Name' | 'File_' | 'Note';
 
@@ -94,7 +96,7 @@ const ENCLayer:React.FC<Props> = ({
         }
     };
 
-    const queryFeature = async(geometry:__esri.Point):Promise<IGraphic>=>{
+    const queryFeature = async(geometry:Point):Promise<IGraphic>=>{
 
         const res = await layerViewRef.current.queryFeatures({
             geometry,
@@ -139,7 +141,7 @@ const ENCLayer:React.FC<Props> = ({
     }
 
     const initEvtHandlers = ()=>{
-        mapView.on('click', async(evt)=>{
+        mapView.on('click', async(evt:ClickEvent)=>{
             
             if(isLayerVisible()){
 
@@ -162,7 +164,7 @@ const ENCLayer:React.FC<Props> = ({
 
         });
 
-        mapView.on('pointer-move', (evt) => {
+        mapView.on('pointer-move', (evt:PointerMoveEvent) => {
 
             if(isLayerVisible()){
 
@@ -181,7 +183,7 @@ const ENCLayer:React.FC<Props> = ({
             }
         });
 
-        mapView.on('pointer-leave', (evt) => {
+        mapView.on('pointer-leave', (evt:PointerLeaveEvent) => {
             toggleFeatureOnHover()
         })
     }

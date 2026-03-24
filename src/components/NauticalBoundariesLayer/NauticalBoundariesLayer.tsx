@@ -10,6 +10,7 @@ import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import { watch } from '@arcgis/core/core/reactiveUtils';
 import { NAUTICAL_LAYER_FILL, NAUTICAL_LAYER_LINE } from '../../constants/UI';
+import { ClickEvent } from '@arcgis/core/views/input/types';
 
 type NauticalBoundariesLayerTitle = 'shipping lane' | 'anchorage area' | 'maritime limit';
 
@@ -142,7 +143,7 @@ const NauticalBoundariesLayer:React.FC<Props> = ({
 
     const initClickEvent = ()=>{
         // Get the screen point from the view's click event
-        mapView.on("click",  async(event)=>{
+        mapView.on("click",  async(event:ClickEvent)=>{
 
             if(isVisibleRef.current){
 
