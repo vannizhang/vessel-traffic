@@ -11,7 +11,7 @@ import Point from '@arcgis/core/geometry/Point';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
 // import { IFeature } from "@esri/arcgis-rest-types";
 import { ActiveLayerTimeInfo } from '../../types';
-import { IFeature } from '@esri/arcgis-rest-feature-service';
+// import { IFeature } from '@esri/arcgis-rest-feature-service';
 import { ClickEvent } from '@arcgis/core/views/input/types';
 // import {  } from "@arcgis/core/geometry/support/webMercatorUtils.js";
 
@@ -37,7 +37,8 @@ enum ShipTrafficFeatureServiceFields {
 
 export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string>
 
-export type ShipTrafficFeature = IFeature & {
+export type ShipTrafficFeature = {
+    geometry?: any;
     attributes: ShipTrafficFeatureAttributes
 }
 

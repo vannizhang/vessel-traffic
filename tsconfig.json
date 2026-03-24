@@ -3,7 +3,8 @@
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
         "jsx": "react",
-        "module": "commonjs",
+        "module": "esnext",
+        "moduleResolution": "bundler",
         "noImplicitAny": true,
         "preserveConstEnums": true,
         "removeComments": true,
@@ -11,6 +12,7 @@
         "target": "es5",
         "resolveJsonModule": true,
         "esModuleInterop": true ,
+        "strict": false,
         "typeRoots": [  
             "./src/types", 
             "./node_modules/@types"

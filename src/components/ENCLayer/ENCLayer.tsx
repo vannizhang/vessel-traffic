@@ -12,16 +12,16 @@ import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import { NOAAENCsLevel } from '../../types';
 // import { IGeometry } from '@esri/arcgis-rest-feature-layer';
 import { BACKGROUND_COLOR } from '../../constants/UI';
-import { IGeometry } from '@esri/arcgis-rest-feature-service';
 import Point from '@arcgis/core/geometry/Point';
 import { ClickEvent, PointerLeaveEvent, PointerMoveEvent } from '@arcgis/core/views/input/types';
+import Geometry from '@arcgis/core/geometry/Geometry';
 
 type ENCLayerFields = 'Type' | 'Name' | 'File_' | 'Note';
 
 export type ENCLayerFeature = {
     attributes: Record<ENCLayerFields, string>;
-    geometry?: IGeometry;
-};
+    geometry?: Geometry;
+}
 
 const ITEM_ID = '4ed0b58d07f8481db248faeccfdb7714';
 
