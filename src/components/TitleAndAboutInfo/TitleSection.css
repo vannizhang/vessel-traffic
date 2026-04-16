@@ -1,0 +1,9 @@
+.title-subtitle {
+    font-size: 0.8rem;
+}
+
+@media (max-width: 1469px) {
+    .title-subtitle {
+        display: none;
+    }
+}

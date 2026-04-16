@@ -10,15 +10,18 @@ import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import FeatureLayerView from '@arcgis/core/views/layers/FeatureLayerView';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import { NOAAENCsLevel } from '../../types';
-import { IGeometry } from '@esri/arcgis-rest-feature-layer';
+// import { IGeometry } from '@esri/arcgis-rest-feature-layer';
 import { BACKGROUND_COLOR } from '../../constants/UI';
+import Point from '@arcgis/core/geometry/Point';
+import { ClickEvent, PointerLeaveEvent, PointerMoveEvent } from '@arcgis/core/views/input/types';
+import Geometry from '@arcgis/core/geometry/Geometry';
 
 type ENCLayerFields = 'Type' | 'Name' | 'File_' | 'Note';
 
 export type ENCLayerFeature = {
     attributes: Record<ENCLayerFields, string>;
-    geometry?: IGeometry;
-};
+    geometry?: Geometry;
+}
 
 const ITEM_ID = '4ed0b58d07f8481db248faeccfdb7714';
 
@@ -36,14 +39,14 @@ const ENCLayer:React.FC<Props> = ({
     onSelect
 }) => {
 
-    const layerRef = React.useRef<FeatureLayer>();
+    const layerRef = React.useRef<FeatureLayer>(null);
 
-    const layerViewRef = React.useRef<FeatureLayerView>();
+    const layerViewRef = React.useRef<FeatureLayerView>(null);
 
     // will be used to show graphic for the highlight feature on mouse hover event
-    const graphicsLayerRef = React.useRef<GraphicsLayer>();
+    const graphicsLayerRef = React.useRef<GraphicsLayer>(null);
 
-    const mouseMoveDelay = useRef<number>();
+    const mouseMoveDelay = useRef<number>(null);
 
     const getDefExp = ()=>{
         return `Type = '${level}' AND Note is null`
@@ -93,7 +96,7 @@ const ENCLayer:React.FC<Props> = ({
         }
     };
 
-    const queryFeature = async(geometry:__esri.Point):Promise<IGraphic>=>{
+    const queryFeature = async(geometry:Point):Promise<IGraphic>=>{
 
         const res = await layerViewRef.current.queryFeatures({
             geometry,
@@ -138,7 +141,7 @@ const ENCLayer:React.FC<Props> = ({
     }
 
     const initEvtHandlers = ()=>{
-        mapView.on('click', async(evt)=>{
+        mapView.on('click', async(evt:ClickEvent)=>{
             
             if(isLayerVisible()){
 
@@ -161,7 +164,7 @@ const ENCLayer:React.FC<Props> = ({
 
         });
 
-        mapView.on('pointer-move', (evt) => {
+        mapView.on('pointer-move', (evt:PointerMoveEvent) => {
 
             if(isLayerVisible()){
 
@@ -180,7 +183,7 @@ const ENCLayer:React.FC<Props> = ({
             }
         });
 
-        mapView.on('pointer-leave', (evt) => {
+        mapView.on('pointer-leave', (evt:PointerLeaveEvent) => {
             toggleFeatureOnHover()
         })
     }

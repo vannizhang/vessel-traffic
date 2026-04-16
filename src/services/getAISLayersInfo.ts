@@ -1,17 +1,3 @@
-// import { queryFeatures, IQueryFeaturesResponse  } from '@esri/arcgis-rest-feature-layer';
-
-// type AIS_App_Source_Data_Feature = {
-//   attributes: {
-//     Feat_URL: string;
-//     Layer: string;
-//     Month: number;
-//     Tile_Item: string;
-//     Service_URL: string;
-//     Year: number;
-//     Source_Layer: string;
-//   }
-// }
-
 export type ShipTrafficLayerInfo = {
   Month: number;
   Year: number;

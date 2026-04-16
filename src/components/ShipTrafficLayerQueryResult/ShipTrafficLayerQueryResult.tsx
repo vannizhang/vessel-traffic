@@ -24,9 +24,9 @@ const ShipTrafficLayerQueryResult:React.FC<Props> = ({
     mapView
 }) => {
 
-    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
+    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>(null);
 
-    const graphicRef = useRef<Graphic>();
+    const graphicRef = useRef<Graphic>(null);
 
     const showQueryResult = async():Promise<void>=>{
 

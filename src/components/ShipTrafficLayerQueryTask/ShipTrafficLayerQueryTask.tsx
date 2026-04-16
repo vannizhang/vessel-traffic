@@ -2,12 +2,6 @@ import React, {
     useEffect, useRef
 } from 'react'
 
-// import { loadModules } from 'esri-loader';
-
-// import {
-//     AppContext
-// } from '../../contexts/AppContextProvider';
-
 import { getLayerDataByDate, ShipTrafficLayerInfo } from '../../services/getAISLayersInfo';
 
 import MapView from '@arcgis/core/views/MapView';
@@ -15,8 +9,10 @@ import Point from '@arcgis/core/geometry/Point';
 // import QueryTask from '@arcgis/core/tasks/QueryTask';
 // import IFeatureSet from '@arcgis/core/tasks/support/FeatureSet';
 import { ShipTrafficSubLayerName } from '../ShipTrafficLayer/ShipTrafficLayer';
-import { IFeature } from "@esri/arcgis-rest-types";
+// import { IFeature } from "@esri/arcgis-rest-types";
 import { ActiveLayerTimeInfo } from '../../types';
+// import { IFeature } from '@esri/arcgis-rest-feature-service';
+import { ClickEvent } from '@arcgis/core/views/input/types';
 // import {  } from "@arcgis/core/geometry/support/webMercatorUtils.js";
 
 enum ShipTrafficFeatureServiceFields {
@@ -41,7 +37,8 @@ enum ShipTrafficFeatureServiceFields {
 
 export type ShipTrafficFeatureAttributes = Record<ShipTrafficFeatureServiceFields, string>
 
-export type ShipTrafficFeature = IFeature & {
+export type ShipTrafficFeature = {
+    geometry?: any;
     attributes: ShipTrafficFeatureAttributes
 }
 
@@ -68,11 +65,11 @@ const ShipTrafficLayerQueryTask:React.FC<Props> = ({
 
     // const { visibleSubLayer, activeDate } = React.useContext(AppContext);
 
-    const layerDataRef = useRef<ShipTrafficLayerInfo>();
-    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>();
+    const layerDataRef = useRef<ShipTrafficLayerInfo>(null);
+    const visibleSubLayerRef = useRef<ShipTrafficSubLayerName>(null);
 
     const initEventListeners = ():void => {
-        mapView.on('click', (event) => {
+        mapView.on('click', (event:ClickEvent) => {
             queryFeatures(event.mapPoint);
         });
     };

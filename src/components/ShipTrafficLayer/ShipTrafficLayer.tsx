@@ -84,7 +84,7 @@ const ShipTrafficLayer:React.FC<Props> = ({
 
     // const [ shipTrafficLayer, setShipTrafficLayer ] = React.useState<IVectorTileLayer>();
 
-    const shipTrafficLayerRef = React.useRef<VectorTileLayer>();
+    const shipTrafficLayerRef = React.useRef<VectorTileLayer>(null);
 
     const addLayer = async()=>{
 

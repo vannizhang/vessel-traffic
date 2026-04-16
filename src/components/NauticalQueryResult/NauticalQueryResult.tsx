@@ -18,7 +18,7 @@ const NauticalQueryResult:React.FC<Props> = ({
     mapView
 }) => {
 
-    const graphicRef = useRef<Graphic>();
+    const graphicRef = useRef<Graphic>(null);
 
     const showQueryResult = async():Promise<void>=>{
 

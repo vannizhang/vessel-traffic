@@ -36,7 +36,7 @@ const DownloadOptions:React.FC<Props> = ({
     activeENCsLevelOnChange
 }) => {
 
-    const getOptions = ():JSX.Element=>{
+    const getOptions = ()=>{
 
         const ENCsLevels = DownloadOptionsData.map(({
             value, label

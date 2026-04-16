@@ -1,61 +1,68 @@
 import React, { useContext } from 'react'
 import { ShipTrafficFeature } from '../ShipTrafficLayerQueryTask/ShipTrafficLayerQueryTask';
 import { format } from 'date-fns';
-import styled from 'styled-components';
 import { ShipTrafficSubLayerName, ShipTrafficSubLayerStyles } from '../ShipTrafficLayer/ShipTrafficLayer';
 import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR } from '../../constants/UI';
 import { AppContext } from '../../contexts/AppContextProvider';
 import { miscFns} from 'helper-toolkit-ts';
+import './ShipInfoWindow.css';
 
 const isMobile = miscFns.isMobileDevice();
 
-export const InfoWindowConatiner = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: linear-gradient(to bottom, rgba(27, 82, 139, 1), rgba(27, 82, 139, .05) 100%);
-    padding: ${isMobile ? '0' : '2rem 0'};
-    display: flex;
-    justify-content: center;
-    z-index: 5;
-    pointer-events: none;
-`;
+export const InfoWindowConatiner: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+    className, style, ...props
+}) => (
+    <div
+        className={`info-window-container${className ? ' ' + className : ''}`}
+        style={{ padding: isMobile ? '0' : '2rem 0', ...style }}
+        {...props}
+    />
+);
 
-export const InfoWindowContentWrapper = styled.div<{
-    background: string
-}>`
-    position: relative;
-    display: ${isMobile ? 'block' : 'flex'};
-    width: ${isMobile ? '100%' : 'unset'};
-    justify-content: center;
-    align-items: stretch;
-    padding: .5rem;
-    padding-top: ${isMobile ? '1rem' : '.5rem'};
-    color: rgba(255,255,255,.8);
-    text-shadow: ${({background})=>`0 0 3px ${background}`};
-    background: ${({background})=>`linear-gradient(to bottom, ${background}, transparent 100%)`};
-    pointer-events: initial;
-`;
+export const InfoWindowContentWrapper: React.FC<React.HTMLAttributes<HTMLDivElement> & { background: string }> = ({
+    background, className, style, ...props
+}) => (
+    <div
+        className={`info-window-content-wrapper${className ? ' ' + className : ''}`}
+        style={{
+            display: isMobile ? 'block' : 'flex',
+            width: isMobile ? '100%' : 'unset',
+            paddingTop: isMobile ? '1rem' : '.5rem',
+            textShadow: `0 0 3px ${background}`,
+            background: `linear-gradient(to bottom, ${background}, transparent 100%)`,
+            ...style
+        }}
+        {...props}
+    />
+);
 
-export const InfoBlock = styled.div`
-    position: relative;
-    padding: 0 1rem;
-    text-align: left;
-    margin-bottom: ${isMobile ? '.5rem' : '0'};
-`;
+export const InfoBlock: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+    className, style, ...props
+}) => (
+    <div
+        className={`info-block${className ? ' ' + className : ''}`}
+        style={{ marginBottom: isMobile ? '.5rem' : '0', ...style }}
+        {...props}
+    />
+);
 
-export const TitleText = styled.p`
-    font-size: 2.2rem;
-    line-height: .8;
-    margin-bottom: 0;
-`;
+export const TitleText: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = ({
+    className, ...props
+}) => (
+    <p
+        className={`title-text${className ? ' ' + className : ''}`}
+        {...props}
+    />
+);
 
-export const SubtitleText = styled.span`
-    font-size: 0.9rem;
-    line-height: 1.2;
-`;
+export const SubtitleText: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+    className, ...props
+}) => (
+    <span
+        className={`subtitle-text${className ? ' ' + className : ''}`}
+        {...props}
+    />
+);
 
 type Direction = 'N' | 'N/NE' | 'NE' | 'E/NE'| 'E' | 'E/SE' | 'SE'| 'S/SE' | 'S' | 'S/SW'| 'SW' | 'W/SW' | 'W'| 'W/NW'| 'NW'| 'N/NW'
 
@@ -137,7 +144,7 @@ const ShipInfoWindow:React.FC<Props> = ({
     onClose
 }) => {
 
-    const getContent = ():JSX.Element=>{
+    const getContent = ()=>{
 
         if(!feature){
             return null;
