@@ -2,7 +2,7 @@
 
 This [app](https://livingatlas.arcgis.com/vessel-traffic/) is a new and fun tool that lets you explore the paths of vessels in and around U.S. waters, look for patterns and trends by time, vessel type, and place, and it provides a simple and efficient way to download manageable-sized, area-specific, excerpts
 
-![App](./public/thumbnail.png)
+![App](./public/thumbnail.jpg)
 
 ## Installing 
 To begin, clone this repository to your computer:
