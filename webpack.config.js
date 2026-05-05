@@ -98,8 +98,9 @@ module.exports =  (env, options)=> {
                 ],
             }),
             new HtmlWebpackPlugin({
-                template: './src/index.template.html',
+                template: './public/index.html',
                 filename: 'index.html',
+                favicon: './public/esri-favicon-light-32.png',
                 title: package.name,
                 meta: {
                     title: package.name,
