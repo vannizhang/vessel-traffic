@@ -8,7 +8,7 @@ This [app](https://livingatlas.arcgis.com/vessel-traffic/) enables users to expl
 To begin, clone this repository to your computer:
 
 ```sh
-https://github.com/vannizhang/vessel-traffic.git
+https://github.com/Esri/vessel-traffic.git
 ```
 
 From the project's root directory, install the required packages (dependencies):
