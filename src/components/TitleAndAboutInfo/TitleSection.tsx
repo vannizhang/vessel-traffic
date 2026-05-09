@@ -15,7 +15,7 @@
 
 import React from 'react';
 import { DEFAULT_BORDER_COLOR, DEFAULT_TEXT_COLOR, FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL, IS_MOBILE_DEVICE } from '../../constants/UI'
-import './TitleSection.css';
+// import './TitleSection.css';
 
 type Props = {
     onClick: ()=>void;
@@ -58,9 +58,9 @@ const TitleSection:React.FC<Props> = ({
             onClick={onClick}
         >
             <div
-                className='margin-right-1'
+                className='mr-4'
             >   
-                <span className='avenir-light' 
+                <span className='font-light' 
                     style={{
                         fontSize: FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL
                     }}
@@ -69,7 +69,7 @@ const TitleSection:React.FC<Props> = ({
                 </span>
             </div>
 
-            <div className="title-subtitle">
+            <div className="text-[0.8rem] hidden xl:block">
                 <span >
                     AIS shipping tracks since Jan 2015 
                 </span>

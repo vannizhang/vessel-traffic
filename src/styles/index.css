@@ -1,3 +1,4 @@
+@import "tailwindcss";
 @import './calcite-web/css/calcite-web.min.css';
 
 body {
