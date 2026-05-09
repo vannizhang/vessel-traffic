@@ -64,7 +64,7 @@ const Download:React.FC<Props> = ({
                         }}
                     >
                         <p
-                            className='trailer-half'
+                            className='mb-2'
                         >Choose an area within which to download vessel tracks.<br/> They are available in a range of scales to balance your needs.</p>
                     </div>
                 }

@@ -20,7 +20,7 @@ import './AboutSection.css';
 const AboutSection = () => {
     return (
         <div
-            className='about-container font-size--3 leader-quarter'
+            className='about-container mt-2 text-xs'
             style={{ color: DEFAULT_TEXT_COLOR }}
         >
             <p className="about-styled-p">The U.S. Vessel Traffic application is a web-based visualization and data-access utility created by <a target="_blank" href="https://www.esri.com/en-us/home">Esri</a>. Explore U.S. maritime activity, look for patterns, and download manageable subsets of this massive data set. Vessel traffic data are an invaluable resource made available to our community by the US Coast Guard, NOAA and BOEM through Marine Cadastre. This information can help marine spatial planners better understand users of ocean space and identify potential space-use conflicts.</p>

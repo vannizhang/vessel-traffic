@@ -14,6 +14,7 @@
  */
 
 import './styles/index.css';
+import './components/calcite-components';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';

@@ -205,9 +205,10 @@ const ShipInfoWindow:React.FC<Props> = ({
                             alignItems: 'center',
                             textTransform:'uppercase'
                         }}
+                        className='mb-1'
                     >
                         <TitleText
-                            className='avenir-light'
+                            className='font-light'
                         >{ vessel_name }</TitleText>
                         
                         <a
@@ -231,8 +232,8 @@ const ShipInfoWindow:React.FC<Props> = ({
 
                     </div>
 
-                    <div>
-                        <SubtitleText className='margin-right-half'>
+                    <div className=''>
+                        <SubtitleText className='mr-2'>
                             { vessel_class }
                         </SubtitleText>
 
@@ -250,7 +251,7 @@ const ShipInfoWindow:React.FC<Props> = ({
                     }}
                 >
                     <TitleText
-                        className='avenir-light'
+                        className='font-light mb-1'
                         style={{
                             marginBottom: '.2rem'
                         }}

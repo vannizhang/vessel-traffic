@@ -55,7 +55,7 @@ const DownloadBtn:React.FC<Props> = ({
                 
             </span>
 
-            <span className='avenir-light' 
+            <span className='font-light' 
                 style={{
                     fontSize: FONT_SIZE_LARGE_TEXT_BOTTOM_PANEL,
                 }}

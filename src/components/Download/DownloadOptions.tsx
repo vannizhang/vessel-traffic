@@ -58,7 +58,7 @@ const DownloadOptions:React.FC<Props> = ({
         })=>{
             return (
                 <div
-                    className='margin-left-1'
+                    className='ml-4'
                     key={value}
                     style={{
                         cursor: 'pointer',

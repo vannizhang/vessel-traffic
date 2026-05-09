@@ -122,8 +122,8 @@ const MapView:React.FC<Props> = ({
                     height: '100%',
                 }}
                 background={{
-                    color: BACKGROUND_COLOR
-                }}
+                    color: BACKGROUND_COLOR 
+                } as any}
             >
                 <arcgis-zoom slot="top-left"></arcgis-zoom>
                 <arcgis-home slot="top-left"></arcgis-home>

@@ -78,7 +78,11 @@ const LayerList:React.FC<Props> = ({
                         }}
                     ></div>
 
-                    <span className='font-size--1 avenir-demi'>{sublayer}</span>
+                    <span style={{
+                        fontSize: '.9375rem',
+                        lineHeight: 1.5,
+                        fontWeight: 700
+                    }}>{sublayer}</span>
 
                 </div>
             );
