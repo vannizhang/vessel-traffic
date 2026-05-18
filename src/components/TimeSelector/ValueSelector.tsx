@@ -23,6 +23,7 @@ type Props = {
     max: number;
     value?: number; 
     textColor?: string;
+    dropshadowColor?: string;
     onChange: (value: number)=>void;
     // format current value
     currentValueLabelformatter?: (value: number)=>string;
@@ -37,6 +38,7 @@ const ValueSelector:React.FC<Props> = ({
     max,
     value,
     textColor,
+    dropshadowColor,
     onChange,
     currentValueLabelformatter,
     navBtnLabelformatter,
@@ -157,7 +159,7 @@ const ValueSelector:React.FC<Props> = ({
                     textAlign: "center",
                     fontSize: IS_MOBILE_DEVICE ? 30 : 80,
                     color: textColor || '#fff',
-                    textShadow: '0 0 10px #1B528B',
+                    textShadow: `0 0 10px ${(dropshadowColor || '#000')}, 0 0 10px ${(dropshadowColor || '#000')}`,
                 }}
             >
                 <span>{currentValueLabelformatter ? currentValueLabelformatter(value) : value}</span>

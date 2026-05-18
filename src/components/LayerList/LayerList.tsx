@@ -54,6 +54,8 @@ const LayerList:React.FC<Props> = ({
 
             const color = ShipTrafficSubLayerStyles[sublayer]["text-color"];
 
+            const selected = sublayer === visibleSubLayer;
+
             return (
                 <div 
                     key={`layer-list-${sublayer}`}
@@ -61,7 +63,9 @@ const LayerList:React.FC<Props> = ({
                         display: 'flex',
                         alignItems: 'center',
                         // justifyContent: 'flex-end',
-                        color: sublayer === visibleSubLayer ? color : DEFAULT_TEXT_COLOR,
+                        // color: sublayer === visibleSubLayer ? color : DEFAULT_TEXT_COLOR,
+                        color: selected ? '#fff' : DEFAULT_TEXT_COLOR,
+                        textShadow: selected ? '0 0 10px ' + color : undefined,
                         cursor: 'pointer',
                         textTransform: 'uppercase',
                         fontSize: 14
@@ -73,7 +77,8 @@ const LayerList:React.FC<Props> = ({
                             borderRadius: '50%',
                             height: 6,
                             width: 6,
-                            background: sublayer === visibleSubLayer ? color : 'transparent',
+                            background: sublayer === visibleSubLayer ? '#fff' : 'transparent',
+                            boxShadow: sublayer === visibleSubLayer ? '0 0 10px ' + color : undefined,
                             marginRight: '.5rem'
                         }}
                     ></div>

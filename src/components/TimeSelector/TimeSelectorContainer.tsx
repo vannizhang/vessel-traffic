@@ -84,7 +84,8 @@ const TimeSelectorContainer:React.FC<Props> = ({
                 max={12}
                 value={activeLayerTimeInfo.month}
                 rotatable={true}
-                textColor={color}
+                textColor={'#fff'}
+                dropshadowColor={color}
                 onChange={monthValOnChange}
                 currentValueLabelformatter={(value)=>{
                     return value < 10 
@@ -100,7 +101,8 @@ const TimeSelectorContainer:React.FC<Props> = ({
                 min={+AISLayersData[0].Year}
                 max={+LatestAISLayer.Year}
                 value={activeLayerTimeInfo.year}
-                textColor={color}
+                textColor={'#fff'}
+                dropshadowColor={color}
                 onChange={yearValOnChange}
                 navBtnLabelformatter={(value)=>{
                     return value.toString().slice(2)
